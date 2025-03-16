@@ -1,0 +1,84 @@
+<div class="npc-bio-container">
+
+    <div class="char-bios">
+        <div class="section-header">
+            <div>
+                <div class="bio-tabs tab public" data-group="secondary" data-tab="public">
+                    Public Biography
+                </div>
+
+                <div class="bio-tabs tab private" data-group="secondary" data-tab="private">
+                    Private Biography
+                </div>
+
+                <div class="bio-tabs tab appearance" data-group="secondary" data-tab="appearance">
+                    Appearance
+                </div>
+
+                <div class="bio-tabs tab trivia" data-group="secondary" data-tab="trivia">
+                    Trivia
+                </div>
+
+                <div class="bio-tabs tab trivia" data-group="secondary" data-tab="bonds">
+                    Bonds
+                </div>
+            </div>
+
+            <nav class="npc-bio-tabs tabs" data-group="secondary" style="gap: 5px">
+                {{!-- Default tab is specified in actor-sheet.mjs --}}
+                <a class="item" data-tab="public" data-title="Public Bio"></a>
+                {{#owner}}
+                <a class="item" data-tab="private" data-title="Private Bio"></a>
+                {{/owner}}
+                <a class="item" data-tab="appearance" data-title="Appearance"></a>
+                <a class="item" data-tab="trivia" data-title="Trivia"></a>
+                {{#if bonds}}
+                <a class="item" data-tab="bonds" data-title="Bonds"></a>
+                {{/if}}
+            </nav>
+        </div>
+
+        <div class="section-container desc" style="height: 200px;">
+            <div class="bio-tabs tab public" data-group="secondary" data-tab="public">
+                {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+
+            <div class="bio-tabs tab private" data-group="secondary" data-tab="private">
+                {{editor system.bioPrivate target="system.bioPrivate" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+
+            <div class="bio-tabs tab appearance" data-group="secondary" data-tab="appearance">
+                {{editor system.appearance.desc target="system.appearance.desc" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+
+            <div class="bio-tabs tab trivia" data-group="secondary" data-tab="trivia">
+                {{editor system.trivia target="system.trivia" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+
+            <div class="bio-tabs tab bonds item-list" data-group="secondary" data-tab="bonds">
+                {{#each bonds as |item type|}}
+                    <div class="inline-section item-container action item-context item" style="padding-right: 5px;" data-item-id='{{item._id}}'>
+                        <span>{{item.name}}</span>
+
+                        {{item.system.rank}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if traits}}
+    <div class="npc-traits-container item-list">
+        {{#each traits as |item id|}}
+            <div class="npc-trait item-context item"  style="position: relative;" data-item-id='{{item._id}}'>
+                <span class="rollable"  data-roll-type='trait'>{{item.name}}</span>
+                {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+            </div>
+        {{/each}}
+
+        {{#owner}}
+            <div class="add-trait item-create" title='{{localize "DOCUMENT.Create" type='Trait'}}' data-type='trait' data-itemType="Adversary">+</div>
+        {{/owner}}
+    </div>
+{{/if}}

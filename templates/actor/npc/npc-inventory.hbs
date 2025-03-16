@@ -1,0 +1,165 @@
+{{!-- BASIC ACTIONS --}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0;">Equipped Gear</span>
+            <span>Qt.</span>
+            <span>Uses</span>
+        </div>
+    </summary>
+
+    <div class="section-container item-list">
+        {{#each gear as |item id|}}
+            {{#if (eq item.system.equip "Equipped")}}
+                <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                    <div class="basic-grid">
+                        <div class="action-left rollable" data-roll-type='item'>
+                            <div class="action-img">
+                                <img
+                                src='{{item.img}}'
+                                title='{{item.name}}'
+                                width='24'
+                                height='24'
+                                />
+                            </div>
+                            <div class="action-name">
+                                <div class="action-topper">{{item.name}}</div>
+                                <div class="action-footer">
+                                    {{item.system.type}} {{#if (eq item.system.type "Weapon")}}• {{item.system.hand}} {{/if}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <span>{{item.system.quantity}}</span>
+                        {{#if item.system.charges.max}}
+                            <span>{{item.system.charges.value}} / {{item.system.charges.max}}</span>
+                        {{/if}}
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.name}}</div>
+                                <div class="popup-subtitle">{{item.system.type}} {{#if (eq item.system.type "Weapon")}}• {{item.system.hand}} {{/if}}</div>
+                            </div>
+
+                            {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+
+                            <div class="popup-footer">
+                                {{#if item.system.check.value}} <span class="popup-check">{{item.system.check.defense}}</span> {{/if}}
+                                {{#if item.system.damage.value}} <span>{{item.system.damage.type}} Damage</span> {{/if}} 
+                                {{#if item.system.range}} <span>{{item.system.range}}</span> {{/if}}
+                                {{#if item.system.save.value}} <span>DC {{item.system.saveDC}} {{item.system.save.type}}</span> {{/if}} {{!-- Show Save DC & Type --}}
+                                {{#if item.system.effects}} <span>{{item.system.effects}}</span> {{/if}}
+                                {{#if item.system.duration}} <span>{{item.system.duration}}</span> {{/if}}
+
+                                {{#if item.system.tag1.name}} <span>{{item.system.tag1.name}}</span> {{/if}}
+                                {{#if item.system.tag2.name}} <span>{{item.system.tag2.name}}</span> {{/if}}
+                                {{#if item.system.tag3.name}} <span>{{item.system.tag3.name}}</span> {{/if}}
+                                {{#if item.system.tag4.name}} <span>{{item.system.tag4.name}}</span> {{/if}}
+                                {{#if item.system.tag5.name}} <span>{{item.system.tag5.name}}</span> {{/if}}
+                                {{#if item.system.tag6.name}} <span>{{item.system.tag6.name}}</span> {{/if}}
+                                {{#if item.system.tag7.name}} <span>{{item.system.tag7.name}}</span> {{/if}}
+                                {{#if item.system.tag8.name}} <span>{{item.system.tag8.name}}</span> {{/if}}
+                                {{#if item.system.tag9.name}} <span>{{item.system.tag9.name}}</span> {{/if}}
+                                {{#if item.system.tag10.name}} <span>{{item.system.tag10.name}}</span> {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+</details>
+
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Stowed Gear
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Item'}}' data-type='item'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+            <span>QT.</span>
+            <span>USES</span>
+        </div>
+    </summary>
+
+    <div class="section-container item-list">
+        {{#each gear as |item id|}}
+            {{#if (eq item.system.equip "Stowed")}}
+                <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                    <div class="basic-grid">
+                        <div class="action-left rollable" data-roll-type='item'>
+                            <div class="action-img">
+                                <img
+                                src='{{item.img}}'
+                                title='{{item.name}}'
+                                width='24'
+                                height='24'
+                                />
+                            </div>
+                            <div class="action-name">
+                                <div class="action-topper">{{item.name}}</div>
+                                <div class="action-footer">
+                                    {{item.system.type}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <span>{{item.system.quantity}}</span>
+                        {{#if item.system.charges.max}}
+                            <span>{{item.system.charges.value}} / {{item.system.charges.max}}</span>
+                        {{/if}}
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.name}}</div>
+                                <div class="popup-subtitle">{{item.system.type}} {{#if (eq item.system.type "Weapon")}}• {{item.system.hand}} {{/if}}</div>
+                            </div>
+
+                            {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+
+                            <div class="popup-footer">
+                                {{#if item.system.check.value}} <span class="popup-check">{{item.system.check.defense}}</span> {{/if}}
+                                {{#if item.system.damage.value}} <span>{{item.system.damage.type}} Damage</span> {{/if}} 
+                                {{#if item.system.range}} <span>{{item.system.range}}</span> {{/if}}
+                                {{#if item.system.save.value}} <span>DC {{item.system.saveDC}} {{item.system.save.type}}</span> {{/if}} {{!-- Show Save DC & Type --}}
+                                {{#if item.system.effects}} <span>{{item.system.effects}}</span> {{/if}}
+                                {{#if item.system.duration}} <span>{{item.system.duration}}</span> {{/if}}
+
+                                {{#if item.system.tag1.name}} <span>{{item.system.tag1.name}}</span> {{/if}}
+                                {{#if item.system.tag2.name}} <span>{{item.system.tag2.name}}</span> {{/if}}
+                                {{#if item.system.tag3.name}} <span>{{item.system.tag3.name}}</span> {{/if}}
+                                {{#if item.system.tag4.name}} <span>{{item.system.tag4.name}}</span> {{/if}}
+                                {{#if item.system.tag5.name}} <span>{{item.system.tag5.name}}</span> {{/if}}
+                                {{#if item.system.tag6.name}} <span>{{item.system.tag6.name}}</span> {{/if}}
+                                {{#if item.system.tag7.name}} <span>{{item.system.tag7.name}}</span> {{/if}}
+                                {{#if item.system.tag8.name}} <span>{{item.system.tag8.name}}</span> {{/if}}
+                                {{#if item.system.tag9.name}} <span>{{item.system.tag9.name}}</span> {{/if}}
+                                {{#if item.system.tag10.name}} <span>{{item.system.tag10.name}}</span> {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+</details>

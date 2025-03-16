@@ -1,0 +1,33 @@
+<section class="char-header">
+    <div class="header-left">
+        
+        <label for="" class="edit-switch">
+            <input type="checkbox" class="edit-toggle" name="system.edit" {{checked system.edit}}/>
+            <div class="switch"><i class="fa-solid fa-wrench"></i></div>
+        </label>
+        
+        {{#if system.edit}}
+            <input type="text" name="name" class="char-name" value="{{ actor.name }}">
+            <input type="text" name="system.title" class="char-title" value="{{ system.title }}" placeholder="Title">
+        {{else}}
+            <div class="char-name">{{ actor.name }}</div>
+            <div class="char-title">{{ system.title }}</div>
+        {{/if}}
+    </div>
+    
+    <div class="header-right">
+
+       <div class="char-img-lvl">
+            <img class="char-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+
+            <div class="lvl-container">
+                {{#if system.edit}}
+                    <input type="number" class="char-lvl" name="system.level" value="{{system.level}}" placeholder="1">
+                {{else}}
+                    <span class="char-lvl">{{system.level}}</span>
+                    <div class="char-tier">Tier {{system.tier}}</div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>

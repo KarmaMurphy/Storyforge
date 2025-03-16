@@ -1,0 +1,103 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <nav class="sheet-tabs tabs tabsV2" data-group="primary">
+    <a class="item" data-tab="description" data-title="Description"><i class="fa-solid fa-feather-pointed"></i></a>
+    <a class="item" data-tab="effects"><i class="fa-solid fa-fire"></i></a>
+  </nav>
+
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+
+    <label class="settings-button" data-title="Settings">
+        <i class="fa-solid fa-cog"></i>
+    </label>
+    
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{system.type}} {{item.type}}</span>
+
+                      <label class="favorite">
+                        <input type="checkbox" name="system.favorite" {{checked system.favorite}}>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </label>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        <div class="section-container">
+          <select name="system.type">
+            {{#select system.type}}
+              <option value="Path">Path</option>
+              <option value="Origin">Origin</option>
+              <option value="Other">Other</option>
+              <option value="Adversary">Adversary</option>
+            {{/select}}
+          </select>
+        </div>
+
+        {{log this}}
+
+        <div class="section-container">
+          {{#unless (eq system.type "Adversary")}}
+            <input type="text" class="full-text" name="system.source" value="{{system.source}}" placeholder="Source">
+          {{else}}
+            <select name="system.source">
+              {{#select system.source}}
+                <option value="Positive">Positive</option>
+                <option value="Negative">Negative</option>
+                <option value="Form">Form</option>
+                <option value="Basic">Basic</option>
+                <option value="Rearguard">Rearguard</option>
+              {{/select}}
+            </select>
+          {{/unless}}
+        </div>
+
+        {{#if (eq system.type "Adversary")}}
+          <div class="section-container inline-section">
+            <span>Cost</span>
+            <input type="number" data-dtype="Number" name="system.cost" value="{{system.cost}}" placeholder="1">
+          </div>
+        {{/if}}
+
+        {{#if (eq system.type "Path")}}
+        {{log item}}
+          <div class="section-container inline-section">
+            <span>Rank</span>
+            <input type="number" data-dtype="Number" name="system.rank" value="{{system.rank}}" placeholder="1">
+          </div>
+        {{/if}}
+
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc" data-group="primary" data-tab="description">
+
+        <div class="section-container desc">
+          {{editor system.descriptionHTML target="system.description" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+        
+      </div>
+
+      {{!-- Effects Tab --}}
+      <div class="tab effects" data-group="primary" data-tab="effects">
+        {{> "systems/storyforge/templates/item/parts/item-effects.hbs"}}
+      </div>
+    </section>
+  </div>
+</form>

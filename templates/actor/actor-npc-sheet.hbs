@@ -1,0 +1,145 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  {{> "systems/storyforge/templates/actor/npc/npc-header.hbs"}}
+
+  {{#owner}}
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+      {{!-- Default tab is specified in actor-sheet.mjs --}}
+      <a class="item" data-tab="description">Roleplay</a>
+      <a class="item" data-tab="combat">Combat</a>
+      <a class="item" data-tab="inventory">Loot</a>
+      <a class="item" data-tab="effects">Effects</a>
+    </nav>
+
+    {{!-- Sheet Body --}}
+    <div class="char-body">
+      <section class="sheet-main">
+
+        {{!-- Biography Tab --}}
+        <div class="tab biography" data-group="primary" data-tab="description">
+          {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
+          {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+
+        {{!-- Owned Items Tab --}}
+        <div class="tab items" data-group="primary" data-tab="combat">
+          {{> "systems/storyforge/templates/actor/npc/npc-stats.hbs"}}
+          {{> "systems/storyforge/templates/actor/npc/npc-actions.hbs"}}
+        </div>
+
+        <div class="tab items" data-group="primary" data-tab="inventory">
+          {{> "systems/storyforge/templates/actor/pieces/actor-currencies.hbs"}}
+          {{> "systems/storyforge/templates/actor/npc/npc-inventory.hbs"}}
+        </div>
+
+        {{!-- Active Effects Tab --}}
+        <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+          {{> "systems/storyforge/templates/actor/parts/actor-effects.hbs"}}
+        </div>
+
+      </section>
+    </div>
+  {{/owner}}
+
+  {{#unless owner}}
+    <div class="observer-desc">
+      {{#if rearGuard}}
+      <div class="char-body">
+        <details class="details-container" open>
+          <summary class="section-header">
+              <div class="ability-grid">
+                  <span style="margin: auto 0; display:flex">
+                      Rear Guard Abilities
+                  </span>
+                  <span>MOD</span>
+                  <span>Save</span>
+                  <span>RNG</span>
+              </div>
+          </summary>
+
+          <div class="section-container item-list">
+
+              {{#each rearGuard as |item id|}}
+                    <div class="char-items-container">
+                        <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                            <div class="ability-grid">
+                                <div class="action-left rollable rearGuard" data-roll-type='item'>
+                                    <div class="action-img">
+                                        <img
+                                        src='{{item.img}}'
+                                        title='{{item.name}}'
+                                        width='24'
+                                        height='24'
+                                        />
+                                    </div>
+                                    <div class="action-name">
+                                        <div class="action-topper">{{item.name}}</div>
+                                        <div class="action-footer">
+                                            {{item.system.type}} • Rank {{item.system.rank}} • {{item.system.sp}} SP • {{item.system.actions}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>+{{item.system.rollMod}}</span>
+                                <span>DC {{item.system.saveDC}}</span>
+                                <span>{{item.system.range}}</span>
+                            </div>
+                        </div>
+
+                        <div class="popup">
+                            <div class="popup-blur"></div>
+                            <div class="popup-container">
+                                <div class="popup-header-bg"></div>
+                                <div class="popup-img-check">
+                                    <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                                </div>
+
+                                <div class="popup-header">
+                                    <div class="popup-title">{{item.name}}</div>
+                                    <div class="popup-subtitle">Rank {{item.system.rank}} • {{item.system.sp}} SP • {{item.system.actions}}</div>
+                                </div>
+
+                                {{#if item.system.component.one}}
+                                <div class="popup-components">
+                                    <div class="component-container">{{item.system.component.one}}</div>
+                                    {{#if item.system.component.two}} <div class="component-container">{{item.system.component.two}}</div> {{/if}}
+                                    {{#if item.system.component.three}} <div class="component-container">{{item.system.component.three}}</div> {{/if}}
+                                </div>
+                                {{/if}}
+
+                                {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+
+                                <div class="popup-footer">
+                                    {{#if item.system.check.value}} <span class="popup-check">{{item.system.check.defense}}</span> {{/if}}
+                                    {{#if item.system.damage.value}} <span>{{item.system.damage.type}} Damage</span> {{/if}} 
+                                    {{#if item.system.range}} <span>{{item.system.range}}</span> {{/if}}
+                                    {{#if item.system.save.value}} <span>DC {{item.system.saveDC}} {{item.system.save.type}}</span> {{/if}} {{!-- Show Save DC & Type --}}
+                                    {{#if item.system.effects}} <span>{{item.system.effects}}</span> {{/if}}
+                                    {{#if item.system.duration}} <span>{{item.system.duration}}</span> {{/if}}
+
+                                    {{#if item.system.tag1.name}} <span>{{item.system.tag1.name}}</span> {{/if}}
+                                    {{#if item.system.tag2.name}} <span>{{item.system.tag2.name}}</span> {{/if}}
+                                    {{#if item.system.tag3.name}} <span>{{item.system.tag3.name}}</span> {{/if}}
+                                    {{#if item.system.tag4.name}} <span>{{item.system.tag4.name}}</span> {{/if}}
+                                    {{#if item.system.tag5.name}} <span>{{item.system.tag5.name}}</span> {{/if}}
+                                    {{#if item.system.tag6.name}} <span>{{item.system.tag6.name}}</span> {{/if}}
+                                    {{#if item.system.tag7.name}} <span>{{item.system.tag7.name}}</span> {{/if}}
+                                    {{#if item.system.tag8.name}} <span>{{item.system.tag8.name}}</span> {{/if}}
+                                    {{#if item.system.tag9.name}} <span>{{item.system.tag9.name}}</span> {{/if}}
+                                    {{#if item.system.tag10.name}} <span>{{item.system.tag10.name}}</span> {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              {{/each}}
+          </div>
+        </details>
+      </div>
+      {{/if}}
+
+        {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+    </div>
+  {{/unless}}
+</form>
+

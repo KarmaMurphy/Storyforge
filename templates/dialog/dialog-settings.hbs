@@ -1,0 +1,85 @@
+<form class="storyforge">
+    <div class="dialog-box actorV2">
+        {{#if actor}}
+            <div class="chat-header">
+                <div class="chat-img">
+                    <img src="{{actor.img}}" title="{{actor.name}}" class="chat-img">
+                </div>
+                <div class="chat-titles">
+                    <span class="chat-title">{{actor.name}}</span>
+                    <span class="chat-subtitle">Character Settings</span>
+                </div>
+            </div>
+
+            {{#if (eq actor.type "npc")}}
+                <div class="section-container inline-container">
+                    <span>Source Book?</span>
+                    <input type="text" name="bookSource" value="{{system.bookSource}}" placeholder="Source Book">
+                </div>
+            {{/if}}
+
+            <details class="dialog-details-container" {{#if system.altForm.1.toggle}}open{{/if}}>
+                <summary class="section-header">ALTERNATE FORMS</summary>
+
+                <div class="section-container inline-container">
+                    <div class="settings-left">
+                        <span>Alternate Form 1?</span>
+
+                        <label class="trueToggle">
+                            <input type="checkbox" name="altForm.1.toggle"  {{#if system.altForm.1.toggle}}checked{{/if}}>
+                            <span></span>
+                        </label>
+                    </div>
+
+                    
+                    <input type="text" name="altForm.1.name" value="{{system.altForm.1.name}}" placeholder="Alt Form 1">
+                </div>
+
+                <div class="section-container inline-container">
+                    <div class="settings-left">
+                        <span>Alternate Form 2?</span>
+
+                        <label class="trueToggle">
+                            <input type="checkbox" name="altForm.2.toggle"  {{#if system.altForm.2.toggle}}checked{{/if}}>
+                            <span></span>
+                        </label>
+                    </div>
+
+                    
+                    <input type="text" name="altForm.2.name" value="{{system.altForm.2.name}}" placeholder="Alt Form 2">
+                </div>
+
+                <div class="section-container inline-container">
+                    <div class="settings-left">
+                        <span>Alternate Form 3?</span>
+
+                        <label class="trueToggle">
+                            <input type="checkbox" name="altForm.3.toggle"  {{#if system.altForm.3.toggle}}checked{{/if}}>
+                            <span></span>
+                        </label>
+                    </div>
+
+                    
+                    <input type="text" name="altForm.3.name" value="{{system.altForm.3.name}}" placeholder="Alt Form 3">
+                </div>
+            </details>
+        {{/if}}
+
+        {{#if item}}
+            <div class="chat-header">
+                <div class="chat-img">
+                    <img src="{{item.img}}" title="{{item.name}}" class="chat-img">
+                </div>
+                <div class="chat-titles">
+                    <span class="chat-title">{{item.name}}</span>
+                    <span class="chat-subtitle">Item Settings</span>
+                </div>
+            </div>
+
+            <div class="section-container inline-container">
+                <span>Source Book?</span>
+                <input type="text" name="bookSource" value="{{system.bookSource}}" placeholder="Source Book">
+            </div>
+        {{/if}}
+    </div>
+</form>

@@ -1,0 +1,167 @@
+{{#if system.edit}}
+    <div class="npc-stat-edit">
+        {{#loop 2 1}}
+        <div class="npc-edit-section">
+            <span></span> <span>Class</span> <span>Origin</span> <span>Bonus</span> <span>Lvl</span>
+        </div>
+        {{/loop}}
+
+        {{!-- HEALTH EDIT --}}
+        <div class="npc-edit-section">
+            <span class="start">Health</span>
+            <input type="text" name="system.health.class" value="{{system.health.class}}">
+            <input type="text" name="system.health.origin" value="{{system.health.origin}}">
+            <input type="text" name="system.health.bonus" value="{{system.health.bonus}}">
+            <input type="text" name="system.health.lvl" value="{{system.health.lvl}}">
+        </div>
+
+        {{!-- SPIRIT EDIT --}}
+        <div class="npc-edit-section">
+            <span class="start">Spirit</span>
+            <input type="text" name="system.spirit.class" value="{{system.spirit.class}}">
+            <input type="text" name="system.spirit.origin" value="{{system.spirit.origin}}">
+            <input type="text" name="system.spirit.bonus" value="{{system.spirit.bonus}}">
+            <input type="text" name="system.spirit.lvl" value="{{system.spirit.lvl}}">
+        </div>
+
+        {{#loop 2}}
+        <div class="npc-edit-section">
+            <span></span> <span></span> <span></span> <span>Bonus</span> <span>Base</span>
+        </div>
+        {{/loop}}
+
+        {{!-- P.DEF EDIT --}}
+        <div class="npc-edit-section">
+            <span class="start">P. Def</span> <span></span> <span></span>
+            <input type="text" name="system.def.bonus" value="{{system.def.bonus}}">
+            <input type="text" name="system.def.base" value="{{system.def.base}}">
+        </div>
+
+        {{!-- A.DEF EDIT --}}
+        <div class="npc-edit-section">
+            <span class="start">A. Def</span> <span></span> <span></span>
+            <input type="text" name="system.arc.bonus" value="{{system.arc.bonus}}">
+            <input type="text" name="system.arc.base" value="{{system.arc.base}}">
+        </div>
+
+        {{!-- INIT EDIT --}}
+        <div class="npc-edit-section">
+            <span class="start">Initiative</span> <span></span> <span></span>
+            <input type="text" name="system.init.bonus" value="{{system.init.bonus}}">
+            <select name="system.init.base">
+                {{#select system.init.base}}
+                    <option value="{{system.attributes.dri.value}}">DRI</option>
+                    <option value="{{system.attributes.int.value}}">INT</option>
+                    <option value="{{system.attributes.dex.value}}">DEX</option>
+                {{/select}}
+            </select>
+        </div>
+
+        {{!-- SPEED EDIT --}}
+        <div class="npc-edit-section">
+            <span class="start">Speed</span> <span></span> <span></span> <span></span>
+            <input type="text" name="system.speed" value="{{system.speed}}">
+        </div>
+        
+    </div>
+{{else}}
+
+    <div class="npc-stats">
+
+        <div class="npc-stats-container">
+            <div class="stat">
+                <div class="stat-header">P. DEF</div>
+                <div class="stat-container">
+                    <div class="stat-input">{{system.def.value}}</div>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-header">A. DEF</div>
+                <div class="stat-container">
+                    <div class="stat-input">{{system.arc.value}}</div>
+                </div>
+            </div>
+
+            <div class="life-column">
+                <div class="stat-header">HEALTH</div>
+                <div class="life-container">
+                    <div class="life-inputs">
+                        <input type="number" class="life-input" name="system.health.value" value="{{system.health.value}}"> / <input type="number" class="life-input" name="system.health.max" value="{{system.health.max}}" disabled>
+                    </div>
+
+                    <input type="hidden" class="bar-value" name="system.hpBar" value="{{system.hpBar}}" value="100">
+                    <div class="bar-track">
+                        <div class="bar-progress"></div>
+                    </div>
+                </div>
+                <div class="life-calculators">
+
+                </div>
+            </div>
+
+            <div class="life-column">
+                <div class="stat-header">SPIRIT</div>
+                <div class="life-container">
+                    <div class="life-inputs">
+                        <input type="number" class="life-input" name="system.spirit.value" value="{{system.spirit.value}}"> / <input type="number" class="life-input" name="system.spirit.max" value="{{system.spirit.max}}" disabled>
+                    </div>
+
+                    <input type="hidden" class="bar-value" name="system.spBar" value="{{system.spBar}}" value="100">
+                    <div class="bar-track">
+                        <div class="bar-progress"></div>
+                    </div>
+                </div>
+                <div class="life-calculators"></div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-header">SPEED</div>
+                <div class="stat-container">
+                    <div class="stat-input">{{system.speed}}</div>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-header">Initiative</div>
+                <div class="stat-container">
+                    <div class="stat-input">{{system.init.value}}</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="npc-stats-attributes">
+            {{#each system.attributes as |ability key|}}
+            <div class="inline-container">
+                <label for="system.attributes.{{key}}.value" title="{{ability.label}} Save" class="align-left">
+                    <span class="rollable" data-roll="d20+@attributes.{{key}}.value" data-label="{{ability.label}}">{{ability.label}}</span> 
+                    <select name="system.attributes.{{key}}.value" class="npc-attribute-number">
+                        {{#select ability.value}}
+                            <option value="0">+0</option>
+                            <option value="1">+1</option>
+                            <option value="2">+2</option>
+                            <option value="3">+3</option>
+                            <option value="4">+4</option>
+                            <option value="5">+5</option>
+                        {{/select}}
+                    </select>
+
+                    <span class="rollable" data-roll="d20+@attributes.{{key}}.save" data-label="{{ability.label}} Save">| SAVE</span>  <span class="npc-attribute-number">+{{ability.save}}</span>
+                </label>
+                
+                <select name="system.attributes.{{key}}.mastery" class="storyforge-select">
+                    {{#select ability.mastery}}
+                        <option value="untrained">untrained</option>
+                        <option value="trained">trained</option>
+                        <option value="adept">adept</option>
+                        <option value="expert">expert</option>
+                        <option value="master">master</option>
+                        <option value="legend">legend</option>
+                    {{/select}}
+                </select>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+{{/if}}

@@ -1,0 +1,449 @@
+{{#owner}}
+    <form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+        <div class="bg-img">
+            <div class="bg-blending"></div>
+        </div>
+
+        {{!-- {{> "systems/storyforge/templates/actor/parts/actor-header.hbs"}} --}}
+
+        <nav class="sheet-tabs tabs tabsV2" data-group="primary">
+            {{!-- Default tab is specified in actor-sheet.mjs --}}
+            <a class="item" data-tab="roleplay" data-title="Roleplay"><i class="fa-solid fa-feather-pointed"></i></a>
+            <a class="item" data-tab="combat" data-title="Combat"><i class="fa-solid fa-bolt"></i></a>
+            <a class="item" data-tab="traits" data-title="Traits"><i class="fa-solid fa-list"></i></a>
+            <a class="item" data-tab="inventory" data-title="Inventory"><i class="fa-solid fa-briefcase"></i></a>
+            <a class="item" data-tab="masteries" data-title="Masteries"><i class="fa-solid fa-brain"></i></a>
+            <a class="item" data-tab="effects" data-title="Effects"><i class="fa-solid fa-fire"></i></a>
+        </nav>
+
+        <div class="sheet-v2">
+            {{> "systems/storyforge/templates/actorV2/parts/actor-header.hbs"}}
+            
+        
+            <div class="sheet-main">
+                {{!-- SUB HEADER --}}
+                <div class="sub-header">
+                    <div class="sheet-tabs tab biography" data-group="primary" data-tab="roleplay">
+                        <div class="narrative-actions">
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="convince">Convince</div>
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="clash">Clash</div>
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="insight">Gain Insight</div>
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="helpout">Help Out</div>
+
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="unseen">Move Unseen</div>
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="overcome">Overcome Obstacle</div>
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="danger">Defy Danger</div>
+                            <div class="combat-action rollable" data-action-type="narrative" data-action="unleash">Unleash Power</div>
+                        </div>
+                    </div>
+                    
+                    <div class="sheet-tabs tab actions" data-group="primary" data-tab="combat">
+                        <nav class="combat-tabs tabs" data-group="combat-header">
+                            {{!-- Default tab is specified in actor-sheet.mjs --}}
+                            <a class="item" data-tab="combat-details">Stats</a>
+                            <a class="item" data-tab="combat-actions">Actions</a>
+                        </nav>
+
+                        <div class="combat-sub-header">
+                            <div class="combat-tabs tab" data-group="combat-header" data-tab="combat-details">
+                                <div class="combat-details">
+                                    <div class="combat-details-stats">
+                                        <div class="combat-stat"> {{!-- CRIT CHANCE --}}
+                                            <div class="stat-name">Crit Chance</div>
+                                            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.critChance.value" data-dtype="Number" value="{{system.critChance.value}}"> {{else}} <div class="stat-value">{{system.critChance.value}} </div>{{/if}}
+                                        </div>
+                                        <div class="combat-stat"> {{!-- KEY --}}
+                                            <div class="stat-name">Key</div>
+                                            {{#if system.edit}} 
+                                                <select name="system.key.stat" class="storyforge-select">
+                                                    {{#select system.key.stat}}
+                                                        <option value="POW">POW</option>
+                                                        <option value="DEX">DEX</option>
+                                                        <option value="INT">INT</option>
+                                                        <option value="WIL">WIL</option>
+                                                    {{/select}}
+                                                </select>
+                                            {{else}}
+                                                <div class="stat-value">{{system.key.stat}}</div>
+                                            {{/if}}
+                                        </div>
+                                        <div class="combat-stat"> {{!-- CRIT DAMAGE --}}
+                                            <div class="stat-name">Crit Damage</div>
+                                            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.critDamage.bonus" data-dtype="Number" value="{{system.critDamage.bonus}}"> {{else}} <div class="stat-value">{{system.critDamage.value}} </div>{{/if}}
+                                        </div>
+                                        <div class="combat-stat"> {{!-- FREE ACTIONS --}}
+                                            <div class="stat-name">Quick Actions</div>
+                                            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.free.bonus" data-dtype="Number" value="{{system.free.bonus}}"> {{else}} <div class="stat-value">{{system.free.value}} </div>{{/if}}
+                                        </div>
+                                    </div>
+
+                                    <div class="combat-details-defenses">
+                                        <div class="combat-defense">
+                                            <div class="combat-name">P.DEF</div> 
+                                            {{#if system.edit}} <input type="number" class="stat-bonus" name="system.def.bonus" data-dtype="Number" value="{{system.def.bonus}}"> {{else}} <div class="stat-value">{{system.def.value}} </div>{{/if}}
+                                        </div>
+                                        
+                                        <div class="combat-defense">
+                                            <div class="combat-name">Deflect</div> 
+                                            {{#if system.edit}} <input type="number" class="stat-bonus" name="system.deflect.bonus" data-dtype="Number" value="{{system.deflect.bonus}}"> {{else}} <div class="stat-value">{{system.deflect.value}} </div>{{/if}}
+                                        </div>
+                                        
+                                        <div class="combat-defense">
+                                            <div class="combat-name">A.DEF</div> 
+                                            {{#if system.edit}} <input type="number" class="stat-bonus" name="system.arc.bonus" data-dtype="Number" value="{{system.arc.bonus}}"> {{else}} <div class="stat-value">{{system.arc.value}} </div>{{/if}}
+                                        </div>
+                                    </div>
+
+                                    <div class="combat-details-stats">
+                                        <div class="combat-stat"> {{!-- SAVE --}}
+                                            <div class="stat-name">Save</div>
+                                            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.save.bonus" data-dtype="Number" value="{{system.save.bonus}}"> {{else}} <div class="stat-value">{{system.save.value}} </div>{{/if}}
+                                        </div>
+                                        <div class="combat-stat roll-init"> {{!-- INIT --}}
+                                            <div class="stat-name">Initative</div>
+                                            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.init.bonus" data-dtype="Number" value="{{system.init.bonus}}"> {{else}} <div class="stat-value">{{system.init.value}} </div>{{/if}}
+                                        </div>
+                                        <div class="combat-stat"> {{!-- STATUS TIER --}}
+                                            <div class="stat-name">Status Tier</div>
+                                            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.statusTier.bonus" data-dtype="Number" value="{{system.statusTier.bonus}}"> {{else}} <div class="stat-value">{{system.statusTier.value}} </div>{{/if}}
+                                        </div>
+                                        <div class="combat-stat"> {{!-- RECOVERY --}}
+                                            <div class="stat-name">Recovery</div>
+                                            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.recovery.bonus" data-dtype="Number" value="{{system.recovery.bonus}}"> {{else}} <div class="stat-value">{{system.recovery.value}} </div>{{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="combat-tabs tab" data-group="combat-header" data-tab="combat-actions">
+                                <div class="combat-actions">
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="ability">Ability</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="analyze">Analyze</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="basic">Basic</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="hide">Hide</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="influence">Influence</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="reactDefend">Defend <i class="fa-solid fa-rotate-right"></i></div>
+
+                                    <div class="combat-action">Impromptu</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="interact">Interact</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="maneuver">Maneuver</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="move">Move</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="resist">Resist</div>
+                                    <div class="combat-action rollable" data-action-type="combat" data-action="reactive">R. Strike <i class="fa-solid fa-rotate-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sheet-tabs tab traits" data-group="primary" data-tab="traits">
+                        {{!-- <div class="narrative-actions" style="grid-template-columns: repeat(5, 1fr);">
+                            {{#each system.masteries as |skill key|}}
+                                <div class="mastery-container">
+                                    <div class="item-left rollable" data-roll="@masteries.{{key}}.value"  data-label="{{skill.label}}" data-subtitle="Equipment Mastery">
+                                        <span class="action-name">{{skill.label}}</span>
+                                        <span class="action-flavor" style="font-size: 12px;">+{{skill.value}}</span>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div> --}}
+
+                        <div class="upbringing">
+                            {{#if origins}}
+                                {{#each origins as |item id|}}
+                                    <div class="origin">
+                                        <div class="upbringing-container origin item-context" data-item-id='{{item._id}}'>
+                                            <span class="upbringing-title">{{item.name}}</span>
+                                            <span class="upbringing-subtitle">Origin</span>
+                                        </div>
+
+                                        {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                    <div class="empty-add origin item-create" title='{{localize "DOCUMENT.Create" type='Origin'}}' data-type='origin'> Add Origin</div>
+                            {{/if}}
+                            
+                            {{#if ancestry}}
+                                {{#each ancestry as |item id|}}
+                                    <div class="ancestry">
+                                        <div class="upbringing-container item-context" data-item-id='{{item._id}}'>
+                                            <span class="upbringing-title">{{item.name}}</span>
+                                            <span class="upbringing-subtitle">Ancestry</span>
+                                        </div>
+
+                                        {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                {{#if system.edit}}
+                                    <div class="empty-add item-create" title='{{localize "DOCUMENT.Create" type='Ancestry'}}' data-type='ancestry'> Add Ancestry</div>
+                                {{/if}}
+                            {{/if}}
+                            
+                            <div class="upbringing-container">
+                                {{#unless system.edit}}
+                                    <span class="upbringing-title">{{system.pronouns}}</span>
+                                {{else}}
+                                    <input type="text" class="upbringing-title" name="system.pronouns" value="{{system.pronouns}}" placeholder="She/Her">
+                                {{/unless}}
+                                <span class="upbringing-subtitle">Pronouns</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sheet-tabs tab char-inventory" data-group="primary" data-tab="inventory">
+                        {{> "systems/storyforge/templates/actor/pieces/actor-currencies.hbs"}}
+                    </div>
+
+                    <div class="tab char-masteries" data-group="primary" data-tab="masteries">
+                        <div class="mastery-sub-header">
+                            <div class="section-container">
+                                <div class="mastery-details">
+                                    <span class="mastery-points">{{system.mastery.value}} / {{system.mastery.max}}</span>
+                                    <span class="mastery-footer">Mastery Points Spent</span>
+                                </div>
+
+                                {{#if (lt system.mastery.value system.mastery.max)}}
+                                    <span class="mastery-alert-under" data-title="You have {{masteryRange}} Points to spend!">!</span>
+                                {{/if}}
+
+                                {{#if (gt system.mastery.value system.mastery.max)}}
+                                    <span class="mastery-alert-over" data-title="You're over by {{masteryRange}} Points!">!</span>
+                                {{/if}}
+                            </div>
+
+                            <div class="section-container">
+                                <div class="mastery-details">
+                                    <span class="mastery-points">{{skillPoints}}</span>
+                                    <span class="mastery-footer">Skills</span>
+                                </div>
+
+                                <div class="mastery-details">
+                                    <span class="mastery-points">{{savePoints}}</span>
+                                    <span class="mastery-footer">Saves</span>
+                                </div>
+
+                                <div class="mastery-details">
+                                    <span class="mastery-points">{{equipmentPoints}}</span>
+                                    <span class="mastery-footer">Equipment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- ACTION TRACKER --}}
+                <div class="sheet-tabs tab action-tracker" data-group="primary" data-tab="combat">
+                    
+                    {{!-- REACTIONS --}}
+                    {{#loop system.actions.reaction.max 1}}
+                        <div class="action-bubble" data-action="system.actions.reaction.value" data-value="{{@index}}" data-title="Reaction {{#if (gt system.actions.reaction.max 1)}} {{@index}} {{/if}}">
+                            {{#if (lte @index system.actions.reaction.value)}}
+                                <div class="action-ready reaction"></div>
+                            {{else}}
+                                <div class="action-spent reaction"></div>
+                            {{/if}}
+                        </div>
+                    {{/loop}}
+
+                    {{!-- STANDARD --}}
+                    {{#loop system.actions.standard.max 1}}
+                        <div class="action-bubble" data-action="system.actions.standard.value" data-value="{{@index}}" data-title="Standard Action {{#if (gt system.actions.standard.max 1)}} {{@index}} {{/if}}">
+                            {{#if (lte @index system.actions.standard.value)}}
+                                <div class="action-ready standard"></div>
+                            {{else}}
+                                <div class="action-spent standard"></div>
+                            {{/if}}
+                        </div>
+                    {{/loop}}
+
+                    {{!-- QUICK --}}
+                    {{#loop system.actions.quick.max 1}}
+                        <div class="action-bubble" data-action="system.actions.quick.value" data-value="{{@index}}" data-title="Quick Action {{#if (gt system.actions.quick.max 1)}} {{@index}} {{/if}}">
+                            {{#if (lte @index system.actions.quick.value)}}
+                                <div class="action-ready quick"></div>
+                            {{else}}
+                                <div class="action-spent quick"></div>
+                            {{/if}}
+                        </div>
+                    {{/loop}}
+                </div>
+
+                {{!-- SIDEBAR OPENER --}}
+                {{#unless system.sidebar}}
+                    <div class="sidebar-opener sidebar-toggle" data-title="Open Sidebar">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                {{/unless}}
+
+                <div class="page-body" {{#unless system.sidebar}} style="padding: 0 60px;" {{/unless}}>
+                    {{!-- SIDEBAR --}}
+                    {{#if system.sidebar}}
+                        {{> "systems/storyforge/templates/actorV2/parts/actor-sidebar.hbs"}}
+                    {{/if}}
+
+                    <div class="page-main">
+                        {{!-- Biography Tab --}}
+                        <div class="sheet-tabs tab biography" data-group="primary" data-tab="roleplay">
+                            {{> "systems/storyforge/templates/actorV2/parts/actor-roleplay.hbs"}}
+                        </div>
+
+                        {{!-- Combat Tab --}}
+                        <div class="tab char-actions" data-group="primary" data-tab="combat">
+                                {{> "systems/storyforge/templates/actorV2/parts/actor-combat.hbs"}}
+                        </div>
+
+                        {{!-- Owned Traits Tab --}}
+                        <div class="tab char-traits" data-group="primary" data-tab="traits">
+                            {{> "systems/storyforge/templates/actorV2/parts/actor-traits.hbs"}}
+                        </div>
+
+                        {{!-- Owned Items Tab --}}
+                        <div class="tab char-iventory" data-group="primary" data-tab="inventory">
+                            {{> "systems/storyforge/templates/actorV2/parts/actor-inventory.hbs"}}
+                        </div>
+
+                        <div class="tab char-iventory" data-group="primary" data-tab="masteries">
+                            {{> "systems/storyforge/templates/actorV2/parts/actor-masteries.hbs"}}
+                        </div>
+
+                        {{!-- Active Effects Tab --}}
+                        <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+                            {{> "systems/storyforge/templates/actorV2/parts/actor-effects.hbs"}}
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+{{/owner}}
+
+{{#unless owner}}
+    <form  class="{{cssClass}} npc" autocomplete="off">
+        <div class="bg-img"></div>
+
+        {{!-- {{> "systems/storyforge/templates/actor/parts/actor-header.hbs"}} --}}
+
+        <nav class="sheet-tabs tabs tabsV2" data-group="primary">
+            {{!-- Default tab is specified in actor-sheet.mjs --}}
+            <a class="item" data-tab="roleplay" data-title="Details"><i class="fa-solid fa-feather-pointed"></i></a>
+            {{#if rearGuard}}
+                <a class="item" data-tab="rearguard" data-title="RearGuard"><i class="fa-solid fa-bolt"></i></a>
+            {{/if}}
+        </nav>
+
+        <div class="sheet-v2">
+            {{> "systems/storyforge/templates/actorV2/npc-parts/npc-header.hbs"}}
+
+            <div class="sheet-main npc-main">
+                {{!-- Biography Tab --}}
+                <div class="sheet-tabs tab npc-bio" data-group="primary" data-tab="roleplay">
+                    <div class="npc-bio-container">
+                        <div class="char-bios">
+                            <div class="section-header">
+                                <div>
+                                    <div class="bio-tabs tab public" data-group="secondary" data-tab="public">
+                                        Public Biography
+                                    </div>
+
+                                    <div class="bio-tabs tab private" data-group="secondary" data-tab="private">
+                                        Private Biography
+                                    </div>
+
+                                    <div class="bio-tabs tab appearance" data-group="secondary" data-tab="appearance">
+                                        Appearance
+                                    </div>
+
+                                    <div class="bio-tabs tab trivia" data-group="secondary" data-tab="trivia">
+                                        Trivia
+                                    </div>
+
+                                    <div class="bio-tabs tab trivia" data-group="secondary" data-tab="bonds">
+                                        Bonds
+                                    </div>
+                                </div>
+
+                                <nav class="npc-bio-tabs tabs" data-group="secondary" style="gap: 5px">
+                                    {{!-- Default tab is specified in actor-sheet.mjs --}}
+                                    <a class="item" data-tab="public" data-title="Public Bio"></a>
+                                    {{#owner}}
+                                    <a class="item" data-tab="private" data-title="Private Bio"></a>
+                                    {{/owner}}
+                                    <a class="item" data-tab="appearance" data-title="Appearance"></a>
+                                    <a class="item" data-tab="trivia" data-title="Trivia"></a>
+                                    {{#if bonds}}
+                                    <a class="item" data-tab="bonds" data-title="Bonds"></a>
+                                    {{/if}}
+                                </nav>
+                            </div>
+
+                            <div class="section-container desc" style="height: 200px;">
+                                <div class="bio-tabs tab public" data-group="secondary" data-tab="public">
+                                    {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+                                </div>
+
+                                <div class="bio-tabs tab private" data-group="secondary" data-tab="private">
+                                    {{editor system.bioPrivate target="system.bioPrivate" rollData=rollData button=true owner=owner editable=editable}}
+                                </div>
+
+                                <div class="bio-tabs tab appearance" data-group="secondary" data-tab="appearance">
+                                    {{editor system.appearance.desc target="system.appearance.desc" rollData=rollData button=true owner=owner editable=editable}}
+                                </div>
+
+                                <div class="bio-tabs tab trivia" data-group="secondary" data-tab="trivia">
+                                    {{editor system.trivia target="system.trivia" rollData=rollData button=true owner=owner editable=editable}}
+                                </div>
+
+                                <div class="bio-tabs tab bonds" data-group="secondary" data-tab="bonds">
+                                    {{#each bonds as |item type|}}
+                                        <div class="inline-section item-container action item-context item" style="padding-right: 5px;" data-item-id='{{item._id}}'>
+                                            <span>{{item.name}}</span>
+
+                                            {{item.system.rank}}
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- Combat Tab --}}
+                <div class="tab char-rearguard" data-group="primary" data-tab="rearguard">
+                    <div class="section-header"> <span>RearGuard</span> </div>
+
+                    <div class="abilities">
+                        <div class="section-container item-list">
+                        {{#each rearGuard as |item id|}}
+                            <div class="char-items-container">
+                                <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                                    <div class="item-left rearGuard" data-roll-type='item'>
+                                        <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                        <div class="action-name">{{item.name}}</div>
+                                        <div class="action-target">
+                                            {{#if (eq item.system.check.defense "P. Def")}}
+                                            <span class="physical"><i class="fa-solid fa-dumbbell"></i></span>
+                                            {{else}}
+                                            <span class="arcane"><i class="fa-solid fa-meteor"></i></span>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="item-tags">
+                                        <div class="item-tag">Rank {{item.system.rank}}</div>
+                                        <div class="item-tag">{{item.system.sp}} SP</div>
+                                    </div>
+                                </div>
+                                {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                            </div>
+                        {{/each}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+{{/unless}}

@@ -1,0 +1,172 @@
+<div class="portrait"></div>
+
+<div class="sidebar-toggle">
+    <i class="fa-solid fa-user"></i>
+    <i class="fa-solid fa-unlock"></i>
+    <i class="fa-solid fa-lock"></i>
+</div>
+<div class="sidebar-container" style="padding: 120px 5px 5px 5px;">
+
+    <div class="npc-img-lvl">
+        <img class="char-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        {{!-- <img class="char-img" src="{{actor.prototypeToken.texture.src}}" data-edit="img" title="{{actor.name}}"/> --}}
+
+        <div class="lvl-container">
+            {{#if system.edit}}
+                <input type="number" class="char-lvl" name="system.level" value="{{system.level}}" placeholder="1">
+            {{else}}
+                <span class="char-lvl">{{system.level}}</span>
+                <div class="char-tier">Tier {{system.tier}}</div>
+            {{/if}}
+        </div>
+    </div>
+    
+    {{#if system.edit}}<div class="section-header">Bonuses</div>{{/if}}
+    
+    <div class="sidebar-three">
+        <div class="section-container">
+            <div class="section-flavor">P.DEF</div> 
+            {{#if system.edit}} <input type="number" class="stat-bonus" name="system.def.bonus" value="{{system.def.bonus}}"> {{else}} <div class="stat-value">{{system.def.value}} </div>{{/if}}
+        </div>
+        <div class="section-container">
+            <div class="section-flavor">DEFLECT</div>
+             {{#if system.edit}} <input type="number" class="stat-bonus" name="system.deflect" value="{{system.deflect}}"> {{else}} <div class="stat-value">{{system.deflect}} </div>{{/if}}
+        </div>
+        <div class="section-container">
+            <div class="section-flavor">A.DEF</div> 
+            {{#if system.edit}} <input type="number" class="stat-bonus" name="system.arc.bonus" value="{{system.arc.bonus}}"> {{else}} <div class="stat-value">{{system.arc.value}} </div>{{/if}}
+        </div>
+    </div>
+
+    <div class="stat-grid">
+        <div class="section-container">
+            <div class="stat-name">Crit Chance</div>
+            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.critChance.value" value="{{system.critChance.value}}"> {{else}} <div class="stat-value">{{system.critChance.value}} </div>{{/if}}
+        </div>
+         
+        <div class="section-container">
+            <div class="stat-name">Crit Damage</div>
+            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.critDamage.bonus" value="{{system.critDamage.bonus}}"> {{else}} <div class="stat-value">{{system.critDamage.value}} </div>{{/if}}
+        </div>
+         
+        <div class="section-container">
+            <div class="stat-name">Status Tier</div>
+            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.statusTier.bonus" value="{{system.statusTier.bonus}}"> {{else}} <div class="stat-value">{{system.statusTier.value}} </div>{{/if}}
+        </div>
+
+        <div class="section-container">
+            <div class="stat-name">Initative</div>
+            {{#if system.edit}} <input type="text" class="stat-bonus" name="system.init.bonus" value="{{system.init.bonus}}"> {{else}} <div class="stat-value">{{system.init.value}} </div>{{/if}}
+        </div>
+    </div>
+
+    <div class="sidebar-three">
+        <div class="section-container">
+            <div class="section-flavor">KEY</div> 
+             {{#if system.edit}} 
+                <select name="system.key.stat" class="storyforge-select">
+                    {{#select system.key.stat}}
+                        <option value="POW">POW</option>
+                        <option value="DEX">DEX</option>
+                        <option value="INT">INT</option>
+                        <option value="WIL">WIL</option>
+                    {{/select}}
+                </select>
+            {{else}}
+                <div class="stat-value">{{system.key.stat}}</div>
+            {{/if}}
+        </div>
+        <div class="section-container">
+            <div class="section-flavor">MOD</div> <span class="stat-value">+{{system.key.mod}}</span>
+        </div>
+        <div class="section-container">
+            <div class="section-flavor">SAVE</div> {{#if system.edit}} <input type="text" name="system.save.bonus" class="sidebar-input" value="{{system.save.bonus}}" placeholder="+0"> {{else}} <span class="stat-value">{{system.save.value}}</span> {{/if}}
+        </div>
+    </div>
+
+    <div class="life-container">
+        <div class="life-header">Health</div>
+        
+        {{#if system.edit}}
+        <div class="sidebar-three">
+            <div class="section-container">
+                <div class="section-flavor">Starter</div> <input type="text" class="sidebar-input" name="system.health.origin" value="{{system.health.origin}}">
+            </div>
+            <div class="section-container">
+                <div class="section-flavor">Bonus</div> <input type="text" class="sidebar-input" name="system.health.bonus" value="{{system.health.bonus}}">
+            </div>
+            <div class="section-container">
+                <div class="section-flavor">Lvl</div> <input type="text" class="sidebar-input" name="system.health.lvl" value="{{system.health.lvl}}">
+            </div>
+        </div>
+        {{else}}
+        <div class="health-container">
+            <div class="life-bar-container">
+                <div class="health-bar">
+                    <div class="life-inputs">
+                        <input type="text" class="life-input health-edit" name="system.health.value" value="{{system.health.value}}">
+                        <div class="life-current">
+                            {{system.health.value}} / {{system.health.max}}
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="bar-value" name="system.hpBar" value="{{system.hpBar}}" value="100">
+                    <div class="life-bar-track">
+                        <div class="life-bar-progress"></div>
+                    </div>
+                </div>
+
+                <input type="number" class="block life-input" name="system.block" value="{{system.block}}">
+            </div>
+
+            <div class="rest-fate">
+                <div class="header-button-container">
+                    <a class="header-button-inner quick-rest">
+                        <i class="fa-solid fa-utensils"></i>
+                        <div class="header-title" style="width: 80px;">Quick Rest</div>
+                    </a>
+                </div>
+
+                <div class="header-button-container">
+                    <a class="header-button-inner full-rest">
+                        <i class="fa-solid fa-moon"></i>
+                        <div class="header-title" style="width: 80px;">Full Rest</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+
+    
+    <div class="life-container">
+        <div class="life-header">Spirit</div>
+        {{#if system.edit}}
+        <div class="sidebar-three">
+            <div class="section-container">
+                <div class="section-flavor">Starter</div> <input type="text" class="sidebar-input" name="system.spirit.origin" value="{{system.spirit.origin}}">
+            </div>
+            <div class="section-container">
+                <div class="section-flavor">Bonus</div> <input type="text" class="sidebar-input" name="system.spirit.bonus" value="{{system.spirit.bonus}}">
+            </div>
+            <div class="section-container">
+                <div class="section-flavor">Lvl</div> <input type="text" class="sidebar-input" name="system.spirit.lvl" value="{{system.spirit.lvl}}">
+            </div>
+        </div> 
+        {{else}}
+        <div class="life-bar-container">
+            <div class="life-inputs">
+                <input type="text" class="life-input spirit-edit" name="system.spirit.edit" value="{{system.spirit.edit}}">
+                <div class="life-current">
+                    {{system.spirit.value}} / {{system.spirit.max}}
+                </div>
+            </div>
+
+            <input type="hidden" class="bar-value" name="system.spBar" value="{{system.spBar}}" value="100">
+            <div class="life-bar-track">
+                <div class="life-bar-progress"></div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>

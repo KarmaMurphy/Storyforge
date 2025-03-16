@@ -1,0 +1,338 @@
+div.sidebar{
+    border: solid 1px #CA9849;
+    border-radius: 5px;
+    background: #1F1F1F;
+    padding: 0 5px;
+
+    > div{
+        margin-top: 5px;
+    }
+
+    input:focus,
+    select:focus{
+        box-shadow: 0 0 5px #C94079 !important;
+    }
+
+    div.sidebar-edit{
+        div.sidebar-edit-grid{
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            margin-bottom: 3px;
+
+            span{
+                text-align: center;
+                text-transform: capitalize;
+                color: #CA9849;
+                font-variant: small-caps;
+                font-size: 12px;
+            }
+
+            span.start{
+                text-align: start;
+            }
+
+            input, select{
+                border: #CA9849 1px dashed;
+                height: 15px;
+                text-align: center;
+            }
+        }
+    }
+
+    div.life-containers{
+        display: grid;
+        grid-template-columns:  1fr 1fr;
+        grid-gap: 5px;
+
+        div.life-column div.life-header{
+            text-align: center;
+            font-size: 11px;
+            color: #CA9849;
+        }
+
+        div.life-column div.life-container{
+            border: solid 1px #CA9849;
+            border-radius: 5px;
+            background: #111318;
+            padding: 3px;
+            height: 34px;
+            font-size: 20px;
+            overflow: hidden;
+
+            div.life-inputs{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 20px;
+
+                input{
+                    width: 42%;
+                    height: 18px;
+                    font-size: 20px;
+                    border: none;
+                    padding: 0;
+                }
+
+            }
+            
+        }
+    }
+
+    div.stress-wounds{
+        display:grid;
+        grid-template-columns:  1fr 1fr;
+        grid-gap: 5px;
+
+        div.stress-container,
+        div.wounds-container{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #111318;
+            border: #CA9849 solid 1px;
+            border-radius: 5px;
+            height: 24px;
+            padding: 0 5px;
+
+            div.stress-wounds-inputs{
+                display: flex;
+                align-items: center;
+            }
+
+            span{
+                color: #958873;
+                font-size: 10px;
+            }
+
+            input{
+                width: 20px;
+                padding: 0;
+                border: none;
+            }
+        }
+    }
+    
+    div.char-stats{
+        display: grid;
+        grid-template-columns:  repeat(4, 1fr);
+        grid-gap: 5px;
+
+        div.stat-container{
+            background: #111318;
+            border: #CA9849 solid 1px;
+            border-radius: 5px;
+            height: 38px;
+            padding: 3px;
+
+            div.stat-header{
+                color: #958873;
+                font-size: 10px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+
+            div.stat-input{
+                text-align: center;
+                font-size: 15px;
+            }
+        }
+    }
+
+    div.char-saves{
+
+        > div{
+            margin-bottom: 5px;
+        }
+
+        > div:last-of-type{
+            margin-bottom: 0;
+        }
+
+        span{
+            color: #CA9849;
+            text-decoration: underline;
+        }
+
+        select{
+            background: linear-gradient(90deg, #9E0846 0%, #C94079 100.92%);
+            border: #CA9849 1px solid;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-size: 11px;
+            width: auto;
+            height: 16px;
+            padding: 0 5px;
+        }
+    }
+}
+
+/*HP & SP BARS*/
+        /* ----- BAR TRACK ----- */
+        .bar-track {
+            position: relative;
+            margin: 3px -3px 0;
+            background-color: #313031; /* Dark Grey */
+            /* outline: solid 1px #CA9849; */
+            /* width: 85%; */
+            height: 6px;
+            /* padding: 4px; */
+            /* border-radius: 10px; */
+            overflow: hidden;
+            place-items:center start;
+            display:grid;
+            grid-template-areas:'content';
+            --tensSize:0%;
+            --onesSize:0%;
+            --decimalSize:0%;
+            --trackGoodColor:#CA9849;
+            --trackBadColor:#C94079;
+        }
+
+        /* ----- BAR EMPTY ----- */
+        .bar-empty{
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0px);
+            border-radius: 10px;
+            width: 85%;
+            height: 6px;
+            background-color: #5c5156;
+        }
+
+        /* ----- BAR PROGRESS ----- */
+        .bar-progress {
+            /* Note that this calculation is done in this element so that the changing values of the size variables cascade to it properly and
+            update the value as the sizes are updated */
+            z-index: 10;
+            --trackPercentage: calc(var(--tensSize) + var(--onesSize) + var(--decimalSize));
+            box-sizing: border-box;
+            grid-area:content;
+            /* border-radius: 10px; */
+            background: linear-gradient(90deg, #9E0846 0%, #C94079 100.92%); /* Green fading to red as damage taken */
+            width: var(--trackPercentage);
+            height: 6px;
+            transition: width 0.25s ease-in-out, background-color 0.25s ease-in-out;
+        }
+        
+          /* ----- BAR PROGRESS STEPS ----- */
+        /* 10's steps */
+        .bar-value[value^="1"]:not([value^="1."]):not([value="1"]) + .bar-track{
+        --tensSize: 10%;
+        }
+        .bar-value[value^="2"]:not([value^="2."]):not([value="2"]) + .bar-track{
+        --tensSize: 20%;
+        }
+        .bar-value[value^="3"]:not([value^="3."]):not([value="3"]) + .bar-track{
+        --tensSize: 30%;
+        }
+        .bar-value[value^="4"]:not([value^="4."]):not([value="4"]) + .bar-track{
+        --tensSize: 40%;
+        }
+        .bar-value[value^="5"]:not([value^="5."]):not([value="5"]) + .bar-track{
+        --tensSize: 50%;
+        }
+        .bar-value[value^="6"]:not([value^="6."]):not([value="6"]) + .bar-track{
+        --tensSize: 60%;
+        }
+        .bar-value[value^="7"]:not([value^="7."]):not([value="7"]) + .bar-track{
+        --tensSize: 70%;
+        }
+        .bar-value[value^="8"]:not([value^="8."]):not([value="8"]) + .bar-track{
+        --tensSize: 80%;
+        }
+        .bar-value[value^="9"]:not([value^="9."]):not([value="9"]) + .bar-track{
+        --tensSize: 90%;
+        }
+        .bar-value[value^="10"]:not([value^="10."]):not([value="10"]) + .bar-track{
+        --tensSize: 100%;
+        }
+        /* Ones sizing */
+        .bar-value:is([value*="1."],[value$="1"]:not([value*="."])) + .bar-track{
+        --onesSize: 1%
+        }
+        .bar-value:is([value*="2."],[value$="2"]:not([value*="."])) + .bar-track{
+        --onesSize: 2%
+        }
+        .bar-value:is([value*="3."],[value$="3"]:not([value*="."])) + .bar-track{
+        --onesSize: 3%
+        }
+        .bar-value:is([value*="4."],[value$="4"]:not([value*="."])) + .bar-track{
+        --onesSize: 4%
+        }
+        .bar-value:is([value*="5."],[value$="5"]:not([value*="."])) + .bar-track{
+        --onesSize: 5%
+        }
+        .bar-value:is([value*="6."],[value$="6"]:not([value*="."])) + .bar-track{
+        --onesSize: 6%
+        }
+        .bar-value:is([value*="7."],[value$="7"]:not([value*="."])) + .bar-track{
+        --onesSize: 7%
+        }
+        .bar-value:is([value*="8."],[value$="8"]:not([value*="."])) + .bar-track{
+        --onesSize: 8%
+        }
+        .bar-value:is([value*="9."],[value$="9"]:not([value*="."])) + .bar-track{
+        --onesSize: 9%
+        }
+        /* decimal sizing */
+        .bar-value:is([value*=".0"],[value*=".1"]) + .bar-track{
+        --decimalSize: 0.1%;
+        }
+        .bar-value[value*=".2"] + .bar-track{
+        --decimalSize: 0.2%;
+        }
+        .bar-value[value*=".3"] + .bar-track{
+        --decimalSize: 0.3%;
+        }
+        .bar-value[value*=".4"] + .bar-track{
+        --decimalSize: 0.4%;
+        }
+        .bar-value[value*=".5"] + .bar-track{
+        --decimalSize: 0.5%;
+        }
+        .bar-value[value*=".6"] + .bar-track{
+        --decimalSize: 0.6%;
+        }
+        .bar-value[value*=".7"] + .bar-track{
+        --decimalSize: 0.7%;
+        }
+        .bar-value[value*=".8"] + .bar-track{
+        --decimalSize: 0.8%;
+        }
+        .bar-value[value*=".9"] + .bar-track{
+        --decimalSize: 0.9%;
+        }
+
+div.inline-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid 1px #CA9849;
+    border-radius: 5px;
+    background: #111318;
+    padding: 2px 3px;
+
+    div.resource-name{
+
+        input{
+            height: 18px;
+            border: none;
+        }
+    }
+
+    div.resource-values{
+        width: 50px;
+        display: flex;
+        
+        input{
+            height: 18px;
+            border: none;
+            text-align: center;
+            padding: 0;
+        }
+    }
+}
+
+div.resources > div{
+    margin-bottom: 5px;
+}

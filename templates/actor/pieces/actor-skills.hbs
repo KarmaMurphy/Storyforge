@@ -1,0 +1,71 @@
+<div class="key-container">
+    <div class="key-box">
+        <div class="key-footer"> Rolling</div>
+
+        <select name="system.sKey" class="storyforge-select">
+            {{#select system.sKey}}
+                <option value="{{system.attributes.pow.value}}">POW</option>
+                <option value="{{system.attributes.dex.value}}">DEX</option>
+                <option value="{{system.attributes.int.value}}">INT</option>
+                <option value="{{system.attributes.wil.value}}">WIL</option>
+            {{/select}}
+        </select>
+    </div>
+</div>
+
+<div class="skills">
+    <div class="floating-header">
+        Skills
+        <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Skill'}}' data-type='skill'>
+            <i class='fas fa-plus'></i>
+        </a>
+    </div>
+
+    <div class="skills-grid item-list">
+        {{#each skills as |item id|}}
+            <div class="skill item-context item" data-item-id='{{item._id}}'>
+                <div class="inline-container">
+                    <label class="align-left skill-name rollable" data-roll-type='item'>
+                        <span class="skill-name">{{item.name}}</span> <span>+{{item.system.rollMod}}</span>
+                    </label>
+
+                    <select name="item.system.mastery.rank" class="inline-edit storyforge-select" data-field="system.mastery.rank">
+                        {{#select item.system.mastery.rank}}
+                            <option value="Trained">trained</option>
+                            <option value="Adept">adept</option>
+                            <option value="Expert">expert</option>
+                            <option value="Master">master</option>
+                            <option value="Legend">legend</option>
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+<div class="skills">
+    <div class="floating-header">
+        Weapon Masteries
+    </div>
+
+    <div class="skills-grid">
+        {{#each system.masteries as |skill key|}}
+            <div class="inline-container">
+                <label for="system.masteries.{{key}}.value" title="{{skill.label}} Save" class="align-left skill-name rollable"  data-roll="d20+@masteries.{{key}}.value + @sKey"  data-label="{{skill.label}} Mastery">
+                    {{skill.label}} <span>+{{skill.value}}</span>
+                </label>
+                <select name="system.masteries.{{key}}.rank" class="storyforge-select">
+                    {{#select skill.rank}}
+                        <option value="untrained">untrained</option>
+                        <option value="trained">trained</option>
+                        <option value="adept">adept</option>
+                        <option value="expert">expert</option>
+                        <option value="master">master</option>
+                        <option value="legend">legend</option>
+                    {{/select}}
+                </select>
+            </div>
+        {{/each}}
+    </div>
+</div>

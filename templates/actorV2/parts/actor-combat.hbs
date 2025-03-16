@@ -1,0 +1,119 @@
+<div class="combat-section" {{!--  style="margin: 0 60px;" --}}>
+
+    {{!-- BASIC ACTIONS --}}
+    <div class="combat-basics">
+
+        <details class="details-container" open>
+            <summary class="section-header"><span>BASICS</span> <span class="item-create" title='{{localize "DOCUMENT.Create" type='Basic'}}' data-type='basic' data-itemType="{{type}}">+</span></summary>
+            <div class="section-container">
+                <nav class="basics-tabs tabs" data-group="basics-section">
+                    {{#each basics as |basics type|}}
+                        {{#if basics}}
+                            <a class="item" data-tab="basic-{{type}}">
+                                {{#if (eq type "slot1")}} Slot 1 {{/if}}
+                                {{#if (eq type "slot2")}} Slot 2 {{/if}}
+                                {{#if (eq type "slot3")}} Slot 3 {{/if}}
+                                {{#if (eq type "slot4")}} Slot 4 {{/if}}
+                                {{#if (eq type "slot5")}} Slot 5 {{/if}}
+                                {{#if (eq type "free")}} Abilities {{/if}}
+                            </a>
+                        {{/if}}
+                    {{/each}}
+                </nav>
+
+                <div class="basics-container">
+                    {{#each basics as |basics type|}}
+                        <div class="basics-tabs tab  item-list" data-group="basics-section" data-tab="basic-{{type}}">
+                            {{#each basics as |item id|}}
+                                <div class="char-items-container">
+                                    <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                                        <div class="item-left">
+                                            <div class="item-favorite" data-field="system.favorite" data-title="Favorite">
+                                                <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                                {{#if item.system.favorite}}
+                                                    <i class="fa-solid fa-star"></i>
+                                                {{else}}
+                                                    <i class="fa-regular fa-star"></i>
+                                                {{/if}}
+                                            </div>
+                                            <div class="action-name rollable" data-roll-type='item'>{{item.name}}</div>
+                                            <div class="action-target">
+                                                {{#if (eq item.system.check.defense "P. Def")}}
+                                                <span class="physical"><i class="fa-solid fa-dumbbell"></i></span>
+                                                {{else}}
+                                                <span class="arcane"><i class="fa-solid fa-meteor"></i></span>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="item-tags">
+                                            <div class="item-tag">{{item.system.hand}}</div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </details>
+
+    </div>
+
+    <div class="abilities">
+        
+        {{#each abilities as |abilities type|}}
+            {{#if abilities}}
+            <details class="details-container" open>
+                <summary class="section-header">
+                    <span>{{type}} Abilities</span> <span class="item-create" title='{{localize "DOCUMENT.Create" type='Ability'}}' data-type='ability' data-itemType="{{type}}">+</span>
+                </summary>
+                <div class="section-container item-list">
+                {{#each abilities as |item id|}}
+                    <div class="char-items-container">
+                        <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                            <div class="item-left">
+                                <div class="item-favorite" data-field="system.favorite" data-title="Favorite">
+                                    <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                    {{#if item.system.favorite}}
+                                        <i class="fa-solid fa-star"></i>
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+                                </div>
+                                <div class="action-name rollable" data-roll-type='item'>{{item.name}}</div>
+                                <div class="action-target">
+                                    {{#if (eq item.system.check.defense "P. Def")}}
+                                        <span class="physical"><i class="fa-solid fa-dumbbell"></i></span>
+                                    {{/if}}
+                                    {{#if (eq item.system.check.defense "A. Def")}}
+                                        <span class="arcane"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                                    {{/if}}
+                                </div>
+                            </div>
+                            
+                            <div class="item-tags">
+                                <div class="item-tag">Rank {{item.system.rank}}</div>
+                                <div class="item-tag">{{item.system.sp}} SP</div>
+                                {{!-- <div class="item-tag">{{item.system.actions}}</div> --}}
+                            </div>
+                        </div>
+
+                        {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                    </div>
+                {{/each}}
+                </div>
+            </details>
+            {{else}}
+                {{#if ...system.edit}}
+                    <div class="empty-add item-create" title='{{localize "DOCUMENT.Create" type='Ability'}}' data-type='ability' data-itemType="{{type}}">
+                        Add {{type}} Ability
+                    </div>
+                {{/if}}
+            {{/if}}
+        {{/each}}
+    </div>
+</div>

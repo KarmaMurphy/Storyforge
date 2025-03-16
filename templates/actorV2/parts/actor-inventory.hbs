@@ -1,0 +1,131 @@
+
+<div class="inventory">
+    <details class="details-container" open>
+        <summary class="section-header">Capabilities</summary>
+        <div class="section-container">
+            <div class="capability-grid">
+                <div class="capability">
+                    <span>Armor</span>
+                    <div class="capability-toggle">
+                        <span class="capability-armor {{#if (gte system.capability.armor 1)}}light{{/if}}" data-value="1">L</span>
+                        <span class="capability-armor {{#if (gte system.capability.armor 2)}}medium{{/if}}" data-value="2">M</span>
+                        <span class="capability-armor {{#if (gte system.capability.armor 3)}}heavy{{/if}}" data-value="3">H</span>
+                    </div>
+                </div>
+
+                <div class="capability">
+                    <span>Weapon</span>
+                    <div class="capability-toggle">
+                        <span class="capability-weapon {{#if (gte system.capability.weapon 1)}}light{{/if}}" data-value="1">L</span>
+                        <span class="capability-weapon {{#if (gte system.capability.weapon 2)}}medium{{/if}}" data-value="2">M</span>
+                        <span class="capability-weapon {{#if (gte system.capability.weapon 3)}}heavy{{/if}}" data-value="3">H</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </details>
+
+    
+    <div class="equipment">
+        <details class="details-container" open>
+            <summary class="section-header">EQUIPMENT</summary>
+            
+            <div class="section-container">
+                <nav class="equipment-tabs tabs" data-group="equipment">
+                    {{#each equipment as |equipment type|}}
+                            <a class="item" data-tab="{{type}}">{{type}} • {{equipment.length}}</a>
+                    {{/each}}
+                </nav>
+
+                <div class="basics-container">
+                    {{#each equipment as |equipment type|}}
+                        
+                        <div class="equipment-tabs tab item-list" data-group="equipment" data-tab="{{type}}">
+                            {{#if equipment}}
+                                {{#each equipment as |item id|}}
+                                    <div class="char-items-container">
+                                        <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                                            <div class="item-left">
+                                                <div class="item-favorite" data-field="system.favorite" data-title="Favorite">
+                                                    <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                                    {{#if item.system.favorite}}
+                                                        <i class="fa-solid fa-star"></i>
+                                                    {{else}}
+                                                        <i class="fa-regular fa-star"></i>
+                                                    {{/if}}
+                                                </div>
+                                                <div class="action-name rollable" data-roll-type='item'>{{item.name}}</div>
+                                                {{#if item.system.holdable}}
+                                                    <div class="action-flavor">{{item.system.type}}</div>
+                                                 {{/if}}
+                                            </div>
+                                            
+                                            <div class="item-tags">
+                                                {{#if item.system.charges.max}} <div class="item-tag">{{item.system.charges.value}} / {{item.system.charges.max}}</div> {{/if}}
+                                                {{#if (eq item.system.slot "free")}} <div class="item-tag">Free</div> {{/if}}
+                                                {{#if (eq item.system.slot "slot1")}} <div class="item-tag">Slot 1</div> {{/if}}
+                                                {{#if (eq item.system.slot "slot2")}} <div class="item-tag">Slot 2</div> {{/if}}
+                                                {{#if (eq item.system.slot "slot3")}} <div class="item-tag">Slot 3</div> {{/if}}
+                                                {{#if (eq item.system.slot "slot4")}} <div class="item-tag">Slot 4</div> {{/if}}
+                                                {{#if (eq item.system.slot "slot5")}} <div class="item-tag">Slot 5</div> {{/if}}
+                                                {{#if (eq item.system.slot "head")}} <div class="item-tag">Head</div> {{/if}}
+                                                {{#if (eq item.system.slot "chest")}} <div class="item-tag">Chest</div> {{/if}}
+                                                {{#if (eq item.system.slot "arms")}} <div class="item-tag">Arms</div> {{/if}}
+                                                {{#if (eq item.system.slot "legs")}} <div class="item-tag">Legs</div> {{/if}}
+                                                
+                                            </div>
+                                        </div>
+
+                                        {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <div class="empty-container">
+                                    No {{type}} Equipped
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <details class="details-container" open>
+        <summary class="section-header">
+            Backpack <span class="item-create" title='{{localize "DOCUMENT.Create" type='Item'}}' data-type='item'>+</span>
+        </summary>
+        <div class="section-container item-list">
+        {{#each gear as |item id|}}
+            <div class="char-items-container">
+                <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                    <div class="item-left">
+                        <div class="item-favorite" data-field="system.favorite" data-title="Favorite">
+                            <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                            {{#if item.system.favorite}}
+                                <i class="fa-solid fa-star"></i>
+                            {{else}}
+                                <i class="fa-regular fa-star"></i>
+                            {{/if}}
+                        </div>
+                        
+                        {{#unless (eq item.type "lootbox")}}
+                            <div class="action-name rollable" data-roll-type='item'>{{item.name}}</div>
+                        {{else}}
+                            <div class="action-name lootbox" data-item-id='{{item._id}}'>{{item.name}}</div>
+                        {{/unless}}
+                        <div class="action-flavor">{{item.system.type}}</div>
+                    </div>
+                    
+                    <div class="item-tags">
+                        {{#if item.system.charges.max}} <div class="item-tag">Uses {{item.system.charges.value}} / {{item.system.charges.max}}</div> {{/if}}
+                        <div class="item-tag">QT {{item.system.quantity}}</div>
+                    </div>
+                </div>
+
+                {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+            </div>
+        {{/each}}
+        </div>
+    </details>
+</div>

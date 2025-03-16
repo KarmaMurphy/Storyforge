@@ -1,0 +1,546 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "base": {
+        "edit": true,
+        "health": {
+          "value": 10,
+          "min": 0,
+          "max": 10,
+          "origin": 15,
+          "bonus": 0,
+          "lvl": 0,
+          "edit": 0
+        },
+        "spirit": {
+          "value": 5,
+          "min": 0,
+          "max": 5,
+          "origin": 15,
+          "bonus": 0,
+          "lvl": 0,
+          "edit": 0
+        },
+        "roll": "1d20",
+        "biography": "Biography...",
+        "bioPrivate": "Biography...",
+        "appearance": {
+          "desc": "Appearance...",
+          "age": 0,
+          "height": "",
+          "weight": 0
+        },
+        "key": {
+          "stat": "POW",
+          "mod": 0
+        },
+        "skill": {
+          "stat": "POW",
+          "mod": 0
+        },
+        "pronouns": "Pro/Noun",
+        "origin": "",
+        "class": "",
+        "sidebar": true,
+        "shortRests": 2
+      },
+      "stats": {
+        "level": 1,
+        "save": {
+          "value": 10,
+          "bonus": 0
+        },
+        "def": {
+          "value": 10,
+          "base": 10,
+          "bonus": 0,
+          "crit": 20
+        },
+        "arc": {
+          "value": 10,
+          "base": 10,
+          "bonus": 0,
+          "crit": 20
+        },
+        "deflect": {
+          "value": 0,
+          "bonus": 0
+        },
+        "block": 0,
+        "speed": 6,
+        "init": {
+          "value": 0,
+          "base": 0,
+          "bonus": 0
+        },
+        "critDamage": {
+          "base": 1,
+          "value": 1,
+          "bonus": 0,
+          "die": "d8"
+        },
+        "critChance": {
+          "value": 0,
+          "bonus": 0
+        },
+        "statusTier":{
+          "base": 0,
+          "value": 0,
+          "bonus": 0
+        }, 
+        "recovery": {
+          "base": 0,
+          "value": 1,
+          "bonus": 0,
+          "quick": 1
+        },
+        "capability": {
+          "weapon": 0,
+          "armor": 0
+        }
+      },
+      "attributes": {
+        "attributes": {
+          "pow": {
+            "value": 0,
+            "save": 0,
+            "mastery": {
+              "rank": "Trained",
+              "points": 0,
+              "trained": 0,
+              "actual": 0
+            }
+          },
+          "dex": {
+            "value": 0,
+            "save": 0,
+            "mastery": {
+              "rank": "Trained",
+              "points": 0,
+              "trained": 0,
+              "actual": 0
+            }
+          },
+          "int": {
+            "value": 0,
+            "save": 0,
+            "mastery": {
+              "rank": "Trained",
+              "points": 0,
+              "trained": 0,
+              "actual": 0
+            }
+          },
+          "wil": {
+            "value": 0,
+            "save": 0,
+            "mastery": {
+              "rank": "Trained",
+              "points": 0,
+              "trained": 0,
+              "actual": 0
+            }
+          }
+        }
+      },
+      "currencies": {
+        "currency": {
+          "one": 0,
+          "two": 0,
+          "three": 0,
+          "four": 0,
+          "five": 0,
+          "six": 0
+        }
+      },
+      "statuses": {
+        "statuses": {
+          "positive": {},
+          "negative": {},
+          "conditions": {}
+        },
+        "conditions": []
+      },
+      "actions": {
+        "actions": {
+          "standard": {
+            "value": 3,
+            "max": 3,
+            "bonus": 0
+          },
+          "quick": {
+            "value": 1,
+            "max": 1,
+            "bonus": 0
+          },
+          "reaction": {
+            "value": 1,
+            "max": 1,
+            "bonus": 0
+          }
+        }
+      },
+      "settings": {
+        "altForm": {
+          "1": {
+            "toggle": false,
+            "name": "Alt Form 1"
+          },
+          "2": {
+            "toggle": false,
+            "name": "Alt Form 2"
+          },
+          "3": {
+            "toggle": false,
+            "name": "Alt Form 3"
+          }
+        }
+      }
+    },
+    "character": {
+      "templates": ["base", "stats", "attributes", "currencies", "statuses", "actions", "settings"],
+      "fate": 3,
+      "stress": {
+        "value": 0,
+        "max": 10
+      },
+      "wounds": {
+        "value": 0,
+        "max": 5
+      }, 
+      "masteries": {
+        "artillery":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "axes":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "blades":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "blunt":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "bows":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "brawling":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "energy":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "polearms":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "shields":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        },
+        "whips":{
+          "rank": "Untrained",
+          "value": 0,
+          "points": 0,
+          "trained": 0,
+          "actual": 0
+        }
+      },
+      "free": {
+        "base": 1,
+        "value": 1,
+        "bonus": 0
+      },
+      "mastery": {
+        "value": 0,
+        "max": 7
+      }
+    },
+    "npc": {
+      "templates": ["base", "stats", "attributes", "currencies", "statuses", "actions", "settings"],
+      "trivia": "Trivia...",
+      "type": "Adversary",
+      "partySize": 4,
+      "addons": {
+        "value": 0,
+        "max": 7
+      },
+      "toggle": {
+        "traits": false,
+        "equipment": false
+      },
+      "bookSource": "SFHB"
+    }
+  },
+  "Item": {
+    "types": ["ability", "ancestry", "basic", "bond", "currency", "item", "lootbox", "origin", "path", "perk", "resource", "skill", "specialization", "tag", "tracker", "trait"],
+    "templates": {
+      "base": {
+        "description": "Description...",
+        "favorite": false,
+        "bookSource": "SFHB"
+      },
+      "tags": {
+        "tags": {},
+        "tagCount": 0
+      },
+      "check":{
+        "formula": "@actor.roll + @actor.key.mod + @check.bonus",
+        "barrage": 0
+      },
+      "attack": {
+        "formula": "@roll + @actor.keyMod + @check.bonus",
+        "range": "Short (1)",
+        "duration": "",
+        "type": "",
+        "effect": "",
+        "damage": {
+          "value": "",
+          "roll":  "1d8 + @key",
+          "die": {
+            "one": {
+              "num": 1,
+              "face": 8
+            },
+            "two": {
+              "num": 0,
+              "face": 8
+            },
+            "three": {
+              "num": 0,
+              "face": 8
+            }
+          },
+          "bonus": 0,
+          "stat": "@actor.key.mod",
+          "crit": 0,
+          "type": ""
+        },
+        "save": {
+          "value": "",
+          "bonus": 0,
+          "type": ""
+        },
+        "check": {
+          "value": "",
+          "defense": "P. Def",
+          "bonus": 0
+        }
+      },
+      "mastery": {
+        "mastery": {
+          "rank": "",
+          "value": 2
+        }
+      },
+      "shop": {
+        "quantity": 1,
+        "cost": 1
+      },
+      "slot": {
+        "slot":"free"
+      },
+      "actions": {
+        "actions": {
+          "standard": {
+            "value": 1,
+            "max": 4
+          },
+          "quick": {
+            "value": 0,
+            "max": 1
+          },
+          "reaction": {
+            "value": 0,
+            "max": 1
+          }
+        }
+      },
+      "container": {
+        "items": {}
+      }
+    },
+    "item": {
+      "templates": ["base", "attack", "mastery", "shop", "slot", "tags", "actions", "container"],
+      "rarity": "Starter",
+      "equip": false,
+      "charges": {
+        "value": 0,
+        "max": 0
+      },
+      "hand": "Main-Hand",
+      "range": "",
+      "cores": {
+        "value": 0,
+        "max": 1
+      }
+    },
+    "skill": {
+      "templates": ["base", "mastery"],
+      "formula": "@actor.roll + @actor.sKey + @mastery.value",
+      "mastery":{
+        "points": 1,
+        "trained": 0,
+        "actual": 1,
+        "rank": "Trained",
+        "value": 2
+      }
+    },
+    "ability": {
+      "templates": ["base", "tags", "attack", "actions", "container"],
+      "rank": 1,
+      "sp": 1,
+      "type": "Core",
+      "component": {
+        "one": "",
+        "two": "",
+        "three": ""
+      },
+      "formula": "@actor.roll + @actor.key.mod + {{system.rankMod}} + @check.bonus",
+      "rearGuard": false
+    },
+    "trait": {
+      "templates": ["base", "check"],
+      "type": "Path",
+      "source": "General",
+      "cost": 0,
+      "rank": 1
+    },
+    "perk": {
+      "templates": ["base", "check"],
+      "origin": false,
+      "rank": {
+        "value": "1",
+        "desc": "Description...",
+        "one": "Description...",
+        "two": "Description...",
+        "three": "Description..."
+      },
+      "descToggle": false
+    },
+    "specialization": {
+      "templates": ["base", "check"],
+      "tier": {
+        "one": {
+          "name": "",
+          "desc": "Description..."
+        },
+        "two": {
+          "name": "",
+          "desc": "Description..."
+        },
+        "three": {
+          "name": "",
+          "desc": "Description..."
+        }
+      }
+      
+    },
+    "bond": {
+      "templates": ["base", "check"],
+      "rank": 0,
+      "bonus": 0,
+      "type": ""
+    },
+    "basic": {
+      "templates": ["base", "tags", "attack", "mastery", "slot", "actions"],
+      "hand": "Main-Hand",
+      "component": {
+        "one": "",
+        "two": "",
+        "three": ""
+      }
+    },
+    "tracker": {
+      "templates": ["base", "check"],
+      "type": "",
+      "rank": {
+        "value": 0,
+        "max": 3
+      }
+    },
+    "resource":{
+      "templates": ["base", "check"],
+      "value": {
+        "value": 1,
+        "max": 1
+      }
+    },
+    "currency": {
+      "templates": ["base", "shop"]
+    },
+    "origin": {
+      "templates": ["base", "check", "container"],
+      "perks": []
+    },
+    "ancestry": {
+      "templates": ["base", "check", "container"],
+      "traits": {
+        "one": {
+          "name": "",
+          "source": "",
+          "type": "Ancestry",
+          "desc": "Description..."
+        },
+        "two": {
+          "name": "",
+          "source": "",
+          "type": "Ancestry",
+          "desc": "Description..."
+        }
+      }
+    },
+    "lootbox": {
+      "templates": ["base", "shop"],
+      "rarity": "★",
+      "rolltable": "",
+      "favorite": false
+    },
+    "tag": {
+      "templates": ["base", "shop"],
+      "type": "Tag",
+      "mod": 0,
+      "show": true
+    },
+    "path": {
+      "templates": ["base", "container"],
+      "type": "Basic",
+      "rank": 0
+    }
+  }
+}

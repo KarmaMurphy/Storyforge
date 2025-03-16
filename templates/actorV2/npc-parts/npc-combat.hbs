@@ -1,0 +1,308 @@
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-column-start: 1; grid-column-end: 3; gap: 2px">
+    <div class="section-container inline-section">
+        <span>Crit Damage</span>
+        {{#unless system.edit}}
+            <span>{{system.critDamage.value}}</span>
+        {{else}}
+            <input type="number" data-dtype="Number" name="system.critDamage.bonus" value="{{system.critDamage.bonus}}" placeholder="0">
+        {{/unless}}
+    </div>
+
+    <div class="section-container inline-section">
+        <span>Status Tier</span>
+        {{#unless system.edit}}
+            <span>{{system.statusTier.value}}</span>
+        {{else}}
+            <input type="number" data-dtype="Number" name="system.statusTier.bonus" value="{{system.statusTier.bonus}}" placeholder="0">
+        {{/unless}}
+    </div>
+
+    <div class="section-container inline-section">
+        <span>Recovery</span>
+        {{#unless system.edit}}
+            <span>{{system.recovery.value}}</span>
+        {{else}}
+            <input type="number" data-dtype="Number" name="system.recovery.bonus" value="{{system.recovery.bonus}}" placeholder="0">
+        {{/unless}}
+    </div>
+
+    <div class="section-container inline-section">
+        <span>Save DC</span>
+        {{#unless system.edit}}
+            <span>{{system.save.value}}</span>
+        {{else}}
+            <input type="number" data-dtype="Number" name="system.save.bonus" value="{{system.save.bonus}}" placeholder="0">
+        {{/unless}}
+    </div>
+</div>
+
+<div class="combat-details">
+    {{#unless system.edit}}
+        <div class="life-containers">
+            <div class="new-life-bar">
+                <div class="health-bar">
+                    <div class="life-inputs">
+                        <input type="text" class="life-input health-edit" name="system.health.value" data-dtype="Number" value="{{system.health.value}}">
+                        <div class="life-current health">
+                            {{system.health.value}} / {{system.health.max}}
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="bar-value" name="system.hpBar" value="{{system.hpBar}}" data-dtype="Number" value="100">
+                    <div class="life-bar-track">
+                        <div class="life-bar-progress"></div>
+                    </div>
+                </div>
+
+                <input type="number" class="block life-input" name="system.block" value="{{system.block}}">
+            </div>
+
+            <div class="new-life-bar">
+                <div class="life-inputs">
+                    <input type="text" class="life-input spirit-edit" name="system.spirit.edit" data-dtype="Number" value="{{system.spirit.edit}}">
+                    <div class="life-current spirit">
+                        {{system.spirit.value}} / {{system.spirit.max}}
+                    </div>
+                </div>
+
+                <input type="hidden" class="bar-value" name="system.spBar" value="{{system.spBar}}" data-dtype="Number" value="100">
+                <div class="life-bar-track spirit">
+                    <div class="life-bar-progress"></div>
+                </div>
+            </div>
+        </div>
+    {{/unless}}
+
+    <div class="attribute-containers">
+        {{#each system.attributes as |ability key|}}
+            <div class="attribute-container">
+                <div class="attribute {{#unless ...system.edit}}rollable{{/unless}}" data-roll="@roll+@attributes.{{key}}.value"  data-label="{{ability.label}}" data-subtitle="Attribute Check">
+                    <label for="system.attributes.{{key}}.value" title="{{ability.label}}" class="resource-label align-left">{{ability.label}}</label>
+                    {{#unless ...system.edit}}
+                        <div class="attribute-value"> {{ability.value}} </div>
+                    {{else}}
+                        <select name="system.attributes.{{key}}.value" class="attribute-value">
+                            {{#select ability.value}}
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            {{/select}}
+                        </select>
+                    {{/unless}}
+                </div>
+                {{#unless ...system.edit}}
+                    <div class="attribute-save rollable" class="rollable align-left" data-roll="@roll+@attributes.{{key}}.save"  data-label="{{ability.label}}" data-subtitle="Saving Throw">
+                        <span>SAVE</span> <span>{{ability.save}}</span>
+                    </div>
+                {{/unless}}
+            </div>
+        {{/each}}
+    </div>
+
+    {{#unless system.edit}}
+        <div class="section-container npc-status-container">
+            <div class="sidebar-statuses">
+                {{#each system.statuses.positive as |status key|}}
+                    {{#if status.active}}
+                        <div class="status {{#if status.active}}active {{#if status.persistent}}persist{{/if}}{{/if}}" data-field="system.statuses.positive.{{key}}" data-name="{{status.label}}">
+                            <div class="status-title">
+                            <span class="status-name">{{status.label}}</span>
+
+                            {{#if status.active}}
+                                <i class="fa-solid fa-infinity persistent {{#if status.persistent}}toggled{{/if}}" data-field="system.statuses.positive.{{key}}.persistent"></i>
+                            {{/if}}
+                            </div>
+                            
+                            {{#if status.active}}
+                                {{status.tier}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+
+                {{#each system.statuses.negative as |status key|}}
+                    {{#if status.active}}
+                        <div class="status {{#if status.active}}active {{#if status.persistent}}persist{{/if}}{{/if}}" data-field="system.statuses.negative.{{key}}" data-name="{{status.label}}">
+                            <div class="status-title">
+                            <span class="status-name">{{status.label}}</span>
+
+                            {{#if status.active}}
+                                <i class="fa-solid fa-infinity persistent {{#if status.persistent}}toggled{{/if}}" data-field="system.statuses.negative.{{key}}.persistent"></i>
+                            {{/if}}
+                            </div>
+                            
+                            {{#if status.active}}
+                                {{status.tier}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    {{/unless}}
+
+    {{#if system.edit}}
+        <div class="section-container inline-section">
+            <span>Lvl</span>
+            <input type="number" data-dtype="Number" name="system.level" value="{{system.level}}" placeholder="1">
+        </div>
+
+        <div class="section-container inline-section">
+            <span>Type</span>
+            <select name="system.type">
+                {{#select system.type}}
+                  <option value="Adversary">Adversary</option>
+                  <option value="Swarm">Swarm</option>
+                  <option value="Elite">Elite</option>
+                  <option value="Solo">Solo</option>
+                  <option value="" disabled>--------</option>
+                  <option value="Rival">Rival</option>
+                  <option value="Companion">Companion</option>
+                {{/select}}
+            </select>
+        </div>
+        {{#if (eq system.type "Solo")}}
+            <div class="section-container inline-section">
+                <span>Party Size</span>
+                <input type="number" data-dtype="Number" name="system.partySize" value="{{system.partySize}}" placeholder="1">
+            </div>
+        {{/if}}
+    {{/if}}
+</div>
+
+<div class="action-container">
+
+    <div class="section-header">
+        <div>
+            <span>Actions</span>
+            <span class="item-create" data-title='{{localize "DOCUMENT.Create" type='Ability'}}' data-type='ability' data-itemType="{{type}}">+</span>
+        </div>
+        
+        <span class="action-tracker">
+            {{!-- REACTIONS --}}
+            {{#loop system.actions.reaction.max 1}}
+                <div class="action-bubble" data-action="system.actions.reaction.value" data-value="{{@index}}" data-title="Reaction {{#if (gt system.actions.reaction.max 1)}} {{@index}} {{/if}}">
+                    {{#if (lte @index system.actions.reaction.value)}}
+                        <div class="action-ready reaction"></div>
+                    {{else}}
+                        <div class="action-spent reaction"></div>
+                    {{/if}}
+                </div>
+            {{/loop}}
+
+            {{!-- STANDARD --}}
+            {{#loop system.actions.standard.max 1}}
+                <div class="action-bubble" data-action="system.actions.standard.value" data-value="{{@index}}" data-title="Standard Action {{#if (gt system.actions.standard.max 1)}} {{@index}} {{/if}}">
+                    {{#if (lte @index system.actions.standard.value)}}
+                        <div class="action-ready standard"></div>
+                    {{else}}
+                        <div class="action-spent standard"></div>
+                    {{/if}}
+                </div>
+            {{/loop}}
+
+            {{!-- QUICK --}}
+            {{#loop system.actions.quick.max 1}}
+                <div class="action-bubble" data-action="system.actions.quick.value" data-value="{{@index}}" data-title="Quick Action {{#if (gt system.actions.quick.max 1)}} {{@index}} {{/if}}">
+                    {{#if (lte @index system.actions.quick.value)}}
+                        <div class="action-ready quick"></div>
+                    {{else}}
+                        <div class="action-spent quick"></div>
+                    {{/if}}
+                </div>
+            {{/loop}}
+        </span>
+    </div>
+
+    <div class="basic-actions">
+        <div class="section-container item-list">
+            {{#each basics as |item id|}}
+                <div class="char-items-container">
+                    <div class="item-container action {{#if (eq id 0)}} basic-context {{else}} item-context {{/if}} item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="item-left rollable" data-roll-type='item'>
+                            <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                            <div class="action-name">{{item.name}}</div>
+                        </div>
+                        
+                        <div class="item-tags">
+                            <div class="item-tag">{{item.system.hand}}</div>
+                        </div>
+                    </div>
+                    {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                </div>
+            {{/each}}
+
+            {{#each equipment.Weapon as |item id|}}
+                <div class="char-items-container">
+                    <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="item-left rollable" data-roll-type='item'>
+                            <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                            <div class="action-name">{{item.name}}</div>
+                        </div>
+                        
+                        <div class="item-tags">
+                            <div class="item-tag">{{item.system.hand}}</div>
+                        </div>
+                    </div>
+                    {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="section-container item-list">
+        {{#each abilities as |item id|}}
+            <div class="char-items-container">
+                <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                    <div class="item-left rollable">
+                        <div class="item-favorite" data-field="system.rearGuard" data-title="RearGuard">
+                            <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                            {{#if item.system.rearGuard}}
+                                <i class="fa-solid fa-shield"></i>
+                            {{else}}
+                                <i class="fa-regular fa-shield"></i>
+                            {{/if}}
+                        </div>
+
+                        <div class="action-name rollable"  data-roll-type='item'>{{item.name}}</div>
+                        <div class="action-target">
+                            {{#if (eq item.system.check.defense "P. Def")}}
+                            <span class="physical"><i class="fa-solid fa-dumbbell"></i></span>
+                            {{else}}
+                            <span class="arcane"><i class="fa-solid fa-meteor"></i></span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    
+                    <div class="item-tags">
+                        <div class="item-tag">Rank {{item.system.rank}}</div>
+                        <div class="item-tag">{{item.system.sp}} SP</div>
+                    </div>
+                </div>
+                {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+<div class="npc-traits-container action item-list">
+    {{#if owner}}
+        <div class="npc-trait open-compendium" style="margin-right: 4px;" data-title="Addon Total" data-compendium-tab="adversaryTraits">
+            {{system.addons.value}} / {{system.addons.max}}
+        </div>
+    {{/if}}
+
+    {{#each traits as |item id|}}
+        <div class="npc-trait item-context item"  style="position: relative;" data-item-id='{{item._id}}'>
+            <span class="rollable"  data-roll-type='trait'>{{item.name}}</span>
+            {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+        </div>
+    {{/each}}
+
+    
+    <div class="add-trait item-create" title='{{localize "DOCUMENT.Create" type='Trait'}}' data-type='trait' data-itemType="Adversary">+</div>
+</div>

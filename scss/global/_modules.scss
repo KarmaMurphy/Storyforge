@@ -1,0 +1,20 @@
+/* SKILL TREE MODULE */
+
+.skill-tree-actor.fullscreen .window-content{
+    margin: auto;
+}
+
+.skill-groups .skill-group .h1-container h1{
+    font-size: 35px;
+}
+
+.skill-tree-application .skill-groups, .skill-tree-actor .skill-groups {
+    display: flex;
+    width: 755px !important;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.skill-groups .skill-group{
+    min-height: 300px !important;
+}

@@ -1,0 +1,239 @@
+<div class="popup">
+    <div class="popup-blur"></div>
+
+    <div class="new-roll-container" style="margin-top: 0;">
+        <div class="chat-bg-img">
+            <div class="bg-blending"></div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-body">
+                {{!-- CHAT HEADER --}}
+                <div class="chat-header">
+                    {{!-- CHAT IMAGE --}}
+                    <div class="chat-img">
+                        <img src="{{img}}" title="{{name}}" class="chat-img">
+                    </div>
+                    
+                    {{!-- TITLE & SUBTITLE --}}
+                    <div class="chat-titles">
+                        <span class="chat-title">{{name}}</span>
+                        {{#if (eq type "ability")}}
+                            <span class="chat-subtitle">Rank {{system.rank}} • {{system.sp}} SP
+                                <div class="action-bubbles">
+                                    {{#if system.actions.reaction.value}}
+                                        <span class="roll-action-bubble reaction"></span>
+                                    {{/if}}
+                                    {{#if system.actions.standard.value}}
+                                        {{#loop system.actions.standard.value 1}}
+                                            <span class="roll-action-bubble"></span>
+                                        {{/loop}}
+                                    {{/if}}
+                                    {{#if system.actions.quick.value}}
+                                        <span class="roll-action-bubble quick"></span>
+                                    {{/if}}     
+                                </div>
+                            </span> 
+                         {{/if}}
+                         {{#if (eq type "basic")}}
+                            <span class="chat-subtitle">{{type}} • {{system.hand}}
+                                <div class="action-bubbles">
+                                    {{#if system.actions.reaction.value}}
+                                        <span class="roll-action-bubble reaction"></span>
+                                    {{/if}}
+                                    {{#if system.actions.standard.value}}
+                                        {{#loop system.actions.standard.value 1}}
+                                            <span class="roll-action-bubble"></span>
+                                        {{/loop}}
+                                    {{/if}}
+                                    {{#if system.actions.quick.value}}
+                                        <span class="roll-action-bubble quick"></span>
+                                    {{/if}}     
+                                </div>
+                            </span> 
+                         {{/if}}
+                        {{#if (eq type "perk")}} <span class="chat-subtitle">Rank {{system.rank.value}}</span> {{/if}}
+                        {{#if (eq type "trait")}} <span class="chat-subtitle">{{system.type}} {{type}} {{#if system.source}} • {{system.source}} {{/if}}</span>  {{/if}}
+                        {{#if (eq type "item")}}
+                            {{#if (eq system.type "Weapon")}}
+                                <span class="chat-subtitle">{{system.type}} • {{system.hand}}
+                                    <div class="action-bubbles">
+                                        {{#if system.actions.reaction.value}}
+                                            <span class="roll-action-bubble reaction"></span>
+                                        {{/if}}
+                                        {{#if system.actions.standard.value}}
+                                            {{#loop system.actions.standard.value 1}}
+                                                <span class="roll-action-bubble"></span>
+                                            {{/loop}}
+                                        {{/if}}
+                                        {{#if system.actions.quick.value}}
+                                            <span class="roll-action-bubble quick"></span>
+                                        {{/if}}     
+                                    </div>
+                                </span> 
+                            {{else}}
+                                <span class="chat-subtitle">{{item.system.type}}{{!--  • {{#if equip}} Equipped {{else}} Stowed {{/if}} --}}
+                                    <div class="action-bubbles">
+                                        {{#if system.actions.reaction.value}}
+                                            <span class="roll-action-bubble reaction"></span>
+                                        {{/if}}
+                                        {{#if system.actions.standard.value}}
+                                            {{#loop system.actions.standard.value 1}}
+                                                <span class="roll-action-bubble"></span>
+                                            {{/loop}}
+                                        {{/if}}
+                                        {{#if system.actions.quick.value}}
+                                            <span class="roll-action-bubble quick"></span>
+                                        {{/if}}    
+                                    </div>
+                                </span> 
+                            {{/if}}
+                        {{/if}}
+                        {{#if (eq type "tracker")}} <span class="chat-subtitle">{{system.type}} Tracker</span> {{/if}}
+                        {{#if (eq type "origin")}} <span class="chat-subtitle">Origin</span> {{/if}}
+                        {{#if (eq type "ancestry")}} <span class="chat-subtitle">Ancestry</span> {{/if}}
+                        {{#if (eq type "lootbox")}} <span class="chat-subtitle">{{system.rarity}} Lootbox</span> {{/if}}
+                        {{#if (eq type "tag")}} <span class="chat-subtitle">{{system.type}}</span> {{/if}}
+                    </div>
+
+                    {{!-- SYSTEM.COMPONENTS --}}
+                    {{#if system.component.one}}
+                        <div class="roll-components">
+                            <div class="component-container">{{system.component.one}}</div>
+                            {{#if system.component.two}} <div class="component-container">{{system.component.two}}</div> {{/if}}
+                            {{#if system.component.three}} <div class="component-container">{{system.component.three}}</div> {{/if}}
+                        </div>
+                    {{/if}}
+                </div>
+
+                {{!-- ROLL DESCRIPTION --}}
+                {{#unless (eq type "perk")}}
+                    {{#if system.description}}
+                        <div class="chat-desc">{{{system.description}}}</div>
+                    {{/if}}
+                {{else}}
+
+                    <div class="chat-desc">
+                        {{#if system.descToggle}}
+                            {{{system.description}}}
+                        {{/if}}
+                        {{{system.rank.desc}}}
+                    </div>
+                {{/unless}}
+
+                
+                {{#if (eq type "ancestry")}} 
+                    {{#each system.traits as |trait key|}}
+                        <div class="ancestry-trait">
+                            <div class="ancestry-title">{{trait.name}}</div>
+                            <div class="ancestry-subtitle">{{#if trait.source}} {{trait.source}} •{{/if}} {{trait.type}}</div>
+                            <div class="chat-desc">{{{trait.desc}}}</div>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+
+            {{!-- FOOT SYSTEM.TAGS --}}
+            <div class="roll-footer">
+                {{#if (eq system.check.defense "P. Def")}}
+                    <span class="roll-check"> <i class="fa-solid fa-dumbbell"></i></span>
+                {{/if}}
+                {{#if (eq system.check.defense "A. Def")}}
+                    <span class="roll-check"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                {{/if}}
+                {{#if system.check.value}}
+                    {{#if (eq system.check.defense "Flat")}}
+                        <span class="roll-check"><i class="fa-solid fa-dice-d20"></i></span>
+                    {{/if}}
+                {{/if}}
+                {{#if system.damage.value}} <span>{{system.damage.type}} Damage</span> {{/if}}
+                {{#if system.range}} <span>{{system.range}}</span> {{/if}}
+                {{#if system.save.value}} <span class="white">DC {{system.saveDC}} {{system.save.type}}</span> {{/if}}
+                {{#if system.effect}} <span>{{system.effect}}</span> {{/if}}{{!-- Show Effects --}}
+                {{#if system.duration}} 
+                    {{#unless (eq system.duration "Instant")}}
+                        <span>{{system.duration}}</span> 
+                    {{/unless}}
+                {{/if}}
+
+                {{#if (eq type "origin")}}{{#if system.perks}} <span>Origin Perk:  {{system.perks.[0].name}} </span> {{/if}}{{/if}}
+
+                {{#each system.tags as |tag key|}}
+                    {{#if tag}}
+                        {{#if tag.show}}
+                            <span>{{tag.name}}</span>
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+
+                
+                {{#each system.items as |tag key|}}
+                    {{#if (eq tag.type "tag")}}
+                        {{#if tag.system.show}}
+                            <span>{{tag.name}}</span>
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+            </div>
+
+            {{#if showRoll}}
+                <details class="chat-roll-details">
+                    <summary class="chat-roll">
+                        {{#if check.value}}
+                            {{checkRoll.total}}
+                        {{else}}
+                            <i class="fa-solid fa-eye"></i>
+                        {{/if}}
+                    </summary>
+
+                    <div class="roll-results">
+                        {{#if check.value}}
+                            <span class="roll-formula">Check • {{checkRoll}}</span>
+
+                            <div class="dice-tooltip">
+                                {{#each checkRoll.dice as |dice id|}} 
+                                    <ol class="dice-rolls">
+                                        {{#each dice.results as |results id|}} 
+                                            {{#if results.discarded}}
+                                                <li class="die roll d{{dice.faces}} discarded">{{results.result}} </li>
+                                            {{else}}
+                                                <li class="die roll d{{dice.faces}}">{{results.result}} </li>
+                                            {{/if}}
+                                            
+                                        {{/each}}
+                                    </ol>
+                                {{/each}}
+                            </div>
+                        {{/if}}
+
+                        {{#if damage.value}}
+                            <span class="roll-formula">Damage • {{damageRoll}}</span>
+
+                            <div class="dice-tooltip">
+                                <ol class="dice-rolls">
+                                    {{#each damageRoll.dice as |dice id|}} 
+                                        {{#each dice.results as |results id|}} 
+                                            <li class="die roll d{{dice.faces}}">{{results.result}}</li>
+                                        {{/each}}
+                                    {{/each}}
+                                </ol>
+                            </div>
+
+                            <span class="roll-formula">Crit • {{crit}} • {{crit.total}}</span>
+
+                            <div class="dice-tooltip">
+                                <ol class="dice-rolls">
+                                    {{#each crit.dice as |dice id|}} 
+                                        {{#each dice.results as |results id|}} 
+                                            <li class="die roll d{{dice.faces}}">{{results.result}}</li>
+                                        {{/each}}
+                                    {{/each}}
+                                </ol>
+                            </div>
+                        {{/if}}
+                    </div>
+                </details>
+            {{/if}}
+        </div>
+    </div>
+</div>

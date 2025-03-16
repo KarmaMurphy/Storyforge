@@ -1,0 +1,93 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <nav class="sheet-tabs tabs tabsV2" style="display: none;" data-group="primary">
+    <a class="item" data-tab="description" data-title="Description"><i class="fa-solid fa-feather-pointed"></i></a>
+  </nav>
+
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+
+    <label class="settings-button" data-title="Settings">
+        <i class="fa-solid fa-cog"></i>
+    </label>
+    
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{item.type}}</span>
+
+                      <label class="favorite">
+                        <input type="checkbox" name="system.favorite" {{checked system.favorite}}>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </label>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        <div class="section-container">
+          <select name="system.rarity">
+            {{#select system.rarity}}
+              <option value="★">★</option>
+              <option value="★★">★★</option>
+              <option value="★★★">★★★</option>
+              <option value="★★★★">★★★★</option>
+              <option value="★★★★★">★★★★★</option>
+              <option value="★★★★★★">★★★★★★</option>
+            {{/select}}
+          </select>
+        </div>
+
+        <div class="split-section">
+          <div class="section-container inline-section">
+            <span>Qt</span>
+            <input type="number" data-dtype="Number" name="system.quantity" value="{{system.quantity}}" placeholder="1">
+          </div>
+
+          <div class="section-container inline-section">
+            <span>$</span>
+            <input type="number" data-dtype="Number" name="system.cost" value="{{system.cost}}" placeholder="1">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc" data-group="primary" data-tab="description">
+        
+        {{!-- The Rolltable the Lootbox will submit to StoryforgeLootboxApp --}}
+      {{log rollTables}}
+
+        {{#if isGM}}
+          <div class="section-container inline-section">
+            <span>Roll Table</span>
+            <select name="system.rolltable">
+            {{#select system.rarity}}
+              {{#each rollTables as |table|}}
+                {{#if table.isFolder}}
+                  <option class="lootbox-folder" disabled>{{table.name}}</option>
+                {{else}}
+                  <option value="{{table.id}}" {{#if (eq ../system.rolltable table.id)}}selected{{/if}}>{{table.name}}</option>
+                {{/if}}
+              {{/each}}
+            {{/select}}
+            </select>
+          </div>
+        {{/if}}
+        
+      </div>
+    </section>
+  </div>
+</form>

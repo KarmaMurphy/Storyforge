@@ -1,0 +1,69 @@
+<div class="masteries">
+    <details class="details-container saves" open>
+        <summary class="section-header"> 
+            Save Masteries
+        </summary>
+        <div class="section-container item-list mastery-grid">
+            {{#each system.attributes as |ability key|}}
+                <div class="char-items-container">
+                    <div class="item-container action item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="item-left rollable"  data-roll="@roll+@attributes.{{key}}.save"  data-label="{{ability.label}}" data-subtitle="Saving Throw">
+                            <div class="action-name">{{ability.label}} Save</div>
+                            <div class="item-tags">
+                                <div class="item-tag">{{ability.mastery.rank}}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mastery-rank">
+                            {{#loop 5 1}}
+                                <div class="mastery-bubble" data-points="system.attributes.{{key}}.mastery.points" data-trained="system.attributes.{{key}}.mastery.trained" data-value="{{@index}}">
+                                    {{#if (lte @index ability.mastery.actual)}}
+                                        <div class="mastery-trained"></div>
+                                    {{/if}}
+
+                                    {{#if (lte @index ability.mastery.points)}}
+                                        <div class="mastery-point"></div>
+                                    {{/if}}
+                                </div>
+                            {{/loop}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </details>
+
+    <details class="details-container saves" open>
+        <summary class="section-header"> 
+            Equipment Masteries
+        </summary>
+        <div class="section-container item-list mastery-grid">
+            {{#each system.masteries as |skill key|}}
+                <div class="char-items-container">
+                    <div class="item-container action item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="item-left rollable" data-roll="@masteries.{{key}}.value"  data-label="{{skill.label}}" data-subtitle="Equipment Mastery">
+                            <div class="action-name">{{skill.label}}</div>
+                            <div class="item-tags">
+                                <div class="item-tag">{{skill.rank}}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mastery-rank">
+                            {{#loop 5 1}}
+                                <div class="mastery-bubble" data-points="system.masteries.{{key}}.points" data-trained="system.masteries.{{key}}.trained" data-value="{{@index}}">
+                                    {{#if (lte @index skill.actual)}}
+                                        <div class="mastery-trained"></div>
+                                    {{/if}}
+
+                                    {{#if (lte @index skill.points)}}
+                                        <div class="mastery-point"></div>
+                                    {{/if}}
+                                </div>
+                            {{/loop}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </details>
+</div>

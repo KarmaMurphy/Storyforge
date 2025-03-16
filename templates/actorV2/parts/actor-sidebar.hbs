@@ -1,0 +1,205 @@
+<div class="page-favorites">
+    <div class="sidebar-closer sidebar-toggle" data-title="Close Sidebar"><i class="fa-solid fa-caret-left"></i></div>
+    
+    <div class="section-container">
+        <nav class="sidebar-tabs tabs" data-group="sidebar">
+            <a class="item" data-tab="favorites">Favorites</a>
+            <a class="item" data-tab="resources">Resources</a>
+            <a class="item" data-tab="goals">Goals</a>
+            <a class="item" data-tab="bonds">Bonds</a>
+        </nav>
+        
+        <div class="sidebar-header">
+            Sidebar
+            <div class="sidebar-tabs tab" data-group="sidebar" data-tab="resources">
+                <span class="item-create" data-type='resource' data-itemType="{{type}}" data-title="Create Resource">+</span>
+            </div>
+
+            <div class="sidebar-tabs tab" data-group="sidebar" data-tab="goals">
+                <span class="item-create" data-type='tracker' data-itemType="{{type}}" data-title="Create Goal">+</span>
+            </div>
+
+            <div class="sidebar-tabs tab" data-group="sidebar" data-tab="bonds">
+                <span class="item-create" data-type='bond' data-itemType="{{type}}" data-title="Create Bond">+</span>
+            </div>
+        </div>
+
+        <div class="sidebar-tabs tab favorites" data-group="sidebar" data-tab="favorites">
+            {{#if favorites}}
+                {{#each favorites as |item id|}}
+                    <div class="char-items-container">
+                        <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                            <div class="item-left">
+                                <div class="item-favorite" data-field="system.favorite">
+                                    <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                    {{#if item.system.favorite}}
+                                        <i class="fa-solid fa-star"></i>
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+                                </div>
+                                
+                                <div class="action-name rollable" data-roll-type='item'>{{item.name}}</div>
+                            </div>
+
+                            <div class="item-tags">
+                                <div class="item-tag">
+                                    {{#if (eq item.type "item")}}
+                                        {{item.system.type}}
+                                    {{else}}
+                                        {{item.type}}
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+
+                        {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="empty-container">No Favorites</div>
+            {{/if}}
+        </div>
+
+        <div class="sidebar-tabs tab resources-container" data-group="sidebar" data-tab="resources">
+            {{#if resources}}
+                {{#each resources as |item id|}}
+                    <div class="char-items-container">
+                        <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                            <div class="resource counter" data-field="system.value.value">
+                                <div class="item-left">
+                                    <div class="action-name">{{item.name}}</div>
+                                </div>
+                                
+                                <div class="item-tags">
+                                    <div class="item-tag">
+                                        <input type="text" class="resource-input inline-edit" name="item.system.value.value" value="{{system.value.value}}" data-field="system.value.value" data-dtype="Number">
+                                        <span>{{item.system.value.value}} / {{item.system.value.max}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="empty-container">No Resources</div>
+            {{/if}}
+        </div>
+
+        <div class="sidebar-tabs tab trackers" data-group="sidebar" data-tab="goals">
+            {{#if trackers}}
+                {{#each trackers as |item id|}}
+                    <div class="char-items-container">
+                        <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                            <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                                <div class="item-left" data-roll-type='item'>
+                                    <div class="action-name">{{item.name}}</div>
+                                </div>
+
+                                <div class="item-tags">
+                                    <div class="item-tag">Goal</div>
+                                </div>
+                            </div>
+
+                            <div class="tracker-footer">
+                                <div class="tracker">
+                                    {{#loop item.system.rank.max 1}}
+                                        {{#if (lte @index item.system.rank.value)}}
+                                        <div class="tracker-segment track-select true" data-field="system.rank.value" data-value="{{@index}}"></div>
+                                        {{else}}
+                                        <div class="tracker-segment track-select" data-field="system.rank.value" data-value="{{@index}}"></div>
+                                        {{/if}}
+                                    {{/loop}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="empty-container">No Goals</div>
+            {{/if}}
+        </div>
+
+        <div class="sidebar-tabs tab bonds" data-group="sidebar" data-tab="bonds">
+            {{#if bonds}}
+                {{#each bonds as |item id|}}
+                    <div class="char-items-container">
+                        <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                            <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                                <div class="item-left" data-roll-type='item'>
+                                    <div class="action-name">{{item.name}}</div>
+                                </div>
+
+                                <div class="item-tags">
+                                    <div class="item-tag">Bond</div>
+                                </div>
+                            </div>
+
+                            <div class="tracker-footer">
+                                <div class="bond tracker">
+                                    <div class="bond-bg">
+                                        {{#loop 5 0}}
+                                            {{#ifeq @index item.system.rank}} 
+                                                <div class="bond-segment" data-title="Rank {{@index}}">
+                                                    <img src="{{item.system.actorImg}}">
+                                                </div>
+                                            {{/ifeq}}
+                                            {{#ifnoteq @index item.system.rank}} 
+                                                <div class="bond-segment bond-unselected track-select" data-title="Rank {{@index}}" data-field="system.rank" data-value="{{@index}}">
+                                                    <img src="{{item.system.actorImg}}">
+                                                </div>
+                                            {{/ifnoteq}}
+                                        {{/loop}}
+                                    </div>
+                                </div>
+
+                                <span class="bond-bonus" style="margin-left: 5px;">+{{item.system.bonus}}</span>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="empty-container">No {{#if system.edit}}Bitches{{else}}Bonds{{/if}}</div>
+            {{/if}}
+        </div>
+
+    </div>
+
+    <div class="sidebar-statuses">
+        {{#each system.statuses.positive as |status key|}}
+            {{#if status.active}}
+                <div class="status {{#if status.active}}active {{#if status.persistent}}persist{{/if}}{{/if}}" data-field="system.statuses.positive.{{key}}" data-name="{{status.label}}">
+                    <div class="status-title">
+                    <span class="status-name">{{status.label}}</span>
+
+                    {{#if status.active}}
+                        <i class="fa-solid fa-infinity persistent {{#if status.persistent}}toggled{{/if}}" data-field="system.statuses.positive.{{key}}.persistent"></i>
+                    {{/if}}
+                    </div>
+                    
+                    {{#if status.active}}
+                        {{status.tier}}
+                    {{/if}}
+                </div>
+            {{/if}}
+        {{/each}}
+
+        {{#each system.statuses.negative as |status key|}}
+            {{#if status.active}}
+                <div class="status {{#if status.active}}active {{#if status.persistent}}persist{{/if}}{{/if}}" data-field="system.statuses.negative.{{key}}" data-name="{{status.label}}">
+                    <div class="status-title">
+                    <span class="status-name">{{status.label}}</span>
+
+                    {{#if status.active}}
+                        <i class="fa-solid fa-infinity persistent {{#if status.persistent}}toggled{{/if}}" data-field="system.statuses.negative.{{key}}.persistent"></i>
+                    {{/if}}
+                    </div>
+                    
+                    {{#if status.active}}
+                        {{status.tier}}
+                    {{/if}}
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+</div>

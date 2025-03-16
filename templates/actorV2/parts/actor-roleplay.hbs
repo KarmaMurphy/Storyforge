@@ -1,0 +1,48 @@
+
+
+<div class="roleplay-section"  {{!-- style="margin: 0 60px;" --}}>
+
+    <div class="skills">
+        <details class="details-container">
+            <summary class="section-header"> 
+                Skills <span class="item-create" data-title="Add Skill" data-type='skill'>+</span>
+            </summary>
+            <div class="section-container item-list {{#if (gte skills.length 4)}}skill-grid{{/if}}">
+                {{#each skills as |item id|}}
+                    <div class="char-items-container">
+                        <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                            <div class="item-left rollable" data-roll-type='skill'>
+                                <div class="action-name">{{name}}</div>
+                                <div class="action-flavor" style="font-size: 12px;">+{{item.system.mastery.value}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </details>
+    </div>
+
+    <nav class="bio-tabs tabs" data-group="secondary">
+        {{!-- Default tab is specified in actor-sheet.mjs --}}
+        <a class="item" data-tab="public">Public Bio</a>
+        <a class="item" data-tab="private">Private Bio</a>
+        <a class="item" data-tab="appearance">Appearance</a>
+    </nav>
+
+    <div class="char-bios">
+        <div class="section-container desc">
+            <div class="bio-tabs tab public" data-group="secondary" data-tab="public">
+                {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+
+            <div class="bio-tabs tab private" data-group="secondary" data-tab="private">
+                {{editor system.bioPrivate target="system.bioPrivate" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+
+            <div class="bio-tabs tab" data-group="secondary" data-tab="appearance">
+                {{editor system.appearance.desc target="system.appearance.desc" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+        </div>
+    </div>
+    
+</div>

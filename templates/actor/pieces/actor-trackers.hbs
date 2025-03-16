@@ -1,0 +1,153 @@
+{{!-- BASIC ACTIONS --}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Trackers
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Tracker'}}' data-type='tracker'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+        </div>
+    </summary>
+
+    <div class="section-container item-list">
+        {{#each trackers as |item id|}}
+            <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                <div class="tracker-grid">
+                    <div class="action-left">
+                        <div class="action-img rollable" data-roll-type='item'>
+                            <img
+                            src='{{item.img}}'
+                            title='{{item.name}}'
+                            width='24'
+                            height='24'
+                            />
+                        </div>
+                        <div class="action-name">
+                            <div class="action-topper rollable" data-roll-type='item'>{{item.name}}</div>
+                            <div class="action-footer">
+                                {{item.system.type}} Tracker 
+                                <div class="tracker-inputs">
+                                    <div class="autoExpand"><input type="text" class="inline-edit" name="item.system.rank.value" value="{{item.system.rank.value}}" data-field="system.rank.value"> <span>{{item.system.rank.value}}</span></div> / <div class="autoExpand"><input type="text" class="inline-edit" name="item.system.rank.max" value="{{item.system.rank.max}}" data-field="system.rank.max"> <span>{{item.system.rank.max}}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tracker">
+                        {{#loop item.system.rank.max 1}}
+                            {{#if (lte @index item.system.rank.value)}}
+                            <div class="tracker-segment track-select true" data-field="system.rank.value" data-value="{{@index}}"></div>
+                            {{else}}
+                            <div class="tracker-segment track-select" data-field="system.rank.value" data-value="{{@index}}"></div>
+                            {{/if}}
+                        {{/loop}}
+                    </div>
+                </div>
+
+                <div class="popup">
+                    <div class="popup-blur"></div>
+                    <div class="popup-container">
+                        <div class="popup-header-bg"></div>
+                        <div class="popup-img-check">
+                            <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                        </div>
+
+                        <div class="popup-header">
+                            <div class="popup-title">{{item.name}}</div>
+                            <div class="popup-subtitle">
+                                {{item.system.type}} Tracker
+                            </div>
+                        </div>
+
+                        {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</details>
+
+{{!-- BONDS --}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Bonds
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Bond'}}' data-type='bond'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+        </div>
+    </summary>
+
+    <div class="section-container item-list">
+        {{#each bonds as |item id|}}
+            <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                <div class="tracker-grid">
+                    <div class="action-left">
+                        <div class="action-img rollable" data-roll-type='item'>
+                            <img
+                            src='{{item.img}}'
+                            title='{{item.name}}'
+                            width='24'
+                            height='24'
+                            />
+                        </div>
+                        <div class="action-name">
+                            <div class="action-topper rollable" data-roll-type='item'>{{item.name}}</div>
+                            <div class="action-footer">
+                                {{item.system.type}} Bond 
+                                <div class="tracker-inputs">
+                                    <input type="text" class="inline-edit" style="width: 20px;" name="item.system.rank" value="{{item.system.rank}}" data-field="system.rank" data-dtype="Number">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bond tracker">
+                        <div class="bond-bg">
+                            {{#loop 6 0}}
+                                {{#ifeq @index item.system.rank}} 
+                                    <div class="bond-segment">
+                                        <img src="{{item.system.actorImg}}">
+                                    </div>
+                                {{/ifeq}}
+                                {{#ifnoteq @index item.system.rank}} 
+                                    <div class="bond-segment bond-unselected track-select" data-field="system.rank" data-value="{{@index}}">
+                                        <img src="{{item.system.actorImg}}">
+                                    </div>
+                                {{/ifnoteq}}
+                            {{/loop}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="popup">
+                    <div class="popup-blur"></div>
+                    <div class="popup-container">
+                        <div class="popup-header-bg"></div>
+                        <div class="popup-img-check">
+                            <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                        </div>
+
+                        <div class="popup-header">
+                            <div class="popup-title">{{item.name}}</div>
+                            <div class="popup-subtitle">
+                                {{item.system.type}} Bond
+                            </div>
+                        </div>
+
+                        {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</details>
+

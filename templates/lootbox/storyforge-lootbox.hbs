@@ -1,0 +1,22 @@
+<section class="lootbox-container">
+  <header>
+    <div class="loot-title">{{tableName}}</div>
+    <div class="loot-subtitle">Choose One</div>
+  </header>
+  <div class="lootbox-results">
+    {{log results}}
+    {{#if results.length}}
+      {{#each results}}
+        <div class="lootbox-item" draggable="true" data-id="{{this.id}}" data-type="{{this.type}}" data-collection="{{this.collection}}" title="{{this.name}}">
+          <img src="{{this.img}}" alt="{{this.name}}" />
+          <span>{{this.name}}</span>
+          {{#if this.rarity}}
+            <span>{{this.rarity}}</span>
+          {{/if}}
+        </div>
+      {{/each}}
+    {{else}}
+      <p>No valid results found in the roll.</p>
+    {{/if}}
+  </div>
+</section>

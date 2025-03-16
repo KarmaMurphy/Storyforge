@@ -1,0 +1,406 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs tabsV2" data-group="primary">
+    <a class="item" data-tab="description" data-title="Description"><i class="fa-solid fa-feather-pointed"></i></a>
+    <a class="item" data-tab="attributes" data-title="Attributes"><i class="fa-solid fa-bolt"></i></a>
+    <a class="item" data-tab="tags" data-title="Tags"><i class="fa-solid fa-list"></i></a>
+  </nav>
+
+
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+    
+    <label class="settings-button" data-title="Settings">
+        <i class="fa-solid fa-cog"></i>
+    </label>
+
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{system.type}} {{item.type}}</span>
+
+                      <label class="favorite" data-title="Add to Favorites">
+                        <input type="checkbox" name="system.favorite" {{checked system.favorite}}>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </label>
+
+                      {{#if (eq system.type "Core")}}
+                      <label class="favorite" data-title="Add to RearGuard">
+                        <input type="checkbox" name="system.rearGuard" {{checked system.rearGuard}}>
+                        <i class="fa-solid fa-shield"></i>
+                        <i class="fa-regular fa-shield"></i>
+                      </label>
+                      {{/if}}
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        <div class="section-container">
+          <select name="system.type">
+              {{#select system.type}}
+                <option value="Core">Core</option>
+                <option value="Awakened">Awakened</option>
+                <option value="Learned">Learned</option>
+                <option value="Training">Training</option>
+                <option value="Recast">Recast</option>
+                {{#if altForm.1.toggle}}<option value="{{altForm.1.name}}">{{altForm.1.name}}</option>{{/if}}
+                {{#if altForm.2.toggle}}<option value="{{altForm.2.name}}">{{altForm.2.name}}</option>{{/if}}
+                {{#if altForm.3.toggle}}<option value="{{altForm.3.name}}">{{altForm.3.name}}</option>{{/if}}
+              {{/select}}
+            </select>
+        </div>
+
+        <div class="section-container inline-section">
+          <span>Rank</span>
+          <input type="number" data-dtype="Number" name="system.rank" value="{{system.rank}}" placeholder="1">
+        </div>
+
+        <div class="section-container inline-section">
+          <span>SP</span>
+          <input type="number" data-dtype="Number" name="system.sp" value="{{system.sp}}" placeholder="1">
+        </div>
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc" data-group="primary" data-tab="description">
+
+        <div class="section-container desc">
+          {{editor system.descriptionHTML target="system.description" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+
+        <div class="item-tags-preview">
+          {{#if system.check.value}} <span>vs {{system.check.defense}}</span> {{/if}} {{!-- Show Target Defense --}}
+          {{#if system.damage.value}} <span>{{system.damage.type}} Damage</span> {{/if}} {{!-- Show Damage --}}
+          {{#if system.range}}<span>{{system.range}}</span>{{/if}}{{!-- Show Range --}}
+          {{#if system.save.value}} <span>{{system.save.type}} Save</span> {{/if}} {{!-- Show Save DC & Type --}}
+          {{#if system.effect}} <span>{{system.effect}}</span> {{/if}} {{!-- Show Effects --}}
+          {{#if system.duration}} {{#unless (eq system.duration "Instant")}} <span>{{system.duration}}</span> {{/unless}}{{/if}} {{!-- Show Duration --}}
+
+          {{#each system.tags as |tag key|}}
+            {{#if tag.show}}<span>{{tag.name}}</span>{{/if}}
+          {{/each}}
+
+          {{#each props as |tag key|}}
+            {{#if tag.system.show}}<span>{{tag.name}}</span>{{/if}}
+          {{/each}}
+        </div>
+        
+      </div>
+
+      {{!-- Attributes Tab --}}
+      <div class="tab item-attributes" data-group="primary" data-tab="attributes">
+        {{!-- As you add new fields, add them in here! --}}
+
+        <div class="roll-selectors">
+          <div class="attribute-section">
+            {{#if (eq system.check.value "barrage")}}
+              <input type="number" class="barrage" name="system.barrage" value="{{system.barrage}}" placeholder="1">
+            {{/if}}
+
+            <select name="system.check.value" class="roll-mod-toggler" value="{{system.check.value}}">
+              {{#select system.check.value}}
+                  <option value="">No Check</option>
+                  <option value="check">Check</option>
+                  <option value="barrage">Barrage</option>
+                {{/select}}
+            </select>
+
+            <div class="section-container">
+              <div class="roll-selectBonus">
+                <select name="system.formula">
+                  {{#select system.formula}}
+                    <option value="@actor.roll + @actor.key.mod + {{system.rankMod}} + @check.bonus">Key</option>
+                    <option value="@actor.roll + @actor.attributes.pow.value + {{system.rankMod}} + @check.bonus">Pow</option>
+                    <option value="@actor.roll + @actor.attributes.dex.value + {{system.rankMod}} + @check.bonus">Dex</option>
+                    <option value="@actor.roll + @actor.attributes.int.value + {{system.rankMod}} + @check.bonus">Int</option>
+                    <option value="@actor.roll + @actor.attributes.wil.value + {{system.rankMod}} + @check.bonus">Wil</option>
+                  {{/select}}
+                </select>
+
+                <span>Bonus</span>
+                <input type="text" class="roll-bonus" name="system.check.bonus" value="{{system.check.bonus}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="attribute-section">
+            <select name="system.save.value" class="roll-mod-toggler" value="{{system.save.value}}">
+              {{#select system.save.value}}
+                  <option value="">No Save</option>
+                  <option value="true">Save</option>
+                {{/select}}
+            </select>
+
+            <div class="section-container">
+              <div class="roll-selectBonus">
+                <select name="system.save.type" class="item-select">
+                  {{#select system.save.type}}
+                    <option value="POW">Pow</option>
+                    <option value="DEX">Dex</option>
+                    <option value="INT">Int</option>
+                    <option value="WIL">Wil</option>
+                  {{/select}}
+                </select>
+
+                <span>Bonus</span>
+                <input type="text" class="roll-bonus" name="system.save.bonus" value="{{system.save.bonus}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="attribute-section"> {{!-- Damage section --}}
+            {{!-- DAMAGE TOGGLE --}}
+            <select name="system.damage.value" class="roll-mod-toggler" value="{{system.damage.value}}">
+              {{#select system.damage.value}}
+                  <option value="">No Damage</option>
+                  <option value="true">Damage</option>
+                {{/select}}
+            </select>
+
+            <div class="section-container">
+              <div class="inline-select">
+                <select name="system.damage.type" class="item-select">
+                  {{#select system.damage.type}}
+                    <option value="Normal" selected>Normal</option>
+                    <option value="Acid">Acid</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Force">Force</option>
+                    <option value="Earth">Earth</option>
+                    <option value="Healing">Healing</option>
+                    <option value="Lightning">Lightning</option>
+                    <option value="Poison">Poison</option>
+                    <option value="Psychic">Psychic</option>
+                    <option value="Radiant">Radiant</option>
+                    <option value="Sonic">Sonic</option>
+                    <option value="Water">Water</option>
+                    <option value="Wind">Wind</option>
+                  {{/select}}
+                </select>
+              </div>
+
+              <div class="damage-dice">
+                <input type="number" class="damageInput" name="system.damage.die.one.num" value="{{system.damage.die.one.num}}" data-dtype="Number">
+                <select name="system.damage.die.one.face" class="item-select">
+                  {{#select system.damage.die.one.face}}
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                  {{/select}}
+                </select>
+                <span>+</span>
+                <input type="number" class="damageInput" name="system.damage.bonus" value="{{system.damage.bonus}}" data-dtype="Number">
+                <span>+</span>
+                <select name="system.damage.stat" class="item-select" data-title="Bonus Attribute Damage">
+                  {{#select system.damage.stat}}
+                    <option value="0">None</option>
+                    <option value="@actor.key.mod">Key</option>
+                    <option value="@actor.attributes.pow.value">Pow</option>
+                    <option value="@actor.attributes.dex.value">Dex</option>
+                    <option value="@actor.attributes.int.value">Int</option>
+                    <option value="@actor.attributes.wil.value">Wil</option>
+                  {{/select}}
+                </select>
+              </div>
+
+              <div class="bonus-dice">
+                <input type="number" class="damageInput" name="system.damage.die.two.num" value="{{system.damage.die.two.num}}" data-dtype="Number">
+                <select name="system.damage.die.two.face" class="item-select">
+                  {{#select system.damage.die.two.face}}
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                  {{/select}}
+                </select>
+
+                <input type="number" class="damageInput" name="system.damage.die.three.num" value="{{system.damage.die.three.num}}" data-dtype="Number">
+                <select name="system.damage.die.three.face" class="item-select">
+                  {{#select system.damage.die.three.face}}
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                  {{/select}}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="attribute-details">
+          <div class="attribute-section">
+            <div class="section-container inline-section">
+              <span>Action</span>
+
+              {{!-- ACTION TRACKER --}}
+                <div class="action-tracker">
+                    
+                    {{!-- REACTION --}}
+                    {{#loop system.actions.reaction.max 1}}
+                        <div class="action-bubble" data-action="system.actions.reaction.value" data-value="{{@index}}" data-title="Reaction {{#if (gt system.actions.reaction.max 1)}} {{@index}} {{/if}}">
+                            {{#if (lte @index system.actions.reaction.value)}}
+                                <div class="action-ready reaction"></div>
+                            {{else}}
+                                <div class="action-spent reaction"></div>
+                            {{/if}}
+                        </div>
+                    {{/loop}}
+
+                    {{!-- STANDARD --}}
+                    {{#loop system.actions.standard.max 1}}
+                        <div class="action-bubble" data-action="system.actions.standard.value" data-value="{{@index}}" data-title="Standard Action {{#if (gt system.actions.standard.max 1)}} {{@index}} {{/if}}">
+                            {{#if (lte @index system.actions.standard.value)}}
+                                <div class="action-ready standard"></div>
+                            {{else}}
+                                <div class="action-spent standard"></div>
+                            {{/if}}
+                        </div>
+                    {{/loop}}
+
+                    {{!-- QUICK --}}
+                    {{#loop system.actions.quick.max 1}}
+                        <div class="action-bubble" data-action="system.actions.quick.value" data-value="{{@index}}" data-title="Quick Action {{#if (gt system.actions.quick.max 1)}} {{@index}} {{/if}}">
+                            {{#if (lte @index system.actions.quick.value)}}
+                                <div class="action-ready quick"></div>
+                            {{else}}
+                                <div class="action-spent quick"></div>
+                            {{/if}}
+                        </div>
+                    {{/loop}}
+                </div>
+            </div>
+
+            <div class="section-container inline-section">
+              <span>Range</span>
+              <select name="system.range">
+                {{#select system.range}}
+                  <option value="Self">Self</option>
+                  <option value="Close (0)">Close (0)</option>
+                  <option value="Short (1)">Short (1)</option>
+                  <option value="Long (2)">Long (2)</option>
+                  <option value="Far (3)">Far (3)</option>
+                {{/select}}
+              </select>
+            </div>
+
+            <div class="section-container inline-section">
+              <span>Duration</span>
+              <select name="system.duration">
+                {{#select system.duration}}
+                  <option value="Instant">Instant</option>
+                  <option value="1 Round">1 Round</option>
+                  <option value="Persistent">Persistent</option>
+                  <option value="Upkeep">Upkeep</option>
+                  <option value="Concentration">Concentration</option>
+                {{/select}}
+              </select>
+            </div>
+
+            <div class="section-container inline-section">
+              <span>Target</span>
+              <select name="system.check.defense" class="item-select">
+                {{#select system.check.defense}}
+                  <option value="P. Def">Physical</option>
+                  <option value="A. Def">Arcane</option>
+                  <option value="Flat">Flat Check</option>
+                {{/select}}
+              </select>
+            </div>
+          </div>
+
+          <div class="attribute-section">
+            <div class="section-header">Components</div>
+
+            <div class="component-grid">
+              <div class="section-container full-input">
+                <input type="text" name="system.component.one" value="{{system.component.one}}" placeholder="Component 1"/>
+              </div>
+
+              <div class="section-container full-input">
+                <input type="text" name="system.component.two" value="{{system.component.two}}" placeholder="Component 1"/>
+              </div>
+
+              <div class="section-container full-input">
+                <input type="text" name="system.component.three" value="{{system.component.three}}" placeholder="Component 1"/>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="attribute-section">
+            <div class="section-header">Effects</div>
+            <div class="section-container full-input">
+              <input type="text" name="system.effect" value="{{system.effect}}" placeholder="Effects & Statuses go here..."/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab item-tags" data-group="primary" data-tab="tags">
+        {{!-- As you add new fields, add them in here! --}}
+        <div class="section-header">
+          <span class="open-compendium" data-title="Open Compendium Browser" data-compendium-tab="tags">
+            Tags ({{system.tagCount}})
+          </span>
+          
+          {{#if (gt system.tagCount 0)}}
+          <span class="tags-control">
+            {{#if (gte system.tagCount 1)}}<div class="tagCountDown">-</div>{{/if}} <div class="tagCountUp">+</div>
+          </span>
+          {{/if}}
+
+          <span class="tags-control">
+            <div class="add-child" data-child-type="tag" data-title="Add Tag">+</div>
+          </span>
+        </div>
+
+        <div class="item-tag-grid">
+          {{#each system.tags as |tag key|}}
+            <div class="item-tag">
+              <div class="section-container inline-section">
+                <input class="tag-name" type="text" name="system.tags.{{key}}.name" value="{{tag.name}}" placeholder="Tag Name">
+                <input class="tag-mod" type="number" data-dtype="Number" name="system.tags.{{key}}.mod" value="{{tag.mod}}" placeholder="Mod">
+              </div>
+
+              <label class="tag-show">
+                <input type="checkbox" name="system.tags.{{key}}.show" {{checked tag.show}}>
+                <i class="fa-solid fa-eye"></i>
+              </label>
+            </div>
+          {{/each}}
+
+          
+          {{#each props as |tag key|}}
+            <div class="item-tag stored-item" data-item-id="{{tag.id}}">
+              
+              <div class="section-container inline-section">
+                <input class="tag-name inline-edit" type="text" name="system.items.{{tag.id}}.name" value="{{tag.name}}" placeholder="Tag Name">
+                <input class="tag-mod inline-edit" type="number" data-dtype="Number" name="system.items.{{tag.id}}.system.mod" value="{{tag.system.mod}}" placeholder="Mod">
+              </div>
+
+              <label class="tag-show">
+                <input type="checkbox" name="system.items.{{tag.id}}.system.show" {{checked tag.system.show}}>
+                <i class="fa-solid fa-eye"></i>
+              </label>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+  </div>
+</form>

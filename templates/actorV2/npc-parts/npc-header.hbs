@@ -1,0 +1,143 @@
+<label class="edit-switch">
+    <input type="checkbox" class="edit-toggle" name="system.edit" {{checked system.edit}}/>
+    <div class="switch"><i class="fa-solid fa-wrench"></i></div>
+</label>
+
+<label class="settings-button" data-title="Settings">
+    <i class="fa-solid fa-cog"></i>
+</label>
+
+<div class="new-char-header {{#if system.edit}}edit-mode{{/if}}">
+    <div class="header-left">
+        <div class="char-img">
+            <img class="char-img {{#unless owner}}show-img{{/unless}}" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        </div>
+
+        <div class="char-title-details">
+            {{#unless system.edit}}
+                <div class="char-title">
+                    <span>{{actor.name}}</span>
+                </div>
+                <div class="char-subtitle">
+                    <span>{{system.title}}</span>
+                </div>
+            {{else}}
+                <div class="char-title">
+                    <input type="text" name="name" value="{{actor.name}}" placeholder="Character Name">
+                </div>
+                <div class="char-subtitle">
+                    <input type="text" name="system.title" value="{{system.title}}" placeholder="Title">
+                </div>
+            {{/unless}}
+            
+            {{#owner}}
+                {{#unless system.edit}}
+                    <div class="rest-fate">
+                        <span class="char-tag">Lvl {{system.level}}</span>
+                        <span class="char-tag">{{system.type}}</span>
+                        <div class="header-button-container">
+                            <a class="header-button-inner quick-rest" data-title="Quick Rest">
+                                <i class="fa-solid fa-utensils"></i>
+                            </a>
+                        </div>
+
+                        <div class="header-button-container">
+                            <a class="header-button-inner full-rest" data-title="Full Rest">
+                                <i class="fa-solid fa-moon"></i>
+                            </a>
+                        </div>
+                    </div>
+                {{/unless}}
+            {{/owner}}
+        </div>
+    </div>
+
+    <div class="header-right">
+        <div class="tab" data-group="primary" data-tab="combat">
+            <div class="defense-container">
+                <div class="header-defenses">
+                    <div class="defense">
+                        {{#unless system.edit}}
+                            <span class="defense-stat">{{system.def.value}}</span>
+                        {{else}}
+                            <input type="number" class="defense-stat" name="system.def.bonus" value="{{system.def.bonus}}" data-dtype="Number" value="10"> 
+                        {{/unless}}
+                        <span class="footer">P.Def</span>
+                        
+                    </div>
+                    
+                    <div class="defense">
+                        {{#unless system.edit}}
+                            <span class="defense-stat">{{system.deflect.value}}</span>
+                        {{else}}
+                            <input type="number" class="defense-stat" name="system.deflect.bonus"  value="{{system.deflect.bonus}}" data-dtype="Number" value="0"> 
+                        {{/unless}}
+                        <span class="footer">Deflect</span> 
+                    </div>
+                    
+                    <div class="defense">
+                        {{#unless system.edit}}
+                            <span class="defense-stat">{{system.arc.value}}</span>
+                        {{else}}
+                            <input type="number" class="defense-stat" name="system.arc.bonus" value="{{system.arc.bonus}}" data-dtype="Number" value="0"> 
+                        {{/unless}}
+                        <span class="footer">A.Def</span> 
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+        <div class="tab" data-group="primary" data-tab="rearguard">
+            <div class="life-containers" style="width: 90px;">
+                <div class="new-life-bar">
+                    <div class="life-inputs">
+                        <input type="text" class="life-input spirit-edit" name="system.spirit.edit" data-dtype="Number" value="{{system.spirit.edit}}">
+                        <div class="life-current spirit">
+                            {{system.spirit.value}} / {{system.spirit.max}}
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="bar-value" name="system.spBar" value="{{system.spBar}}" data-dtype="Number" value="100">
+                    <div class="life-bar-track spirit">
+                        <div class="life-bar-progress"></div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        
+    </div>
+    
+    {{#if system.edit}}
+        <div class="health-fields">
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.health.origin" value="{{system.health.origin}}" data-dtype="Number">
+                <div class="footer">STARTER HP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.health.bonus" value="{{system.health.bonus}}" data-dtype="Number">
+                <div class="footer">BONUS HP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.health.lvl" value="{{system.health.lvl}}" data-dtype="Number">
+                <div class="footer">LVL HP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.spirit.origin" value="{{system.spirit.origin}}" data-dtype="Number">
+                <div class="footer">STARTER SP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.spirit.bonus" value="{{system.spirit.bonus}}" data-dtype="Number">
+                <div class="footer">BONUS SP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.spirit.lvl" value="{{system.spirit.lvl}}" data-dtype="Number">
+                <div class="footer">LVL SP</div>
+            </div>
+        </div>
+    {{/if}}
+</div>

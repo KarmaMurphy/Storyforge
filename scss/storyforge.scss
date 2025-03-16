@@ -1,0 +1,41 @@
+// Add custom fonts by visiting and search https://fonts.google.com
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Import utilities.
+@import 'utils/typography';
+@import 'utils/colors';
+@import 'utils/mixins';
+@import 'utils/variables';
+
+/* Global styles */
+@import 'global/window';
+@import 'global/grid';
+@import 'global/flex';
+@import 'global/modules';
+@import 'global/lootbox';
+
+/* Styles limited to storyforge sheets */
+.storyforge {
+  @import 'components/defaults';
+  @import 'components/forms';
+  @import 'components/resource';
+  @import 'components/items';
+  @import 'components/effects';
+  @import 'components/sheets';
+  @import 'components/actorV2';
+  @import 'components/charSidebar';
+  @import 'components/chatMessages';
+  @import 'components/itemPopup';
+  @import 'components/weapons';
+  @import 'components/dialog';
+  @import 'components/compendiumBrowser';
+  
+  
+  .npc{
+    @import 'components/npc';
+  }
+}
+// background: url(ui/official/banner-character-dark.webp) no-repeat top center / cover;
+//     -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+//     /* mask-image: linear-gradient(to bottom, black, transparent);

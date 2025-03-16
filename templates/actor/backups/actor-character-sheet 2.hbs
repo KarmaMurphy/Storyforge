@@ -1,0 +1,160 @@
+<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+
+     {{> "systems/storyforge/templates/actor/parts/actor-header.hbs"}}
+    
+    <header class="char-sheet-header">
+        <div class="header-left">
+            <div class="header-details">
+                <div class="header-detail">
+                        <div class="detail-header">PRONOUNS</div>
+                        <input type="text" class="detail-input" name="system.pronouns" value="{{system.pronouns}}" placeholder="Pronouns">
+                    </div>
+                    <div class="header-detail">
+                        <div class="detail-header">ORIGIN</div>
+                        <input type="text" class="detail-input" name="system.origin" value="{{system.origin}}" placeholder="Origin">
+                    </div>
+                    <div class="header-detail">
+                        <div class="detail-header">CLASS</div>
+                        <input type="text" class="detail-input" name="system.class" value="{{system.class}}" placeholder="Class">
+                    </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-container">
+                    <div class="stat-header">LVL</div>
+                    <input type="number" class="stat-input" name="system.level" value="{{system.level}}" placeholder="1">
+                    <div class="stat-lower">
+                        <span class="stat-lower-text">TIER</span>
+                        <input type="number" class="header-lvl" name="system.tier" value="{{system.tier}}" disabled>
+                    </div>
+                </div>
+
+                <div class="stat-container">
+                    <div class="stat-header">SAVE</div>
+                    <input type="number" class="stat-input" name="system.save.value" value="{{system.save.value}}" placeholder="10">
+                    <div class="stat-lower">
+                        <span class="stat-lower-text">Bonus</span>
+                        <input type="number" class="header-lvl" name="system.save.bonus" value="{{system.save.bonus}}" placeholder="0">
+                    </div>
+                </div>
+
+                <div class="stat-container">
+                    <div class="stat-header">DEF</div>
+                    <input type="number" class="stat-input" name="system.def.value" value="{{system.def.value}}" placeholder="10">
+                    <div class="stat-lower">
+                        <span class="stat-lower-text">Bonus</span>
+                        <input type="number" class="header-lvl" name="system.def.bonus" value="{{system.def.bonus}}" placeholder="0">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="header-center">
+            <div class="header-attributes">
+                {{#each system.attributes as |ability key|}}
+                <div class="attribute-container">
+                <label for="system.attributes.{{key}}.value" title="{{ability.label}}" class="resource-label rollable align-left" data-roll="d20+@attributes.{{key}}.value"  data-label="{{ability.label}}">{{ability.label}}</label>
+                <select name="system.attributes.{{key}}.value">
+                    {{#select ability.value}}
+                    <option value="0">+0</option>
+                    <option value="1">+1</option>
+                    <option value="2">+2</option>
+                    <option value="3">+3</option>
+                    <option value="4">+4</option>
+                    <option value="5">+5</option>
+                    {{/select}}
+                </select>
+                </div>
+                {{/each}}
+            </div>
+            <img class="char-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+            <div class="header-name-container">
+                {{!-- <input class="header-name" name="name" type="text" value="{{actor.name}}" placeholder="Name"/> --}}
+                <input class="header-title" name="system.charTitle" type="text" value="{{system.charTitle}}" placeholder="Title"/>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="header-life">
+                <div class="health-container">
+                        <div class="health-header">HEALTH</div>
+                        <div class="health-inputs">
+                            <input type="number" class="life-input" name="system.health.value" value="{{system.health.value}}"> / <input type="number" class="life-input" name="system.health.max" value="{{system.health.max}}">
+                        </div>
+                </div>
+                
+                <div class="health-container">
+                    <div class="health-header">SPIRIT</div>
+                    <div class="health-inputs">
+                        <input type="number" class="life-input" name="system.spirit.value" value="{{system.spirit.value}}"> / <input type="number" class="life-input" name="system.spirit.max" value="{{system.spirit.max}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-fate-wounds">
+                <div class="fate">
+                    <span>FATE</span>
+                    <input type="number" name="system.fate" value="{{system.fate}}" placeholder="0">
+                </div>
+                <div class="wound">
+                    <input type="number" name="system.wounds" value="{{system.wounds}}" placeholder="0">
+                    <span>WOUNDS</span>
+                </div>
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-container">
+                    <div class="stat-header">ARC</div>
+                    <input type="number" class="stat-input" name="system.arc.value" value="{{system.arc.value}}" placeholder="10">
+                    <div class="stat-lower">
+                        <span class="stat-lower-text">Bonus</span>
+                        <input type="number" class="header-lvl" name="system.arc.bonus" value="{{system.arc.bonus}}" placeholder="0">
+                    </div>
+                </div>
+                <div class="stat-container">
+                    <div class="stat-header">SPEED</div>
+                    <input type="number" class="stat-input" name="system.speed" value="{{system.speed}}" placeholder="6">
+                    <div class="stat-lower">
+                        <span class="stat-lower-text"></span>
+                        <input type="number" disabled>
+                    </div>
+                </div>
+                <div class="stat-container">
+                    <div class="stat-header">INITIATIVE</div>
+                    <input type="number" class="stat-input" name="system.init.value" value="{{system.init.value}}" placeholder="0">
+                    <div class="stat-lower">
+                        <span class="stat-lower-text">Bonus</span>
+                        <input type="number" class="header-lvl" name="system.init.bonus" value="{{system.init.bonus}}" placeholder="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sheet-tabs tabs" data-group="primary">
+        {{!-- Default tab is specified in actor-sheet.mjs --}}
+        <a class="item" data-tab="roleplay">Roleplay</a>
+        <a class="item" data-tab="combat">Combat</a>
+        <a class="item" data-tab="profile">Profile</a>
+        <a class="item" data-tab="effects">Effects</a>
+    </nav>
+
+    <a class="header-button control configure-token">
+        <i class="fas fa-user-circle" style="color: white;"></i>
+    </a>
+
+    <input type="checkbox" class="key-select" name="system.test.one" {{checked system.test.one}}/>
+
+    <select name="system.key">
+        {{#select system.key}}
+        <option value="{{system.attributes.pow.value}}">POW</option>
+        <option value="{{system.attributes.dex.value}}">DEX</option>
+        <option value="{{system.attributes.int.value}}">INT</option>
+        <option value="{{system.attributes.wil.value}}">WIL</option>
+        {{/select}}
+    </select>
+
+    <span class="ability-mod rollable" data-roll="d20+@key">{{system.key}}</span>
+
+</form>
+

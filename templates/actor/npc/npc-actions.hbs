@@ -1,0 +1,481 @@
+{{!-- TRAITS --}}
+{{!-- Add Traits --}}
+{{#if system.edit}}
+    <div class="floating-header" style="margin-bottom: 5px;">
+        Add Traits
+        <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Trait'}}' data-type='trait'>
+            <i class='fas fa-plus'></i>
+        </a>
+    </div>
+{{/if}}
+
+{{#if traits}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Traits
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Trait'}}' data-type='trait'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+        </div>
+    </summary>
+    <div class="section-container item-list traits">
+
+        {{#each traits as |item id|}}
+            <div class="char-items-container">
+                <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                    <div class="basic-grid">
+                        <div class="action-left rollable" data-roll-type='item'>
+                            <div class="action-name" style="flex-direction: row;">
+                                <div class="action-topper">{{item.name}}</div>
+                                <div class="action-footer">
+                                    {{item.system.type}} {{item.type}} {{#if item.system.source}} • {{item.system.source}} {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup">
+                    <div class="popup-blur"></div>
+                    <div class="popup-container">
+                        <div class="popup-header-bg"></div>
+                        <div class="popup-img-check">
+                            <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                        </div>
+
+                        <div class="popup-header">
+                            <div class="popup-title">{{item.name}}</div>
+                            <div class="popup-subtitle">{{item.system.type}} {{item.type}}</div>
+                        </div>
+
+                        {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</details>
+{{/if}}
+
+
+{{!-- SPECIALIZATIONS --}}
+{{!-- Add Specializations --}}
+{{#if system.edit}}
+    <div class="floating-header" style="margin-bottom: 5px;">
+        Add Specializations
+        <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Specialization'}}' data-type='specialization'>
+            <i class='fas fa-plus'></i>
+        </a>
+    </div>
+{{/if}}
+
+{{#if specializations}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Specializations
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Specialization'}}' data-type='specialization'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+        </div>
+    </summary>
+    <div class="section-container item-list">
+        {{#each specializations as |item id|}}
+            <div class="specialization-grid item-context item" data-item-id='{{item._id}}'>
+                <div class="specialization" style="position: relative;" data-special-rank='one'>
+                    <div class="action-name rollable"  data-roll-type='special'>
+                        <div class="action-topper">{{item.system.tier.one.name}}</div>
+                        <div class="action-footer">
+                            {{item.name}}
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.system.tier.one.name}}</div>
+                                <div class="popup-subtitle">{{item.name}} • Rank 1</div>
+                            </div>
+
+                            {{#if item.system.tier.one.desc}} <div class="popup-desc"> {{{item.system.tier.one.desc}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+
+                {{#if system.tier.two.name}}
+                <div class="specialization" style="position: relative;" data-special-rank='two'>
+                    <div class="action-name rollable" data-roll-type='special'>
+                        <div class="action-topper">{{item.system.tier.two.name}}</div>
+                        <div class="action-footer">
+                            {{item.name}}
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.system.tier.two.name}}</div>
+                                <div class="popup-subtitle">{{item.name}} • Rank 2</div>
+                            </div>
+
+                            {{#if item.system.tier.two.desc}} <div class="popup-desc"> {{{item.system.tier.two.desc}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#if system.tier.three.name}}
+                <div class="specialization" style="position: relative;" data-special-rank='three'>
+                    <div class="action-name rollable" data-roll-type='special'>
+                        <div class="action-topper">{{item.system.tier.three.name}}</div>
+                        <div class="action-footer">
+                            {{item.name}}
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.system.tier.three.name}}</div>
+                                <div class="popup-subtitle">{{item.name}} • Rank 3</div>
+                            </div>
+
+                            {{#if item.system.tier.three.desc}} <div class="popup-desc"> {{{item.system.tier.three.desc}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</details>
+{{/if}}
+
+{{!-- BASIC ACTIONS --}}
+{{!-- Add Basics --}}
+{{#if system.edit}}
+    <div class="floating-header" style="margin-bottom: 5px;">
+        Add Basics
+        <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Basic'}}' data-type='basic'>
+            <i class='fas fa-plus'></i>
+        </a>
+    </div>
+{{/if}}
+
+{{#if basics}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Basic Attacks
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Basic'}}' data-type='basic'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+            <span>MOD</span>
+            <span>RNG</span>
+        </div>
+    </summary>
+
+    <div class="section-container item-list">
+        {{#each basics as |item id|}}
+            <div class="char-items-container">
+                <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                    <div class="basic-grid">
+                        <div class="action-left rollable" data-roll-type='item'>
+                            <div class="action-img">
+                                <img
+                                src='{{item.img}}'
+                                title='{{item.name}}'
+                                width='24'
+                                height='24'
+                                />
+                            </div>
+                            <div class="action-name">
+                                <div class="action-topper">{{item.name}}</div>
+                                <div class="action-footer">
+                                    {{#if (eq item.type "item")}} 
+                                        {{item.system.type}}  • {{item.system.mastery.rank}} • {{item.system.hand}}
+                                    {{else}} 
+                                        {{item.type}} • {{item.system.mastery.rank}} • {{item.system.hand}}
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        <select name="item.system.formula" class="inline-edit storyforge-select" data-field="system.formula">
+                            {{#select item.system.formula}}
+                            <option value="d20 + @actor.attributes.pow.value + @mastery.value + @check.bonus">Pow</option>
+                            <option value="d20 + @actor.attributes.dex.value + @mastery.value + @check.bonus">Dex</option>
+                            <option value="d20 + @actor.attributes.int.value + @mastery.value + @check.bonus">Int</option>
+                            <option value="d20 + @actor.attributes.wil.value + @mastery.value + @check.bonus">Wil</option>
+                            {{/select}}
+                        </select>
+                        <span>{{item.system.range}}</span>
+                    </div>
+                </div>
+                <div class="popup">
+                    <div class="popup-blur"></div>
+                    <div class="popup-container">
+                        <div class="popup-header-bg"></div>
+                        <div class="popup-img-check">
+                            <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                        </div>
+
+                        <div class="popup-header">
+                            <div class="popup-title">{{item.name}}</div>
+                            <div class="popup-subtitle">
+                                {{#if (eq item.type "item")}} 
+                                    {{item.system.type}}  • {{item.system.mastery.rank}} • {{item.system.hand}}
+                                {{else}} 
+                                    {{item.type}} • {{item.system.mastery.rank}} • {{item.system.hand}}
+                                {{/if}}
+                            </div>
+                        </div>
+
+                        {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+
+                        <div class="popup-footer">
+                            {{#if item.system.check.value}} <span class="popup-check">{{item.system.check.defense}}</span> {{/if}}
+                            {{#if item.system.damage.value}} <span>{{item.system.damage.type}} Damage</span> {{/if}} 
+                            {{#if item.system.range}} <span>{{item.system.range}}</span> {{/if}}
+                            {{#if item.system.save.value}} <span>DC {{item.system.saveDC}} {{item.system.save.type}}</span> {{/if}} {{!-- Show Save DC & Type --}}
+                            {{#if item.system.effect}} <span>{{item.system.effect}}</span> {{/if}}
+                            {{#if item.system.duration}} <span>{{item.system.duration}}</span> {{/if}}
+
+                            {{#if item.system.tag1.name}} <span>{{item.system.tag1.name}}</span> {{/if}}
+                            {{#if item.system.tag2.name}} <span>{{item.system.tag2.name}}</span> {{/if}}
+                            {{#if item.system.tag3.name}} <span>{{item.system.tag3.name}}</span> {{/if}}
+                            {{#if item.system.tag4.name}} <span>{{item.system.tag4.name}}</span> {{/if}}
+                            {{#if item.system.tag5.name}} <span>{{item.system.tag5.name}}</span> {{/if}}
+                            {{#if item.system.tag6.name}} <span>{{item.system.tag6.name}}</span> {{/if}}
+                            {{#if item.system.tag7.name}} <span>{{item.system.tag7.name}}</span> {{/if}}
+                            {{#if item.system.tag8.name}} <span>{{item.system.tag8.name}}</span> {{/if}}
+                            {{#if item.system.tag9.name}} <span>{{item.system.tag9.name}}</span> {{/if}}
+                            {{#if item.system.tag10.name}} <span>{{item.system.tag10.name}}</span> {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</details>
+{{/if}} 
+
+{{!-- ABILTIIES --}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="ability-grid">
+            <span style="margin: auto 0; display:flex">
+                Abilities
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Ability'}}' data-type='ability'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+                <select name="system.key" class="storyforge-select" style="background: none;">
+                    {{#select system.key}}
+                    <option value="{{system.attributes.pow.value}}">POW</option>
+                    <option value="{{system.attributes.dex.value}}">DEX</option>
+                    <option value="{{system.attributes.int.value}}">INT</option>
+                    <option value="{{system.attributes.wil.value}}">WIL</option>
+                    {{/select}}
+                </select>
+            <span>Save</span>
+            <span>RNG</span>
+        </div>
+    </summary>
+
+    <div class="section-container item-list">
+        <select name="system.filter.abilities" class="item-filter">
+            {{#select system.filter.abilities}}
+                <option value="All">Filter By...</option>
+                <option value="Core">Core</option>
+                <option value="Awakened">Awakened</option>
+                <option value="Learned">Learned</option>
+                <option value="Rear-Guard">Rear-Guard</option>
+                <option value="Training">Training</option>
+            {{/select}}
+        </select>
+
+        {{#each abilities as |item id|}}
+            {{#if (eq item.system.filter "All")}}
+                <div class="char-items-container">
+                    <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="ability-grid">
+                            <div class="action-left rollable" data-roll-type='item'>
+                                <div class="action-img">
+                                    <img
+                                    src='{{item.img}}'
+                                    title='{{item.name}}'
+                                    width='24'
+                                    height='24'
+                                    />
+                                </div>
+                                <div class="action-name">
+                                    <div class="action-topper">{{item.name}}</div>
+                                    <div class="action-footer">
+                                        {{item.system.type}} • Rank {{item.system.rank}} • {{item.system.sp}} SP • {{item.system.actions}}
+                                    </div>
+                                </div>
+                            </div>
+                            <span>
+                                {{#if item.system.check.value}} +{{item.system.rollMod}} {{else}} — {{/if}}
+                            </span>
+                            <span>
+                                {{#if item.system.save.value}} {{item.system.saveDC}} {{item.system.save.type}} {{else}} — {{/if}}
+                            </span>
+                            <span>{{item.system.range}}</span>
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.name}}</div>
+                                <div class="popup-subtitle">Rank {{item.system.rank}} • {{item.system.sp}} SP • {{item.system.actions}}</div>
+                            </div>
+
+                            {{#if item.system.component.one}}
+                            <div class="popup-components">
+                                <div class="component-container">{{item.system.component.one}}</div>
+                                {{#if item.system.component.two}} <div class="component-container">{{item.system.component.two}}</div> {{/if}}
+                                {{#if item.system.component.three}} <div class="component-container">{{item.system.component.three}}</div> {{/if}}
+                            </div>
+                            {{/if}}
+
+                            {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+
+                            <div class="popup-footer">
+                                {{#if item.system.check.value}} <span class="popup-check">{{item.system.check.defense}}</span> {{/if}}
+                                {{#if item.system.damage.value}} <span>{{item.system.damage.type}} Damage</span> {{/if}} 
+                                {{#if item.system.range}} <span>{{item.system.range}}</span> {{/if}}
+                                {{#if item.system.save.value}} <span>DC {{item.system.saveDC}} {{item.system.save.type}}</span> {{/if}} {{!-- Show Save DC & Type --}}
+                                {{#if item.system.effect}} <span>{{item.system.effect}}</span> {{/if}}
+                                {{#if item.system.duration}} <span>{{item.system.duration}}</span> {{/if}}
+
+                                {{#if item.system.tag1.name}} <span>{{item.system.tag1.name}}</span> {{/if}}
+                                {{#if item.system.tag2.name}} <span>{{item.system.tag2.name}}</span> {{/if}}
+                                {{#if item.system.tag3.name}} <span>{{item.system.tag3.name}}</span> {{/if}}
+                                {{#if item.system.tag4.name}} <span>{{item.system.tag4.name}}</span> {{/if}}
+                                {{#if item.system.tag5.name}} <span>{{item.system.tag5.name}}</span> {{/if}}
+                                {{#if item.system.tag6.name}} <span>{{item.system.tag6.name}}</span> {{/if}}
+                                {{#if item.system.tag7.name}} <span>{{item.system.tag7.name}}</span> {{/if}}
+                                {{#if item.system.tag8.name}} <span>{{item.system.tag8.name}}</span> {{/if}}
+                                {{#if item.system.tag9.name}} <span>{{item.system.tag9.name}}</span> {{/if}}
+                                {{#if item.system.tag10.name}} <span>{{item.system.tag10.name}}</span> {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+
+            {{#if (eq item.system.type item.system.filter)}}
+                <div class="char-items-container">
+                    <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="ability-grid">
+                            <div class="action-left rollable" data-roll-type='item'>
+                                <div class="action-img">
+                                    <img
+                                    src='{{item.img}}'
+                                    title='{{item.name}}'
+                                    width='24'
+                                    height='24'
+                                    />
+                                </div>
+                                <div class="action-name">
+                                    <div class="action-topper">{{item.name}}</div>
+                                    <div class="action-footer">
+                                        {{item.system.type}} • Rank {{item.system.rank}} • {{item.system.sp}} SP • {{item.system.actions}}
+                                    </div>
+                                </div>
+                            </div>
+                            <span>+{{item.system.rollMod}}</span>
+                            <span>DC {{item.system.saveDC}}</span>
+                            <span>{{item.system.range}}</span>
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.name}}</div>
+                                <div class="popup-subtitle">Rank {{item.system.rank}} • {{item.system.sp}} SP • {{item.system.actions}}</div>
+                            </div>
+
+                            {{#if item.system.component.one}}
+                            <div class="popup-components">
+                                <div class="component-container">{{item.system.component.one}}</div>
+                                {{#if item.system.component.two}} <div class="component-container">{{item.system.component.two}}</div> {{/if}}
+                                {{#if item.system.component.three}} <div class="component-container">{{item.system.component.three}}</div> {{/if}}
+                            </div>
+                            {{/if}}
+
+                            {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+
+                            <div class="popup-footer">
+                                {{#if item.system.check.value}} <span class="popup-check">{{item.system.check.defense}}</span> {{/if}}
+                                {{#if item.system.damage.value}} <span>{{item.system.damage.type}} Damage</span> {{/if}} 
+                                {{#if item.system.range}} <span>{{item.system.range}}</span> {{/if}}
+                                {{#if item.system.save.value}} <span>DC {{item.system.saveDC}} {{item.system.save.type}}</span> {{/if}} {{!-- Show Save DC & Type --}}
+                                {{#if item.system.effect}} <span>{{item.system.effect}}</span> {{/if}}
+                                {{#if item.system.duration}} <span>{{item.system.duration}}</span> {{/if}}
+
+                                {{#if item.system.tag1.name}} <span>{{item.system.tag1.name}}</span> {{/if}}
+                                {{#if item.system.tag2.name}} <span>{{item.system.tag2.name}}</span> {{/if}}
+                                {{#if item.system.tag3.name}} <span>{{item.system.tag3.name}}</span> {{/if}}
+                                {{#if item.system.tag4.name}} <span>{{item.system.tag4.name}}</span> {{/if}}
+                                {{#if item.system.tag5.name}} <span>{{item.system.tag5.name}}</span> {{/if}}
+                                {{#if item.system.tag6.name}} <span>{{item.system.tag6.name}}</span> {{/if}}
+                                {{#if item.system.tag7.name}} <span>{{item.system.tag7.name}}</span> {{/if}}
+                                {{#if item.system.tag8.name}} <span>{{item.system.tag8.name}}</span> {{/if}}
+                                {{#if item.system.tag9.name}} <span>{{item.system.tag9.name}}</span> {{/if}}
+                                {{#if item.system.tag10.name}} <span>{{item.system.tag10.name}}</span> {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+</details>

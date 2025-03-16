@@ -1,0 +1,524 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <nav class="sheet-tabs tabs tabsV2" data-group="primary">
+    <a class="item" data-tab="description" data-title="Description"><i class="fa-solid fa-feather-pointed"></i></a>
+    <a class="item" data-tab="attributes" data-title="Attributes"><i class="fa-solid fa-bolt"></i></a>
+    <a class="item" data-tab="tags" data-title="Tags"><i class="fa-solid fa-list"></i></a>
+    <a class="item" data-tab="effects"><i class="fa-solid fa-fire"></i></a>
+  </nav>
+
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+
+    <label class="settings-button" data-title="Settings">
+        <i class="fa-solid fa-cog"></i>
+    </label>
+    
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{system.type}} {{#if system.holdable}}•  {{system.hand}} {{/if}}</span>
+
+                      <label class="favorite">
+                        <input type="checkbox" name="system.favorite" {{checked system.favorite}}>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </label>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        <div class="section-container">
+          <select name="system.type">
+              {{#select system.type}}
+                <option value="Accessory">Accessory</option>
+                <option value="Armor">Armor</option>
+                <option value="Consumable">Consumable</option>
+                <option value="Item">Item</option>
+                <option value="Shield">Shield</option>
+                <option value="Weapon">Weapon</option>
+                <option value="Other">Other</option>
+              {{/select}}
+            </select>
+        </div>
+
+        {{#if system.equippable}}
+        <label>
+          <input type="checkbox" name="system.equip" {{checked system.equip}}>
+          <span class="checked">Equipped</span>
+          <span class="unchecked">Stowed</span>
+        </label>
+        {{/if}}
+
+        <div class="split-section">
+          <div class="section-container inline-section">
+            <span>Qt</span>
+            <input type="number" data-dtype="Number" name="system.quantity" value="{{system.quantity}}" placeholder="1">
+          </div>
+
+          <div class="section-container inline-section">
+            <span>$</span>
+            <input type="number" data-dtype="Number" name="system.cost" value="{{system.cost}}" placeholder="1">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc" data-group="primary" data-tab="description">
+
+        <div class="section-container desc">
+          {{editor system.descriptionHTML target="system.description" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+
+        <div class="item-tags-preview">
+          {{#if system.check.value}} <span>vs {{system.check.defense}}</span> {{/if}} {{!-- Show Target Defense --}}
+          {{#if system.damage.value}} <span>{{system.damage.type}} Damage</span> {{/if}} {{!-- Show Damage --}}
+          {{#if system.range}}<span>{{system.range}}</span>{{/if}}{{!-- Show Range --}}
+          {{#if system.save.value}} <span>{{system.save.type}} Save</span> {{/if}} {{!-- Show Save DC & Type --}}
+          {{#if system.effect}} <span>{{system.effect}}</span> {{/if}} {{!-- Show Effects --}}
+          {{#if system.duration}} {{#unless (eq system.duration "Instant")}} <span>{{system.duration}}</span> {{/unless}}{{/if}} {{!-- Show Duration --}}
+
+          {{#each system.tags as |tag key|}}
+            {{#if tag.show}}<span>{{tag.name}}</span>{{/if}}
+          {{/each}}
+
+          {{#each props as |tag key|}}
+            {{#if tag.system.show}}<span>{{tag.name}}</span>{{/if}}
+          {{/each}}
+
+          {{#each cores as |tag key|}}
+            {{#if tag.system.show}}<span>{{tag.name}}</span>{{/if}}
+          {{/each}}
+        </div>
+        
+      </div>
+
+      {{!-- Attributes Tab --}}
+      <div class="tab item-attributes" data-group="primary" data-tab="attributes">
+        {{!-- As you add new fields, add them in here! --}}
+
+        <div class="roll-selectors">
+          <div class="attribute-section">
+            <select name="system.check.value" class="roll-mod-toggler" value="{{system.check.value}}">
+              {{#select system.check.value}}
+                  <option value="">No Check</option>
+                  <option value="check">Check</option>
+                  <option value="barrage">Barrage</option>
+                {{/select}}
+            </select>
+
+            <div class="section-container">
+              <div class="inline-select">
+                <select name="system.formula">
+                  {{#select system.formula}}
+                    <option value="@actor.roll + @actor.key.mod + {{system.mastery.value}} + @check.bonus">Key</option>
+                    <option value="@actor.roll + @actor.attributes.pow.value + {{system.mastery.value}} + @check.bonus">Pow</option>
+                    <option value="@actor.roll + @actor.attributes.dex.value + {{system.mastery.value}} + @check.bonus">Dex</option>
+                    <option value="@actor.roll + @actor.attributes.int.value + {{system.mastery.value}} + @check.bonus">Int</option>
+                    <option value="@actor.roll + @actor.attributes.wil.value + {{system.mastery.value}} + @check.bonus">Wil</option>
+                  {{/select}}
+                </select>
+
+                <select name="system.mastery.rank">
+                  {{#select system.mastery.rank}}
+                    <option value="Artillery">Artillery</option>
+                    <option value="Axes">Axes</option>
+                    <option value="Blades">Blades</option>
+                    <option value="Blunt">Blunt</option>
+                    <option value="Bows">Bows</option>
+                    <option value="Brawling">Brawling</option>
+                    <option value="Energy">Energy</option>
+                    <option value="Polearms">Polearms</option>
+                    <option value="Shields">Shields</option>
+                    <option value="Whips">Whips</option>
+                    <option style="color: white;" value="Untrained" disabled>_________</option>
+                    <option style="color: white;" value="Untrained">Untrained</option>
+                    <option style="color: white;" value="Trained">Trained</option>
+                    <option style="color: white;" value="Adept">Adept</option>
+                    <option style="color: white;" value="Expert">Expert</option>
+                    <option style="color: white;" value="Master">Master</option>
+                    <option style="color: white;" value="Legend">Legend</option>
+                  {{/select}}
+                </select>
+              </div>
+
+              <div class="roll-selectBonus">
+                <span>Bonus</span>
+                <input type="text" class="roll-bonus" name="system.check.bonus" value="{{system.check.bonus}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="attribute-section">
+            <select name="system.save.value" class="roll-mod-toggler" value="{{system.save.value}}">
+              {{#select system.save.value}}
+                <option value="">No Save</option>
+                <option value="true">Save</option>
+              {{/select}}
+            </select>
+
+            <div class="section-container">
+              <div class="roll-selectBonus">
+                <select name="system.save.type" class="item-select">
+                  {{#select system.save.type}}
+                    <option value="POW">Pow</option>
+                    <option value="DEX">Dex</option>
+                    <option value="INT">Int</option>
+                    <option value="WIL">Wil</option>
+                  {{/select}}
+                </select>
+
+                <span>Bonus</span>
+                <input type="text" class="roll-bonus" name="system.save.bonus" value="{{system.save.bonus}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="attribute-section"> {{!-- Damage section --}}
+            {{!-- DAMAGE TOGGLE --}}
+            <select name="system.damage.value" class="roll-mod-toggler" value="{{system.damage.value}}">
+              {{#select system.damage.value}}
+                  <option value="">No Damage</option>
+                  <option value="true">Damage</option>
+                {{/select}}
+            </select>
+
+            <div class="section-container">
+              <div class="inline-select">
+                <select name="system.damage.type" class="item-select">
+                  {{#select system.damage.type}}
+                    <option value="Normal" selected>Normal</option>
+                    <option value="Acid">Acid</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Force">Force</option>
+                    <option value="Earth">Earth</option>
+                    <option value="Healing">Healing</option>
+                    <option value="Lightning">Lightning</option>
+                    <option value="Poison">Poison</option>
+                    <option value="Psychic">Psychic</option>
+                    <option value="Radiant">Radiant</option>
+                    <option value="Sonic">Sonic</option>
+                    <option value="Water">Water</option>
+                    <option value="Wind">Wind</option>
+                  {{/select}}
+                </select>
+              </div>
+
+              <div class="damage-dice">
+                <input type="number" class="damageInput" name="system.damage.die.one.num" value="{{system.damage.die.one.num}}" data-dtype="Number">
+                <select name="system.damage.die.one.face" class="item-select">
+                  {{#select system.damage.die.one.face}}
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                  {{/select}}
+                </select>
+                <span>+</span>
+                <input type="number" class="damageInput" name="system.damage.bonus" value="{{system.damage.bonus}}" data-dtype="Number">
+                <span>+</span>
+                <select name="system.damage.stat" class="item-select" data-title="Bonus Attribute Damage">
+                  {{#select system.damage.stat}}
+                    <option value="0">None</option>
+                    <option value="@actor.key.mod">Key</option>
+                    <option value="@actor.attributes.pow.value">Pow</option>
+                    <option value="@actor.attributes.dex.value">Dex</option>
+                    <option value="@actor.attributes.int.value">Int</option>
+                    <option value="@actor.attributes.wil.value">Wil</option>
+                  {{/select}}
+                </select>
+              </div>
+
+              <div class="bonus-dice">
+                <input type="number" class="damageInput" name="system.damage.die.two.num" value="{{system.damage.die.two.num}}" data-dtype="Number">
+                <select name="system.damage.die.two.face" class="item-select">
+                  {{#select system.damage.die.two.face}}
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                  {{/select}}
+                </select>
+
+                <input type="number" class="damageInput" name="system.damage.die.three.num" value="{{system.damage.die.three.num}}" data-dtype="Number">
+                <select name="system.damage.die.three.face" class="item-select">
+                  {{#select system.damage.die.three.face}}
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                  {{/select}}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="attribute-details">
+          
+          <div class="attribute-section">
+            <div class="section-container inline-section">
+              <span>Action</span>
+
+              {{!-- ACTION TRACKER --}}
+              <div class="action-tracker">
+                {{log system}}
+                  
+                  {{!-- REACTION --}}
+                    {{#loop system.actions.reaction.max 1}}
+                        <div class="action-bubble" data-action="system.actions.reaction.value" data-value="{{@index}}" data-title="Reaction {{#if (gt system.actions.reaction.max 1)}} {{@index}} {{/if}}">
+                            {{#if (lte @index system.actions.reaction.value)}}
+                                <div class="action-ready reaction"></div>
+                            {{else}}
+                                <div class="action-spent reaction"></div>
+                            {{/if}}
+                        </div>
+                    {{/loop}}
+
+                  {{!-- STANDARD --}}
+                  {{#loop system.actions.standard.max 1}}
+                      <div class="action-bubble" data-action="system.actions.standard.value" data-value="{{@index}}" data-title="Standard Action {{#if (gt system.actions.standard.max 1)}} {{@index}} {{/if}}">
+                          {{#if (lte @index system.actions.standard.value)}}
+                              <div class="action-ready standard"></div>
+                          {{else}}
+                              <div class="action-spent standard"></div>
+                          {{/if}}
+                      </div>
+                  {{/loop}}
+
+                  {{!-- QUICK --}}
+                  {{#loop system.actions.quick.max 1}}
+                      <div class="action-bubble" data-action="system.actions.quick.value" data-value="{{@index}}" data-title="Quick Action {{#if (gt system.actions.quick.max 1)}} {{@index}} {{/if}}">
+                          {{#if (lte @index system.actions.quick.value)}}
+                              <div class="action-ready quick"></div>
+                          {{else}}
+                              <div class="action-spent quick"></div>
+                          {{/if}}
+                      </div>
+                  {{/loop}}
+              </div>
+            </div>
+
+            {{!-- RARITY --}}
+            <div class="section-container inline-section">
+              <span>Rarity</span>
+              <select name="system.rarity">
+                {{#select system.rarity}}
+                  <option value="Starter">Starter</option>
+                  <option value="★">★</option>
+                  <option value="★★">★★</option>
+                  <option value="★★★">★★★</option>
+                  <option value="★★★★">★★★★</option>
+                  <option value="★★★★★">★★★★★</option>
+                  <option value="★★★★★★">★★★★★★</option>
+                {{/select}}
+              </select>
+            </div>
+
+            {{!-- USES --}}
+            <div class="section-container inline-section">
+              <span>Uses</span>
+              <div class="item-uses">
+                <input type="text" class="item-input" name="system.charges.value" value="{{system.charges.value}}" data-dtype="Number"/>
+                /
+                <input type="text" class="item-input" name="system.charges.max" value="{{system.charges.max}}" data-dtype="Number"/>
+              </div>
+            </div>
+
+            {{!-- SLOT --}}
+            {{#if system.equip}}
+            <div class="section-container inline-section">
+              <span>Slot</span>
+              <select name="system.slot">
+                {{#select system.slot}}
+                  {{#if (eq system.type "Weapon")}}
+                  <option value="free">Free Slot</option>
+                  <option value="slot1">Slot 1</option>
+                  <option value="slot2">Slot 2</option>
+                  <option value="slot3">Slot 3</option>
+                  <option value="slot4">Slot 4</option>
+                  {{/if}}
+                  {{#if (eq system.type "Shield")}}
+                  <option value="free">Free Slot</option>
+                  <option value="slot1">Slot 1</option>
+                  <option value="slot2">Slot 2</option>
+                  <option value="slot3">Slot 3</option>
+                  <option value="slot4">Slot 4</option>
+                  {{/if}}
+                  {{#if (eq system.type "Accessory")}}
+                  <option value="slot1">Slot 1</option>
+                  <option value="slot2">Slot 2</option>
+                  <option value="slot3">Slot 3</option>
+                  <option value="slot4">Slot 4</option>
+                  <option value="slot5">Slot 5</option>
+                  <option value="slot6">Slot 6</option>
+                  {{/if}}
+                  {{#if (eq system.type "Armor")}}
+                  <option value="head">Head</option>
+                  <option value="chest">Chest</option>
+                  <option value="arms">Arms</option>
+                  <option value="legs">Legs</option>
+                  {{/if}}
+                {{/select}}
+              </select>
+            </div>
+            {{/if}}
+            
+            {{!-- TARGET --}}
+            <div class="section-container inline-section">
+              <span>Target</span>
+              <select name="system.check.defense" class="item-select">
+                {{#select system.check.defense}}
+                  <option value="P. Def">Physical</option>
+                  <option value="A. Def">Arcane</option>
+                  <option value="Flat">Flat Check</option>
+                {{/select}}
+              </select>
+            </div>
+
+            {{!-- RANGE --}}
+            <div class="section-container inline-section">
+              <span>Range</span>
+              <select name="system.range">
+                {{#select system.range}}
+                  <option value=""> No Range</option>
+                  <option value="Self">Self</option>
+                  <option value="Close (0)">Close (0)</option>
+                  <option value="Short (1)">Short (1)</option>
+                  <option value="Long (2)">Long (2)</option>
+                  <option value="Far (3)">Far (3)</option>
+                {{/select}}
+              </select>
+            </div>
+
+            {{!-- DURATION --}}
+            <div class="section-container inline-section">
+              <span>Duration</span>
+              <select name="system.duration">
+                {{#select system.duration}}
+                  <option value="Instant">Instant</option>
+                  <option value="1 Round">1 Round</option>
+                  <option value="Persistent">Persistent</option>
+                  <option value="Upkeep">Upkeep</option>
+                  <option value="Concentration">Concentration</option>
+                {{/select}}
+              </select>
+            </div>
+            
+            {{#if system.holdable}}
+            {{!-- HAND STYLE --}}
+            <div class="section-container inline-section">
+              <span>Hand Style</span>
+              <select name="system.hand">
+                {{#select system.hand}}
+                  <option value="Main-Hand">Main-Hand</option>
+                  <option value="Off-Hand">Off-Hand</option>
+                  <option value="Two-Handed">Two-Handed</option>
+                {{/select}}
+              </select>
+            </div>
+            {{/if}}
+          </div>
+
+        </div>
+
+      </div>
+
+      {{!-- Tags Tab --}}
+      <div class="tab item-tags" data-group="primary" data-tab="tags">
+        {{!-- As you add new fields, add them in here! --}}
+        <div class="section-header">
+          <span>
+            Properties
+          </span>
+          
+          <span class="tags-control">
+            {{#if (gte system.tagCount 1)}}<div class="tagCountDown">-</div>{{/if}} <div class="tagCountUp">+</div>
+          </span>
+          
+        </div>
+        <div class="item-tag-grid">
+          {{#each system.tags as |tag key|}}
+            <div class="item-tag">
+              <div class="section-container inline-section">
+                <input class="tag-name" type="text" name="system.tags.{{key}}.name" value="{{tag.name}}" placeholder="Property Name">
+              </div>
+
+              <label class="tag-show">
+                <input type="checkbox" name="system.tags.{{key}}.show" {{checked tag.show}}>
+                <i class="fa-solid fa-eye"></i>
+              </label>
+            </div>
+          {{/each}}
+
+          {{#each props as |tag key|}}
+            <div class="item-tag stored-item" data-item-id="{{tag.id}}">
+              
+              <div class="section-container inline-section">
+                <input class="tag-name inline-edit" type="text" name="system.items.{{tag.id}}.name" value="{{tag.name}}" placeholder="Tag Name">
+              </div>
+
+              <label class="tag-show">
+                <input type="checkbox" name="system.items.{{tag.id}}.system.show" {{checked tag.system.show}}>
+                <i class="fa-solid fa-eye"></i>
+              </label>
+            </div>
+          {{/each}}
+        </div>
+
+        {{#if (or (eq system.type "Weapon") (eq system.type "Armor") (eq system.type "Shield"))}}
+          {{!-- As you add new fields, add them in here! --}}
+          <div class="section-header inline-section">
+            <span>
+              Cores
+            </span>
+
+            <span class="core-input">
+              Core Slots <input type="number" data-dtype="Number" name="system.cores.max" value="{{system.cores.max}}" placeholder="1">
+            </span>
+          </div>
+
+          <div class="item-tag-grid">
+            {{#each cores as |tag key|}}
+              <div class="item-tag stored-item" data-item-id="{{tag.id}}">
+                
+                <div class="section-container inline-section">
+                  <input class="tag-name inline-edit" type="text" name="system.items.{{tag.id}}.name" value="{{tag.name}}" placeholder="Tag Name">
+                </div>
+
+                <label class="tag-show">
+                  <input type="checkbox" name="system.items.{{tag.id}}.system.show" {{checked tag.system.show}}>
+                  <i class="fa-solid fa-eye"></i>
+                </label>
+              </div>
+            {{/each}}
+
+            
+
+            {{#loop (sub system.cores.max system.cores.value) 1}}
+              <div class="section-container inline-section" style="justify-content: center">
+                  Empty Slot
+              </div>
+            {{/loop}}
+          </div>
+        {{/if}}
+      </div>
+
+      {{!-- Effects Tab --}}
+      <div class="tab effects" data-group="primary" data-tab="effects">
+        {{> "systems/storyforge/templates/item/parts/item-effects.hbs"}}
+      </div>
+    </section>
+  </div>
+</form>

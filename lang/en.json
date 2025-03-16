@@ -1,0 +1,40 @@
+{
+  "STORYFORGE": {
+    "Ability": {
+      "Pow": { "long": "Power", "abbr": "POW" },
+      "Dex": { "long": "Dexterity", "abbr": "DEX" },
+      "Int": { "long": "Intellect", "abbr": "INT" },
+      "Wil": { "long": "Will", "abbr": "WIL" }
+    },
+    "SheetLabels": {
+      "Actor": "Storyforge Actor Sheet",
+      "NewActor": "New Storyforge Actor Sheet",
+      "Item": "Storyforge Item Sheet"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Level {level} Spells",
+        "AddLVL": "Add LVL {level}"
+      }
+    },
+    "Effect": {
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects"
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Item",
+      "feature": "Feature",
+      "spell": "Spell"
+    }
+  }
+}

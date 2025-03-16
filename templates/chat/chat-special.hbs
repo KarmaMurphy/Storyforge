@@ -1,0 +1,17 @@
+<div class="storyforge">
+
+    <div class="roll-container">
+        <div class="roll-header-bg"></div>
+        <div class="roll-img-check">
+            <img src="{{item.img}}" title="{{item.name}}" class="roll-img">
+        </div>
+
+        <div class="roll-header">
+            <div class="roll-title">{{special.name}}</div>
+            <div class="roll-subtitle">{{item.name}} • {{rank}} </div>
+        </div>
+
+        {{#if special.desc}} <div class="roll-desc"> {{{special.desc}}} </div> {{/if}}
+    </div>
+    
+</div>

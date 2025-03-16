@@ -1,0 +1,33 @@
+<div class="storyforge">
+
+    <div class="check">
+        <div class="check-inner">
+            <div class="check-left">
+                {{#if item.name}} {{item.name}} {{else}} {{label}} {{/if}} • [[{{roll.result}}]]
+            </div>
+            
+            <details class="roll-details">
+                <summary class="show-results"></summary>
+                <div class="roll-results">
+                    <span class="roll-formula">{{roll.formula}}</span>
+
+                    <div class="dice-tooltip">
+                        {{#each roll.dice as |dice id|}} 
+                            <ol class="dice-rolls">
+                                {{#each dice.results as |results id|}} 
+                                    {{#if results.discarded}}
+                                        <li class="die roll d{{dice.faces}} discarded">{{results.result}} </li>
+                                    {{else}}
+                                        <li class="die roll d{{dice.faces}}">{{results.result}} </li>
+                                    {{/if}}
+                                    
+                                {{/each}}
+                            </ol>
+                        {{/each}}
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+    
+</div>

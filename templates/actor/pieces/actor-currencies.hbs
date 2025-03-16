@@ -1,0 +1,13 @@
+<div class="currencies item-list" >
+    <div class="currency-container">
+        <img src="systems/storyforge/assets/gold-units.png" alt="" class="currency-img" title="Units">
+        <input type="text" class="currency-input" name="system.currency.one" value="{{system.currency.one}}" data-dtype="Number">
+    </div>
+
+    {{#each currencies as |item id|}}
+    <div class="currency-container currency-context item" data-item-id='{{item._id}}'>
+        <img src="{{item.img}}" class="currency-img" title="{{item.name}}">
+        <input type="text" class="currency-input inline-edit" name="item.system.quantity" value="{{item.system.quantity}}" data-dtype="Number" data-field="system.quantity">
+    </div>
+    {{/each}}
+</div>

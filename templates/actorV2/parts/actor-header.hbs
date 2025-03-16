@@ -1,0 +1,191 @@
+<label class="edit-switch" data-title="Edit Mode">
+    <input type="checkbox" class="edit-toggle" name="system.edit" {{checked system.edit}}/>
+    <div class="switch"><i class="fa-solid fa-wrench"></i></div>
+</label>
+
+<label class="settings-button" data-title="Settings">
+    <i class="fa-solid fa-cog"></i>
+</label>
+
+<div class="new-char-header {{#if system.edit}}edit-mode{{/if}}">
+    <div class="header-left">
+        <div class="char-img">
+            <img class="char-img {{#unless owner}}show-img{{/unless}}" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+            <div class="lvl" data-title="Tier {{system.tier}}">
+                {{#unless system.edit}}
+                    <span>{{system.level}}</span>
+                {{else}}
+                    <input type="number" class="char-lvl" name="system.level" value="{{system.level}}" placeholder="1">
+                {{/unless}}
+            </div>
+        </div>
+
+        <div class="char-title-details">
+            {{#unless system.edit}}
+                <div class="char-title">
+                    <span>{{actor.name}}</span>
+                </div>
+                <div class="char-subtitle">
+                    <span>{{system.title}}</span>
+                </div>
+            {{else}}
+                <div class="char-title">
+                    <input type="text" name="name" value="{{actor.name}}" placeholder="Character Name">
+                </div>
+                <div class="char-subtitle">
+                    <input type="text" name="system.title" value="{{system.title}}" placeholder="Title">
+                </div>
+            {{/unless}}
+
+            {{#unless system.edit}}
+                <div class="rest-fate">
+                    <div class="header-button-container">
+                        <a class="header-button-inner quick-rest" data-title="Quick Rest">
+                            <i class="fa-solid fa-utensils"></i>
+                        </a>
+
+                        <div class="rest-counter">
+                            {{#loop 2 1}}
+                                {{#if (lte @index system.shortRests)}}
+                                    <div class="rest-indicator filled"></div>
+                                {{else}}
+                                    <div class="rest-indicator"></div>
+                                {{/if}}
+                            {{/loop}}
+                        </div>
+                    </div>
+
+                    <div class="header-button-container">
+                        <a class="header-button-inner full-rest" data-title="Full Rest">
+                            <i class="fa-solid fa-moon"></i>
+                        </a>
+                    </div>
+
+                    <div class="header-button-container">
+                        <div class="header-button-inner" data-title="Fate">
+                            <i class="fa-solid fa-clover" style="margin-left: 6px;"></i>
+                            <input type="text" name="system.fate" value="{{system.fate}}">
+                        </div>
+                    </div>
+
+                    <div class="header-button-container">
+                        <div class="header-button-inner" data-title="Stress & Trauma">
+                            <i class="fa-solid fa-heart-crack" style="margin-left: 6px;"></i>
+                            <input type="text" style="color: #CA9849; border-right: dashed 1px #9F9275; border-radius: 0;" name="system.stress.value" value="{{system.stress.value}}">
+                            <input type="text" style="color: #CA4949" name="system.wounds.value" value="{{system.wounds.value}}">
+                            <i class="fa-solid fa-skull" style="margin-right: 6px;"></i>
+                        </div>
+                    </div>
+                </div>
+            {{/unless}}
+        </div>
+    </div>
+
+    <div class="header-right">
+        {{#unless system.edit}}
+            <div class="life-containers">
+                <div class="new-life-bar">
+                    <div class="health-bar">
+                        <div class="life-inputs">
+                            <input type="text" class="life-input health-edit" name="system.health.value" data-dtype="Number" value="{{system.health.value}}">
+                            <div class="life-current health">
+                                {{system.health.value}} / {{system.health.max}}
+                            </div>
+                        </div>
+
+                        <input type="hidden" class="bar-value" name="system.hpBar" value="{{system.hpBar}}" data-dtype="Number" value="100">
+                        <div class="life-bar-track">
+                            <div class="life-bar-progress"></div>
+                        </div>
+                    </div>
+
+                    <input type="number" class="block life-input" name="system.block" value="{{system.block}}">
+                </div>
+
+                <div class="new-life-bar">
+                    <div class="life-inputs">
+                        <input type="text" class="life-input spirit-edit" name="system.spirit.edit" data-dtype="Number" value="{{system.spirit.edit}}">
+                        <div class="life-current spirit">
+                            {{system.spirit.value}} / {{system.spirit.max}}
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="bar-value" name="system.spBar" value="{{system.spBar}}" data-dtype="Number" value="100">
+                    <div class="life-bar-track spirit">
+                        <div class="life-bar-progress"></div>
+                    </div>
+                </div>
+            </div>
+        {{/unless}}
+
+        <div class="attribute-containers">
+            {{#each system.attributes as |ability key|}}
+                <div class="attribute-container">
+                    <div class="attribute {{#unless ...system.edit}}rollable{{/unless}}" data-roll="@roll+@attributes.{{key}}.value"  data-label="{{ability.label}}" data-subtitle="Attribute Check">
+                        <label for="system.attributes.{{key}}.value" title="{{ability.label}}" class="resource-label align-left">{{ability.label}}</label>
+                        {{#unless ...system.edit}}
+                            <div class="attribute-value"> {{ability.value}} </div>
+                        {{else}}
+                            <select name="system.attributes.{{key}}.value" class="attribute-value">
+                                {{#select ability.value}}
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                {{/select}}
+                            </select>
+                        {{/unless}}
+                    </div>
+                    {{#unless ...system.edit}}
+                        <div class="attribute-save rollable" class="rollable align-left" data-roll="@roll+@attributes.{{key}}.save"  data-label="{{ability.label}}" data-subtitle="Saving Throw">
+                            <span>SAVE</span> <span>{{ability.save}}</span>
+                        </div>
+                    {{/unless}}
+                </div>
+            {{/each}}
+        </div>
+        {{#unless system.edit}}
+            <div class="edge-snag">
+                <div class="{{#if (eq system.roll "2d20kh")}}with{{/if}} edge" data-title="Edge"></div>
+                <div class="{{#if (eq system.roll "2d20kl")}}with{{/if}} snag" data-title="Snag"></div>
+            </div>
+        {{/unless}}
+    </div>
+    
+    {{#if system.edit}}
+        <div class="health-fields">
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.health.origin" value="{{system.health.origin}}" data-dtype="Number">
+                <div class="footer">STARTER HP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.health.bonus" value="{{system.health.bonus}}" data-dtype="Number">
+                <div class="footer">BONUS HP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.health.lvl" value="{{system.health.lvl}}" data-dtype="Number">
+                <div class="footer">LVL HP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.spirit.origin" value="{{system.spirit.origin}}" data-dtype="Number">
+                <div class="footer">STARTER SP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.spirit.bonus" value="{{system.spirit.bonus}}" data-dtype="Number">
+                <div class="footer">BONUS SP</div>
+            </div>
+
+            <div class="health-field">
+                <input type="number" class="health-input" name="system.spirit.lvl" value="{{system.spirit.lvl}}" data-dtype="Number">
+                <div class="footer">LVL SP</div>
+            </div>
+        </div>
+    {{/if}}
+</div>

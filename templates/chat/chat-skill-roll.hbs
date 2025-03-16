@@ -1,0 +1,58 @@
+<div class="storyforge">
+    <div class="new-roll-container" style="margin-top: 0;">
+        <div class="chat-bg-img"></div>
+
+        <div class="chat-container">
+            <details class="chat-body">
+                <summary class="chat-header">
+                    <div class="chat-img">
+                        <img src="{{actor.img}}" title="{{actor.name}}" class="chat-img">
+                    </div>
+                    
+                    <div class="chat-titles">
+                        <span class="chat-title">{{item.name}}</span>
+                        <span class="chat-subtitle">
+                            <span class="attribute">{{attribute}}</span>
+                            {{item.system.mastery.rank}}
+                        </span>
+                    </div>
+                </summary>
+
+                {{#if description}}
+                    <div class="chat-desc">{{{description}}}</div>
+                {{/if}}
+            </details>
+
+            {{#if check}}
+                <details class="chat-roll-details">
+                    <summary class="chat-actor-roll">
+                        {{check.total}}
+                    </summary>
+
+                    <div class="roll-results">
+                        {{#if (eq subtitle "Equipment Mastery")}}
+                            <span class="roll-formula">Mastery Bonus • {{check}}</span>
+                        {{else}}
+                            <span class="roll-formula">Check • {{check}}</span>
+                        {{/if}}
+
+                        <div class="dice-tooltip">
+                            {{#each check.dice as |dice id|}} 
+                                <ol class="dice-rolls">
+                                    {{#each dice.results as |results id|}} 
+                                        {{#if results.discarded}}
+                                            <li class="die roll d{{dice.faces}} discarded">{{results.result}} </li>
+                                        {{else}}
+                                            <li class="die roll d{{dice.faces}}">{{results.result}} </li>
+                                        {{/if}}
+                                        
+                                    {{/each}}
+                                </ol>
+                            {{/each}}
+                        </div>
+                    </div>
+                </details>
+            {{/if}}
+        </div>
+    </div>
+</div>

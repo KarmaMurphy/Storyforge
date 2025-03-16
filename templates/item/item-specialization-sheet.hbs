@@ -1,0 +1,87 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <input type="hidden" name="system.formula" value="{{system.formula}}"/>
+
+  <div class="item-header">
+    <img class="item-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-name">
+        <input type="text" name="name" class="item-name" value="{{ item.name }}">
+        <div class="item-type">Specializations</div>
+    </div>
+  </div>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="one">Rank One</a>
+    <a class="item" data-tab="two">Rank Two</a>
+    <a class="item" data-tab="three">Rank Three</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="items sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="one">
+
+      <section class="item-description">
+        <div class="item-left">
+          <div class="item-details">
+            <div class="item-input">
+              <div class="item-input-title">Rank One Name</div>
+              <input type="text" name="system.tier.one.name" value="{{system.tier.one.name}}" placeholder="Rank Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="item-desc">
+          {{editor system.tier.one.desc target="system.tier.one.desc" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+      </section>
+      
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="two">
+
+      <section class="item-description">
+        <div class="item-left">
+          <div class="item-details">
+            <div class="item-input">
+              <div class="item-input-title">Rank Two Name</div>
+              <input type="text" name="system.tier.two.name" value="{{system.tier.two.name}}" placeholder="Rank Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="item-desc">
+          {{editor system.tier.two.desc target="system.tier.two.desc" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+      </section>
+      
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="three">
+
+      <section class="item-description">
+        <div class="item-left">
+          <div class="item-details">
+            <div class="item-input">
+              <div class="item-input-title">Rank Three Name</div>
+              <input type="text" name="system.tier.three.name" value="{{system.tier.three.name}}" placeholder="Rank Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="item-desc">
+          {{editor system.tier.three.desc target="system.tier.three.desc" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+      </section>
+      
+    </div>
+
+    {{!-- Effects Tab --}}
+    <div class="tab effects" data-group="primary" data-tab="effects">
+      {{> "systems/storyforge/templates/item/parts/item-effects.hbs"}}
+    </div>
+
+  </section>
+</form>

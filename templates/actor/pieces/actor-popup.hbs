@@ -1,0 +1,43 @@
+<div class="popup">
+    <div class="popup-container">
+        <div class="popup-header-bg"></div>
+        <div class="popup-img-check">
+            <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+        </div>
+
+        <div class="popup-header">
+            <div class="popup-title">{{item.name}}</div>
+            <div class="popup-subtitle">Rank {{item.system.rank}} • {{item.system.sp}} SP • {{item.system.actions}}</div>
+        </div>
+
+        {{#if item.system.component.one}}
+        <div class="popup-components">
+            <div class="component-container">{{item.system.component.one}}</div>
+            {{#if item.system.component.two}} <div class="component-container">{{item.system.component.two}}</div> {{/if}}
+            {{#if item.system.component.three}} <div class="component-container">{{item.system.component.three}}</div> {{/if}}
+        </div>
+        {{/if}}
+
+        {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+
+        <div class="popup-footer">
+            {{#if item.system.check.value}} <span class="popup-check">{{item.system.check.defense}}</span> {{/if}}
+            {{#if damage.value}} <span>[[{{item.system.damage.roll}}]] {{item.system.damage.type}}</span> {{/if}} 
+            {{#if item.system.range}} <span>{{item.system.range}}</span> {{/if}}
+            {{#if item.system.save.value}} <span>DC {{item.system.saveDC}} {{item.system.save.type}}</span> {{/if}} {{!-- Show Save DC & Type --}}
+            {{#if item.system.effects}} <span>{{item.system.effects}}</span> {{/if}}
+            {{#if item.system.duration}} <span>{{item.system.duration}}</span> {{/if}}
+
+            {{#if item.system.tag1.name}} <span>{{item.system.tag1.name}}</span> {{/if}}
+            {{#if item.system.tag2.name}} <span>{{item.system.tag2.name}}</span> {{/if}}
+            {{#if item.system.tag3.name}} <span>{{item.system.tag3.name}}</span> {{/if}}
+            {{#if item.system.tag4.name}} <span>{{item.system.tag4.name}}</span> {{/if}}
+            {{#if item.system.tag5.name}} <span>{{item.system.tag5.name}}</span> {{/if}}
+            {{#if item.system.tag6.name}} <span>{{item.system.tag6.name}}</span> {{/if}}
+            {{#if item.system.tag7.name}} <span>{{item.system.tag7.name}}</span> {{/if}}
+            {{#if item.system.tag8.name}} <span>{{item.system.tag8.name}}</span> {{/if}}
+            {{#if item.system.tag9.name}} <span>{{item.system.tag9.name}}</span> {{/if}}
+            {{#if item.system.tag10.name}} <span>{{item.system.tag10.name}}</span> {{/if}}
+        </div>
+    </div>
+</div>

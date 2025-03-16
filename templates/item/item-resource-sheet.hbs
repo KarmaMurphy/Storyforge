@@ -1,0 +1,38 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{item.type}}</span>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        <div class="section-container inline-section">
+          <span>Current</span>
+          <input type="number" data-dtype="Number" name="system.value.value" value="{{system.value.value}}" placeholder="1">
+        </div>
+
+        <div class="section-container inline-section">
+          <span>Max</span>
+          <input type="number" data-dtype="Number" name="system.value.max" value="{{system.value.max}}" placeholder="1">
+        </div>
+      </div>
+    </div>
+    <div class="item-sheet-main"></div>
+  </div>
+  
+</form>

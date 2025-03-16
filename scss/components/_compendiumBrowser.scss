@@ -1,0 +1,166 @@
+form.compendium-browser{
+    div.bg-img{
+        height: 200px;
+        filter: saturate(0);
+    }
+
+    div.compendium-header{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70px;
+        font-size: 30px;
+        text-transform: capitalize;
+        font-variant: small-caps;
+    }
+
+    div.sheet-main{
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        //height: calc(100% - 16px);
+        padding: 0 0 0 8px;
+        gap: 5px;
+
+        div.sheet-tabs{
+            height: 100%;
+        }
+
+        div.compendium-sidebar{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            div.section-container.inline-section.search-bar{
+                height: 45px;
+
+                input{
+                    border: none;
+                    background: none;
+                    box-shadow: none;
+                }
+
+                span{
+                    color: #9F9275;
+                }
+            }
+
+            div.compendium-filters{
+                max-height: 450px;
+                overflow-y: scroll;
+
+                span.filter-header{ display: flex; justify-content: center; align-items: center; gap: 8px; font-variant: small-caps;}
+
+                span.filter-header::before,
+                span.filter-header::after{
+                    content: "";
+                    background: var(--header-color);
+                    flex: 1;
+                    height: 1px;
+                }
+
+                div.filter-group{
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 4px;
+                }
+            }
+        }
+
+        div.compendium-items{
+            position: relative;
+            overflow-y: scroll;
+            max-height: 500px;
+            scrollbar-color: var(--scrollbar-color);
+
+            div.compendium-section-header{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: linear-gradient(to right, var(--header-dark), var(--header-color));
+                border-radius: 5px 5px 0 0;
+                padding: 0 5px;
+                height: 24px;
+                text-transform: capitalize;
+                font-variant: small-caps;
+                font-weight: 550;
+
+                span.compendium-source{
+                    width: 160px;
+                    text-align: center;
+                }
+            }
+
+            div.compendium-section-container{
+                flex: 1;
+                position: relative;
+                background: rgba(26, 26, 26, 0.6);
+                border: solid 1px #373737;
+                border-top: none;
+                border-radius: 0 0 5px 5px;
+                min-height: 470px;
+
+                div.compendium-item{
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 2px 5px;
+                    height: 40px;
+                    gap: 5px;
+                    cursor: pointer;
+
+                    div.item-left{
+                        display: flex;
+                        align-items: center;
+
+                        img.item-img{
+                            height: 30px;
+                            width: 30px;
+                            border: solid 1px #373737;
+                            border-radius: 5px;
+                        }
+                        div.item-details{
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: start;
+                            padding: 0;
+                            gap: 0;
+
+                            div.item-title{
+                                font-size: 15px;
+                                line-height: 10px;
+                                text-transform: capitalize;
+                                font-variant: small-caps;
+                            }
+
+                            div.item-subtitle{
+                                line-height: 14px;
+                                font-size: 15px;
+                                color: #9F9275;
+                                text-transform: lowercase;
+                                font-variant: small-caps;
+                            }
+                        }
+                    }
+
+                    span.compendium-source{
+                        width: 160px;
+                        text-align: center;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        font-variant: small-caps;
+                    }
+
+                    div.popup{
+                        position: fixed;
+                        left: 50px;
+                        right: auto;
+                    }
+                }
+            }
+        }
+    }
+}

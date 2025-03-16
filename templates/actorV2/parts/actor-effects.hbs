@@ -1,0 +1,177 @@
+{{#each effects as |section sid|}}
+  {{!-- <details class="details-container" open>
+      <summary class="section-header">
+        <li class="effects-grid" data-effect-type="{{section.type}}" data-parent-id="{{@root.actor.id}}">
+          <span style="margin: auto 0; display:flex">
+              {{localize section.label}}
+              <div class="item-controls effect-controls flexrow">
+                <a class="effect-control" data-action="create" title="{{localize 'DOCUMENT.Create' type="Effect"}}">
+                  <i class="fas fa-plus"></i>
+                </a>
+              </div>
+          </span>
+
+          <span></span>
+          <span>{{localize "EFFECT.TabDuration"}}</span>
+        </li>
+      </summary>
+
+      <div class="section-container item-list">
+
+        {{#each section.effects as |effect|}}
+          <div class="action item" style="position: relative;">
+            <li class="effects-grid" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}">
+                <div class="action-left">
+                    <div class="action-img">
+                        <img src="{{effect.icon}}" width='24' height='24'/>
+                    </div>
+                    <div class="action-name">
+                        <div class="action-topper">{{effect.name}}</div>
+                        <div class="action-footer">
+                            {{effect.sourceName}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-controls effect-controls flexrow">
+                  <a class="effect-control" data-action="toggle" title="{{localize 'STORYFORGE.Effect.Toggle'}}">
+                    <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+                  </a>
+                  <a class="effect-control" data-action="edit" title="{{localize 'DOCUMENT.Update' type="Effect"}}">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a class="effect-control" data-action="delete" title="{{localize 'DOCUMENT.Delete' type="Effect"}}">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </div>
+                <span>{{effect.duration.label}}</span>
+                
+            </li>
+          </div>
+        {{/each}}
+      </div>
+  </details> --}}
+  
+  {{#if section.effects}}
+
+    <details class="details-container skills" open>
+
+      <summary class="section-header"> 
+        <li class="effects-grid" data-effect-type="{{section.type}}" data-parent-id="{{@root.actor.id}}">
+          {{localize section.label}}
+          <div class="item-controls effect-controls flexrow">
+            <a class="effect-control" data-action="create" title="{{localize 'DOCUMENT.Create' type="Effect"}}">
+              <i class="fas fa-plus"></i>
+            </a>
+          </div>
+        </li>
+      </summary>
+
+      <div class="section-container item-list flexrow">
+          {{#each section.effects as |effect|}}
+          <li class="item effect flexrow" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}">
+              <div class="char-items-container">
+                  <div class="item-container action item" style="position: relative;" data-item-id='{{item._id}}'>
+                      <div class="item-left rollable" data-roll-type='skill'>
+                        <img class="item-image" src="{{effect.icon}}" style="height: 25px; width: 25px;"/>
+                        <div class="item-name" style="width: 100%;">
+                          <div class="action-name">{{effect.name}}</div>
+                          <div class="item-tags">
+                              <div class="item-tag">{{effect.sourceName}}</div>
+
+                              {{#unless (eq effect.duration.label "None")}}
+                                <div class="item-tag">{{effect.duration.label}}</div>
+                              {{/unless}}
+                              
+                              <div class="effect-control" data-action="toggle" title="{{localize 'STORYFORGE.Effect.Toggle'}}">
+                                <i class="fa-solid {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+                              </div>
+                              <div class="effect-control" data-action="edit" title="{{localize 'DOCUMENT.Update' type="Effect"}}">
+                                <i class="fa-solid fa-edit"></i>
+                              </div>
+                              <div class="effect-control" data-action="delete" title="{{localize 'DOCUMENT.Delete' type="Effect"}}">
+                                <i class="fa-solid fa-trash"></i>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        
+
+                        
+                      </div>
+                  </div>
+              </div>
+            </li>
+          {{/each}}
+      </div>
+
+    </details>
+
+  {{else}}
+    {{#if ...system.edit}}
+        <div class="empty-add effect-control" data-action="create" title="{{localize 'DOCUMENT.Create' type="Effect"}}">
+            Add {{sid}} Effect
+        </div>
+    {{/if}}
+  {{/if}}
+{{/each}}
+
+<div class="status-section">
+  <div class="section-header">STATUSES</div>
+
+  <div class="statuses">
+    {{#each system.statuses.positive as |status key|}}
+      <div class="status {{#if status.active}}active {{#if status.persistent}}persist{{/if}}{{/if}}" data-field="system.statuses.positive.{{key}}" data-name="{{status.label}}" data-category="status">
+        <div class="status-title">
+          <span class="status-name">{{status.name}}</span>
+
+          {{#if status.active}}
+            <i class="fa-solid fa-infinity persistent {{#if status.persistent}}toggled{{/if}}" data-field="system.statuses.positive.{{key}}.persistent"></i>
+          {{/if}}
+        </div>
+        
+        {{#if status.active}}
+          <input type="number" class="status-tier input" data-dtype="Number" name="system.statuses.positive.{{key}}.tier" value="{{status.tier}}">
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="statuses">
+    {{#each system.statuses.negative as |status key|}}
+      <div class="status {{#if status.active}}active {{#if status.persistent}}persist{{/if}}{{/if}}" data-field="system.statuses.negative.{{key}}" data-name="{{status.label}}" data-category="status">
+        <div class="status-title">
+          <span class="status-name">{{status.name}}</span>
+
+          {{#if status.active}}
+            <i class="fa-solid fa-infinity persistent {{#if status.persistent}}toggled{{/if}}" data-field="system.statuses.negative.{{key}}.persistent"></i>
+          {{/if}}
+        </div>
+        
+        {{#if status.active}}
+          <input type="number" class="status-tier input" data-dtype="Number" name="system.statuses.negative.{{key}}.tier" value="{{status.tier}}">
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
+
+  <details class="details-container" open>
+    <summary class="section-header">CONDITIONS</summary>
+    <div class="statuses">
+      {{#each system.statuses.conditions as |status key|}}
+        <div class="status {{#if status.active}}active {{#if status.persistent}}persist{{/if}}{{/if}}" data-field="system.statuses.conditions.{{key}}" data-name="{{status.name}}" data-category="condition">
+          <div class="status-title">
+            <span class="status-name">{{status.name}}</span>
+
+            {{#if status.active}}
+              <i class="fa-solid fa-infinity persistent {{#if status.persistent}}toggled{{/if}}" data-field="system.statuses.conditions.{{key}}.persistent"></i>
+            {{/if}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </details>
+
+</div>

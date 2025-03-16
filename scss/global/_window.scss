@@ -1,0 +1,215 @@
+.window-app {
+  font-family: $font-primary;
+}
+
+.rollable {
+  &:hover,
+  &:focus {
+    text-shadow: 0 0 10px rgb(255, 0, 183);
+    cursor: pointer;
+  }
+}
+
+.app.window-app.storyforge.sheet.actor,
+.app.window-app.storyforge.sheet.actorV2,
+.app.window-app.storyforge.sheet.item,
+.app.window-app.dialog{
+  background: #0D0B0C;
+
+  .window-header{
+    justify-content: end;
+      position: absolute;
+      right: 0;
+      width: 93%;
+      padding: 0 4px;
+      border-bottom: none;
+      z-index: 10;
+
+      .window-title{
+        display: none;
+      }
+
+      .header-button{
+        margin-top: 5px;
+          width: 20px;
+          height: 20px;
+          overflow: hidden;
+          white-space: nowrap;
+
+          i[class^=fa]{
+              margin-right: 8px;
+              background: var(--primary-dark);
+              width: 19px;
+              height: 19px;
+              border-radius: 50%;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+          }
+
+          #text{
+            display: none;
+          }
+      }
+  }
+
+  .window-content{
+      border-radius: 5px;
+      padding: 0;
+      overflow: visible;
+      background: var(--background-color);
+      border: solid var(--sheet-border) 1px;
+  }
+}
+
+.app.window-app.dialog{
+  a.popout-module-button{
+    display: none;
+  }
+
+  .window-header{
+    width: 100%;
+  }
+
+
+  .window-content{
+    position: relative;
+    padding-top: 24px;
+
+    form#document-create:before{
+      content: "";
+      height: 10px;
+    }
+
+    .dialog-content{
+      position: relative;
+      z-index: 1;
+      color: white;
+      
+      padding: 0 8px;
+
+      h4{
+        color: var(--secondary-color);
+        font-weight: bold;
+        font-size: 16px;
+        text-transform: uppercase;
+        line-height: 16px;
+      }
+
+      input, select{
+        background: rgba(26, 26, 26, 0.6);
+        color: white;
+        text-transform: capitalize;
+
+        option{
+          color: black;
+        }
+      }
+
+      input::placeholder{
+        color: grey;
+      }
+    }
+  }
+
+  .window-content:has(.actorV2){
+    padding-top: 14px;
+  }
+
+  .window-content:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    height: 64px;
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background: var(--background-img);
+    background-size: 120%;
+    filter: var(--background-hue);
+    mask-image: linear-gradient(to bottom, black, transparent);
+  }
+
+  div.dialog-buttons{
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    justify-content: center;
+
+    > * {
+      flex: none;
+    }
+
+    button{
+      height: 25px;
+      line-height: 20px;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      background: linear-gradient(to right, var(--header-dark), var(--header-color));
+      border: none;
+      color: var(--secondary-text-color);
+      width: auto;
+      min-width: 70px;
+      border-radius: 5px;
+    }
+  }
+}
+
+
+.app.window-app.storyforge.sheet.actorV2{
+  // margin-left: 269px;
+
+  .window-content{
+    position: relative;
+    padding-top: 20px;
+  }
+}
+
+.app.window-app.storyforge.sheet.actor.minimized,
+.app.window-app.storyforge.sheet.actorV2.minimized,
+.app.window-app.storyforge.sheet.item.minimized{
+  .window-header{
+    width: 100%;
+    border: solid 1px var(--secondary-color);
+    border-radius: 5px;
+    .window-title{
+      display: flex !important;
+    }
+  }
+}
+
+.status-tier-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  line-height: 16px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.directory-item.document.item.temporary-item{
+  display: none !important;
+}
+
+#token-hud .status-effects {
+  width: 200px; 
+  bottom: 50%;
+  transform: translate(0px, 50%);
+  top: auto;
+  background: var(--container-bg-color);
+  border: var(--container-border);
+
+  .effect-control{
+    width: 50px;
+    height: 50px;
+  }
+}

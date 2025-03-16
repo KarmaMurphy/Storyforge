@@ -1,0 +1,92 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <nav class="sheet-tabs tabs tabsV2" data-group="primary">
+    <a class="item" data-tab="description" data-title="Description"><i class="fa-solid fa-feather-pointed"></i></a>
+    <a class="item" data-tab="effects"><i class="fa-solid fa-fire"></i></a>
+  </nav>
+
+  <div class="itemV2 item-drop-area">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+
+    <label class="settings-button" data-title="Settings">
+        <i class="fa-solid fa-cog"></i>
+    </label>
+    
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{item.type}}</span>
+
+                      <label class="favorite">
+                        <input type="checkbox" name="system.favorite" {{checked system.favorite}}>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                      </label>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc" data-group="primary" data-tab="description">
+
+        <div class="ancestry-traits">
+          {{#each system.traits as |trait key|}}
+            <div class="ancestry-trait">
+              <div class="section-container inline-section">
+                <span>Trait {{key}}</span>
+                <input type="text" name="system.traits.{{key}}.name" value="{{trait.name}}" placeholder="Name">
+              </div>
+
+              <div class="ancestry-details">
+                <div class="section-container inline-section">
+                  <span>Source</span>
+                  <input type="text" name="system.traits.{{key}}.source" value="{{trait.source}}" placeholder="Name">
+                </div>
+
+                <div class="section-container inline-section">
+                  <select name="system.traits.{{key}}.type">
+                      {{#select trait.type}}
+                          <option value="Ancestry">Ancestry</option>
+                          <option value="Culture">Culture</option>
+                      {{/select}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="section-container desc">
+                {{#if (eq key "one")}}
+                  {{editor trait.desc target="system.traits.one.desc" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+                {{/if}}
+                {{#if (eq key "two")}}
+                  {{editor trait.desc target="system.traits.two.desc" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+                {{/if}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+
+      </div>
+
+      {{!-- Effects Tab --}}
+      <div class="tab effects" data-group="primary" data-tab="effects">
+        {{> "systems/storyforge/templates/item/parts/item-effects.hbs"}}
+      </div>
+    </section>
+  </div>
+</form>

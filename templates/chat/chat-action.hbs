@@ -1,0 +1,174 @@
+<div class="storyforge">
+
+    <div class="roll-container">
+        <div class="roll-header-bg"></div>
+        <div class="roll-img-check">
+            <img src="{{item.img}}" title="{{item.name}}" class="roll-img">
+            {{#if check.value}}
+                <div class="roll">
+                    [[{{roll.result}}]]
+                    <div class="rollResult">
+                        <div class="dice-tooltip">
+                            <section class="tooltip-part">
+                                <div class="dice">
+                                    {{#each roll.dice as |dice id|}} 
+                                        <ol class="dice-rolls">
+                                            {{#each dice.results as |results id|}} 
+                                                {{#if results.discarded}}
+                                                    <li class="roll die d20 discarded">{{results.result}} </li>
+                                                {{else}}
+                                                    <li class="roll die d20">{{results.result}} </li>
+                                                {{/if}}
+                                                
+                                            {{/each}}
+                                        </ol>
+                                    {{/each}}
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div> 
+
+                
+            {{/if}}
+
+        </div>
+
+        <div class="roll-header">
+            <div class="roll-title">{{item.name}}</div>
+            {{#if (eq item.type "ability")}} <div class="roll-subtitle">Rank {{rank}} • {{sp}} SP • {{actions}}</div> {{/if}}
+            {{#if (eq item.type "basic")}} <div class="roll-subtitle">{{item.type}} • {{mastery.rank}} • {{hand}}</div>  {{/if}}
+            {{#if (eq item.type "perk")}} <div class="roll-subtitle">Rank {{rank.value}}</div> {{/if}}
+            {{#if (eq item.type "trait")}} <div class="roll-subtitle">{{item.system.type}} {{item.type}} • {{item.system.source}}</div>  {{/if}}
+            {{#if (eq item.type "item")}}
+                {{#if (eq item.system.type "Weapon")}}
+                    <div class="roll-subtitle">{{item.system.type}} • {{mastery.rank}} • {{hand}} • {{equip}}</div> 
+                {{else}}
+                    <div class="roll-subtitle">{{item.system.type}} • {{equip}}</div> 
+                {{/if}}
+            {{/if}}
+            {{#if (eq item.type "tracker")}} <div class="roll-subtitle">{{item.system.type}} Tracker</div> {{/if}}
+        </div>
+
+        {{#if component.one}}
+            <div class="roll-components">
+                <div class="component-container">{{component.one}}</div>
+                {{#if component.two}} <div class="component-container">{{component.two}}</div> {{/if}}
+                {{#if component.three}} <div class="component-container">{{component.three}}</div> {{/if}}
+            </div>
+        {{/if}}
+
+        {{#if description}} <div class="roll-desc"> {{{description}}} </div> {{/if}}
+
+        <div class="roll-footer">
+            {{#if (eq check.defense "P. Def")}}
+                <span class="roll-check">Physical</span>
+            {{/if}}
+            {{#if (eq check.defense "A. Def")}}
+                <span class="roll-check">Arcane</span>
+            {{/if}}
+            {{#if damage.value}} 
+            <span class="rollTotal">
+                [[{{damageRoll.result}}]] {{damage.type}}
+                <div class="rollResult">
+                    <div class="dice-tooltip">
+                        <section class="tooltip-part">
+                            <div class="dice">
+                                {{#each damageRoll.dice as |dice id|}} 
+                                    <ol class="dice-rolls">
+                                        {{#each dice.results as |results id|}} 
+                                            <li class="roll die d6">{{results.result}} </li>
+                                        {{/each}}
+                                    </ol>
+                                {{/each}}
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </span>
+            
+            {{/if}} 
+            {{#if range}} <span>{{range}}</span> {{/if}}
+            {{#if save.value}}
+                {{#if (eq item.type "ability")}}
+                    <span>DC [[{{actor.system.save.value}} + {{rank}} + {{save.bonus}}]] {{save.type}}</span> 
+                {{else}}
+                    <span>DC [[{{actor.system.save.value}} + ({{mastery.value}}/2) + {{save.bonus}}]] {{save.type}}</span> 
+                {{/if}}
+            {{/if}}
+            {{#if effect}} <span>{{effect}}</span> {{/if}} {{!-- Show Effects --}}
+            {{#if duration}} <span>{{duration}}</span> {{/if}}
+
+            {{#if tag1.name}} <span>{{tag1.name}}</span> {{/if}}
+            {{#if tag2.name}} <span>{{tag2.name}}</span> {{/if}}
+            {{#if tag3.name}} <span>{{tag3.name}}</span> {{/if}}
+            {{#if tag4.name}} <span>{{tag4.name}}</span> {{/if}}
+            {{#if tag5.name}} <span>{{tag5.name}}</span> {{/if}}
+            {{#if tag6.name}} <span>{{tag6.name}}</span> {{/if}}
+            {{#if tag7.name}} <span>{{tag7.name}}</span> {{/if}}
+            {{#if tag8.name}} <span>{{tag8.name}}</span> {{/if}}
+            {{#if tag9.name}} <span>{{tag9.name}}</span> {{/if}}
+            {{#if tag10.name}} <span>{{tag10.name}}</span> {{/if}}
+        </div>
+    </div>
+
+    <div class="targets-section">
+        {{#if check.value}}
+            {{#if targets}}
+
+            {{#ifEquals check.defense "P. Def"}}
+                {{#each targets as |target key|}}
+                    <div class="targets">
+                        <div class="targets-inner">
+                            <div class="target-left">
+                                 {{target.actor.name}} • {{target.actor.system.def.value}} P. Def
+                            </div>
+                            {{#if (gte ...checkRoll.total target.actor.system.def.crit)}}
+                                <div class="target-damage">
+                                {{subtract ...crit.total target.actor.system.deflect}} Crit!
+                                </div>
+                            {{else}}
+                                <div class="target-damage">
+                                {{subtract ...damageRoll.total target.actor.system.deflect}} Damage
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/each}}
+            {{/ifEquals}}
+
+            {{#ifEquals check.defense "A. Def"}}
+                {{#each targets as |target key|}}
+                    <div class="targets">
+                        <div class="targets-inner">
+                            <div class="target-left">
+                                 {{target.actor.name}} • {{target.actor.system.arc.value}} A. Def
+                            </div>
+                            {{#if (gte ...checkRoll.total target.actor.system.arc.crit)}}
+                                <div class="target-damage">
+                                {{critFormula ...damageRoll.total ...crit.total target.actor.system.deflect}} Crit!
+                                </div>
+                            {{else}}
+                                <div class="target-damage">
+                                {{subtract ...damageRoll.total target.actor.system.deflect}} Damage
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/each}}
+            {{/ifEquals}}
+
+        {{/if}}
+        {{/if}}
+    </div>
+    
+
+    {{!-- <div class="rollResultt">
+        {{#each damageRoll.dice as |dice id|}} 
+            <ol class="dice-rolls">
+                
+                [[{{dice.number}} * {{dice.faces}}]]
+            </ol>
+        {{/each}}
+    </div> --}}
+</div>

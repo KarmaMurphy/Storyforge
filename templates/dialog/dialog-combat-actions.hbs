@@ -1,0 +1,67 @@
+<form class="storyforge">
+    <div class="dialog-box actorV2">
+        <div class="chat-header">
+            <div class="chat-img">
+                <img src="{{actor.img}}" title="{{actor.name}}" class="chat-img">
+            </div>
+            <div class="chat-titles">
+                <span class="chat-title">{{name}}</span>
+                <span class="chat-subtitle">
+                    <select name="attribute" class="storyforge-select">
+                      <option>POW</option>
+                      <option>DEX</option>
+                      <option>INT</option>
+                      <option>WIL</option>
+                    </select>
+
+                    {{subtitle}}
+                </span>
+            </div>
+        </div>
+
+        {{#if (eq actionType "narrative")}}
+            <div class="dialog-skill">
+                <select name="skill" class="storyforge-select dialogSkill">
+                    <option value="0">No Skill</option>
+                    {{#each skills as |skill id|}}
+                    <option value="{{skill.system.mastery.value}}" data-skill="{{skill.name}}">{{skill.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        {{/if}}
+
+        {{#if (eq actionType "combat")}}
+            <div class="section-container inline-container">
+                <span>Actions</span>
+
+                <div class="action-tracker">
+                    {{#loop 1 1}}
+                        <label class="action-bubble">
+                            <input type="checkbox" name="reaction" value="{{@index}}" {{#if (eq @index tracker.reaction)}}checked="checked"{{/if}}>
+                            <span class="reaction"></span>
+                        </label>
+                    {{/loop}}
+
+                
+                    {{#loop 4 1}}
+                        <label class="action-bubble">
+                            <input type="checkbox" name="standard{{@index}}" value="1" {{#if (eq @index tracker.standard)}}checked="checked"{{/if}}>
+                            <span class="standard"></span>
+                        </label>
+                    {{/loop}}
+
+                    {{#loop 1 1}}
+                        <label class="action-bubble">
+                            <input type="checkbox" name="quick" value="{{@index}}" {{#if (eq @index tracker.quick)}}checked="checked"{{/if}}>
+                            <span class="quick"></span>
+                        </label>
+                    {{/loop}}
+                </div>
+            </div>
+        {{/if}}
+
+        <div class="dialog-desc">
+            {{{desc}}}
+        </div>
+    </div>
+</form>

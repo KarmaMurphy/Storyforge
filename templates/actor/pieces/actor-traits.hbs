@@ -1,0 +1,233 @@
+<div class="char-details">
+    <div class="char-detail-container">
+        <div class="char-detail-header">Origin</div>
+        <input type="text" class="char-detail-input" name="system.origin" value="{{system.origin}}" placeholder="Origin">
+    </div>
+
+    <div class="char-detail-container">
+        <div class="char-detail-header">Class</div>
+        <input type="text" class="char-detail-input" name="system.class" value="{{system.class}}" placeholder="Class">
+    </div>
+
+    <div class="char-detail-container">
+        <div class="char-detail-header">Pronouns</div>
+        <input type="text" class="char-detail-input" name="system.pronouns" value="{{system.pronouns}}" placeholder="They/Them">
+    </div>
+</div>
+
+
+{{!-- TRAITS --}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Traits
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Trait'}}' data-type='trait'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+        </div>
+    </summary>
+    <div class="section-container item-list">
+        <select name="system.filter.traits" class="item-filter">
+            {{#select system.filter.traits}}
+                <option value="All">Filter By...</option>
+                <option value="Class">Class</option>
+                <option value="Origin">Origin</option>
+                <option value="Other">Other</option>
+            {{/select}}
+        </select>
+
+        {{#each traits as |item id|}}
+            {{#if (eq item.system.filter "All")}}
+                <div class="char-items-container">
+                    <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="basic-grid">
+                            <div class="action-left rollable" data-roll-type='item'>
+                                <div class="action-img">
+                                    <img
+                                    src='{{item.img}}'
+                                    title='{{item.name}}'
+                                    width='24'
+                                    height='24'
+                                    />
+                                </div>
+                                <div class="action-name">
+                                    <div class="action-topper">{{item.name}}</div>
+                                    <div class="action-footer">
+                                        {{item.system.type}} {{item.type}} {{#if item.system.source}} • {{item.system.source}} {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.name}}</div>
+                                <div class="popup-subtitle">{{item.system.type}} {{item.type}}</div>
+                            </div>
+
+                            {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+
+            {{/if}}
+
+            {{#if (eq item.system.type item.system.filter)}}
+                <div class="char-items-container">
+                    <div class="action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="basic-grid">
+                            <div class="action-left rollable" data-roll-type='item'>
+                                <div class="action-img">
+                                    <img
+                                    src='{{item.img}}'
+                                    title='{{item.name}}'
+                                    width='24'
+                                    height='24'
+                                    />
+                                </div>
+                                <div class="action-name">
+                                    <div class="action-topper">{{item.name}}</div>
+                                    <div class="action-footer">
+                                        {{item.system.type}} {{item.type}} {{#if item.system.source}} • {{item.system.source}} {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.name}}</div>
+                                <div class="popup-subtitle">{{item.system.type}} {{item.type}}</div>
+                            </div>
+
+                            {{#if item.system.description}} <div class="popup-desc"> {{{item.system.description}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+                    
+            {{/if}}
+        {{/each}}
+    </div>
+</details>
+
+{{!-- SPECIALIZATIONS --}}
+<details class="details-container" open>
+    <summary class="section-header">
+        <div class="basic-grid">
+            <span style="margin: auto 0; display:flex">
+                Specializations
+                <div class='item-controls' style="margin-left: 3px;">
+                    <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Specialization'}}' data-type='specialization'>
+                        <i class='fas fa-plus'></i>
+                    </a>
+                </div>
+            </span>
+        </div>
+    </summary>
+    <div class="section-container item-list">
+        {{#each specializations as |item id|}}
+            <div class="specialization-grid item-context item" data-item-id='{{item._id}}'>
+                <div class="specialization" style="position: relative;" data-special-rank='one'>
+                    <div class="action-name rollable"  data-roll-type='special'>
+                        <div class="action-topper">{{item.system.tier.one.name}}</div>
+                        <div class="action-footer">
+                            {{item.name}}
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.system.tier.one.name}}</div>
+                                <div class="popup-subtitle">{{item.name}} • Rank 1</div>
+                            </div>
+
+                            {{#if item.system.tier.one.desc}} <div class="popup-desc"> {{{item.system.tier.one.desc}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+
+                {{#if system.tier.two.name}}
+                <div class="specialization" style="position: relative;" data-special-rank='two'>
+                    <div class="action-name rollable" data-roll-type='special'>
+                        <div class="action-topper">{{item.system.tier.two.name}}</div>
+                        <div class="action-footer">
+                            {{item.name}}
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.system.tier.two.name}}</div>
+                                <div class="popup-subtitle">{{item.name}} • Rank 2</div>
+                            </div>
+
+                            {{#if item.system.tier.two.desc}} <div class="popup-desc"> {{{item.system.tier.two.desc}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#if system.tier.three.name}}
+                <div class="specialization" style="position: relative;" data-special-rank='three'>
+                    <div class="action-name rollable" data-roll-type='special'>
+                        <div class="action-topper">{{item.system.tier.three.name}}</div>
+                        <div class="action-footer">
+                            {{item.name}}
+                        </div>
+                    </div>
+
+                    <div class="popup">
+                        <div class="popup-blur"></div>
+                        <div class="popup-container">
+                            <div class="popup-header-bg"></div>
+                            <div class="popup-img-check">
+                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                            </div>
+
+                            <div class="popup-header">
+                                <div class="popup-title">{{item.system.tier.three.name}}</div>
+                                <div class="popup-subtitle">{{item.name}} • Rank 3</div>
+                            </div>
+
+                            {{#if item.system.tier.three.desc}} <div class="popup-desc"> {{{item.system.tier.three.desc}}} </div> {{/if}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</details>

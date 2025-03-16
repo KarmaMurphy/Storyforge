@@ -1,0 +1,186 @@
+
+<div class="sidebar">
+    {{#if system.edit}}
+    <div class="sidebar-edit">
+        <div class="sidebar-edit-grid">
+            <span></span>
+            <span>Class</span>
+            <span>Origin</span>
+            <span>Bonus</span>
+            <span>Lvl</span>
+
+            <span class="start">Health</span>
+            <input type="text" name="system.health.class" value="{{system.health.class}}">
+            <input type="text" name="system.health.origin" value="{{system.health.origin}}">
+            <input type="text" name="system.health.bonus" value="{{system.health.bonus}}">
+            <input type="text" name="system.health.lvl" value="{{system.health.lvl}}">
+
+            <span class="start">Spirit</span>
+            <input type="text" name="system.spirit.class" value="{{system.spirit.class}}">
+            <input type="text" name="system.spirit.origin" value="{{system.spirit.origin}}">
+            <input type="text" name="system.spirit.bonus" value="{{system.spirit.bonus}}">
+            <input type="text" name="system.spirit.lvl" value="{{system.spirit.lvl}}">
+        </div>
+
+        <div class="sidebar-edit-grid">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span>Base</span>
+            <span>Bonus</span>
+
+            <span class="start">P. Def</span>
+            <span></span>
+            <span></span>
+            <input type="text" name="system.def.base" value="{{system.def.base}}" data-dtype="Number">
+            <input type="number" name="system.def.bonus" value="{{system.def.bonus}}" data-dtype="Number">
+
+            <span class="start">A. Def</span>
+            <span></span>
+            <span></span>
+            <input type="text" name="system.arc.base" value="{{system.arc.base}}" data-dtype="Number">
+            <input type="number" name="system.arc.bonus" value="{{system.arc.bonus}}">
+
+            <span class="start">Speed</span>
+            <span></span>
+            <span></span>
+            <input type="text" name="system.speed" value="{{system.speed}}">
+            <span></span>
+
+            <span class="start">Initiative</span>
+            <span></span>
+            <span></span>
+            <select name="system.init.base">
+                {{#select system.init.base}}
+                    <option value="{{system.attributes.int.value}}">INT</option>
+                    <option value="{{system.attributes.dex.value}}">DEX</option>
+                {{/select}}
+            </select>
+            <input type="text" name="system.init.bonus" value="{{system.init.bonus}}">
+        </div>
+    </div>
+
+
+    {{else}}
+    <div class="life-containers">
+        <div class="life-column">
+            <div class="life-header">HEALTH</div>
+            <div class="life-container">
+                <div class="life-inputs">
+                    <input type="number" class="life-input" name="system.health.value" value="{{system.health.value}}"> / <input type="number" class="life-input" name="system.health.max" value="{{system.health.max}}" disabled>
+                </div>
+
+                <input type="hidden" class="bar-value" name="system.hpBar" value="{{system.hpBar}}" value="100">
+                <div class="bar-track">
+                    <div class="bar-progress"></div>
+                </div>
+            </div>
+            <div class="life-calculators">
+
+            </div>
+        </div>
+
+        <div class="life-column">
+            <div class="life-header">SPIRIT</div>
+            <div class="life-container">
+                <div class="life-inputs">
+                    <input type="number" class="life-input" name="system.spirit.value" value="{{system.spirit.value}}"> / <input type="number" class="life-input" name="system.spirit.max" value="{{system.spirit.max}}" disabled>
+                </div>
+
+                <input type="hidden" class="bar-value" name="system.spBar" value="{{system.spBar}}" value="100">
+                <div class="bar-track">
+                    <div class="bar-progress"></div>
+                </div>
+            </div>
+            <div class="life-calculators"></div>
+        </div>
+    </div>
+
+    <div class="stress-wounds">
+        <div class="stress-container">
+            <span>STRESS</span>
+            <div class="stress-wounds-inputs">
+                <input type="number" class="life-input" name="system.stress.value" value="{{system.stress.value}}">/<input type="number" class="life-input" name="system.stress.max" value="{{system.stress.max}}">
+            </div>
+        </div>
+        <div class="wounds-container">
+            <div class="stress-wounds-inputs">
+                <input type="number" class="life-input" name="system.wounds.value" value="{{system.wounds.value}}">/<input type="number" class="life-input" name="system.wounds.max" value="{{system.wounds.max}}">
+            </div>
+            <span>WOUNDS</span>
+        </div>
+    </div>
+
+    <div class="char-stats">
+        <div class="stat-container">
+            <div class="stat-header">P. DEF</div>
+            <div class="stat-input">{{system.def.value}}</div>
+        </div>
+
+        <div class="stat-container">
+            <div class="stat-header">A. DEF</div>
+            <div class="stat-input">{{system.arc.value}}</div>
+        </div>
+
+        <div class="stat-container">
+            <div class="stat-header">Initiative</div>
+            <div class="stat-input">{{system.init.value}}</div>
+        </div>
+
+        <div class="stat-container">
+            <div class="stat-header">Speed</div>
+            <div class="stat-input">{{system.speed}}</div>
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="char-saves">
+        {{#each system.attributes as |ability key|}}
+        <div class="inline-container">
+            <label for="system.attributes.{{key}}.value" title="{{ability.label}} Save" class="rollable align-left" data-roll="d20+@attributes.{{key}}.save"  data-label="{{ability.label}} Save">
+                {{ability.label}} Save
+                <span>+{{ability.save}}</span>
+            </label>
+            <select name="system.attributes.{{key}}.mastery">
+                {{#select ability.mastery}}
+                    <option value="untrained">untrained</option>
+                    <option value="trained">trained</option>
+                    <option value="adept">adept</option>
+                    <option value="expert">expert</option>
+                    <option value="master">master</option>
+                    <option value="legend">legend</option>
+                {{/select}}
+            </select>
+        </div>
+        {{/each}}
+    </div>
+    
+    <div class="sidebar-collapse">
+        
+    </div>
+</div>
+
+<div class="resources item-list">
+    <div class="floating-header">
+        Resources
+        <a class='item-control item-create' title='{{localize "DOCUMENT.Create" type='Resource'}}' data-type='resource'>
+            <i class='fas fa-plus'></i>
+        </a>
+    </div>
+
+    {{#each resources as |item id|}}
+        <div class="inline-container item" data-item-id='{{item._id}}'>
+            <div class="resource-name">
+                <input type="text" class="inline-edit" name="item.name" value="{{item.name}}" data-field="name">
+            </div>
+
+            <div class="resource-values">
+                <input type="text" class="inline-edit" name="item.system.value.value" value="{{item.system.value.value}}" data-field="system.value.value"> / <input type="text" class="inline-edit" name="item.system.value.max" value="{{item.system.value.max}}" data-field="system.value.max">
+            </div>
+        </div>
+    {{/each}}
+</div> 
+
+{{!-- <a class="header-button paper-doll" style=" position: absolute; left: 0; border: solid 1px red;">
+    <i class="fa-duotone fa-person"></i>Paper Doll
+</a> --}}

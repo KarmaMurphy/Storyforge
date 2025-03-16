@@ -1,0 +1,302 @@
+{
+  "id": "storyforge",
+  "title": "Storyforge the RPG Engine",
+  "description": "The Storyforge system for FoundryVTT!",
+  "authors": [
+    {
+      "name": "Karmii"
+    }
+  ],
+  "url": "Replace this with a link to your public repository",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "Replace this with a link to file issues or tickets",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/storyforge/assets/anvil-impact.png",
+      "thumbnail": "systems/storyforge/assets/anvil-impact.png"
+    }
+  ],
+  "version": "1.1.20",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "12.331"
+  },
+  "esmodules": ["module/storyforge.mjs"],
+  "styles": ["css/storyforge.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "adversaries",
+      "label": "Adversaries (SF)",
+      "system": "storyforge",
+      "path": "packs/adversaries",
+      "type": "Actor",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["npc"]
+        }
+      }
+    },
+    {
+      "name": "adversaryTraits",
+      "label": "Adversary Traits (SF)",
+      "system": "storyforge",
+      "path": "packs/adversaryTraits",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["npc", "traits"]
+        }
+      }
+    },
+    {
+      "name": "accessories",
+      "label": "Accessories (SF)",
+      "system": "storyforge",
+      "path": "packs/accessories-loot",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["accessories", "loot"]
+        }
+      }
+    },
+    {
+      "name": "armor",
+      "label": "Armor (SF)",
+      "system": "storyforge",
+      "path": "packs/armor-loot",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["armor", "loot"]
+        }
+      }
+    },
+    {
+      "name": "consumables",
+      "label": "Consumables (SF)",
+      "system": "storyforge",
+      "path": "packs/consumables-loot",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["consumable", "loot"]
+        }
+      }
+    },
+    {
+      "name": "gear",
+      "label": "Gear (SF)",
+      "system": "storyforge",
+      "path": "packs/items-loot",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["gear", "loot"]
+        }
+      }
+    },
+    {
+      "name": "shields",
+      "label": "Shields (SF)",
+      "system": "storyforge",
+      "path": "packs/shields-loot",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["shield", "loot"]
+        }
+      }
+    },
+    {
+      "name": "weapons",
+      "label": "Weapons (SF)",
+      "system": "storyforge",
+      "path": "packs/weapons-loot",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["weapon", "loot"]
+        }
+      }
+    },
+    {
+      "name": "cores",
+      "label": "Cores (SF)",
+      "system": "storyforge",
+      "path": "packs/cores-loot",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["core", "loot"]
+        }
+      }
+    },
+    {
+      "name": "abilitytags",
+      "label": "Ability Tags (SF)",
+      "system": "storyforge",
+      "path": "packs/ability-tags",
+      "type": "Item",
+      "private": false,
+      "flags": {
+        "storyforge": {
+          "types": ["ability-tag", "tag"]
+        }
+      }
+    },
+    {
+      "name": "propertytags",
+      "label": "Property Tags (SF)",
+      "system": "storyforge",
+      "path": "packs/property-tags",
+      "type": "Item",
+      "private": false,
+      "flags": {
+        "storyforge": {
+          "types": ["property-tag", "tag"]
+        }
+      }
+    },
+    {
+      "name": "rules",
+      "label": "StoryForge Rules",
+      "system": "storyforge",
+      "path": "packs/storyforge-rules",
+      "type": "JournalEntry",
+      "private": false,
+      "flags": {
+        "storyforge": {
+          "display": ["table-of-contents"]
+        }
+      }
+    },
+    {
+      "name": "sfitems",
+      "label": "StoryForge Items",
+      "system": "storyforge",
+      "path": "packs/storyforge-items",
+      "type": "Item",
+      "private": true,
+      "flags": {
+        "storyforge": {
+          "types": ["item", "loot", "accessory", "armor", "consumable", "gear", "shield", "weapon"]
+        }
+      }
+    },
+    {
+      "name": "origins",
+      "label": "Origins (SF)",
+      "system": "storyforge",
+      "path": "packs/origins",
+      "type": "Item",
+      "private": false,
+      "flags": {
+        "storyforge": {
+          "types": ["origin"]
+        }
+      }
+    },
+    {
+      "name": "paths",
+      "label": "Paths & Path Traits (SF)",
+      "system": "storyforge",
+      "path": "packs/path-traits",
+      "type": "Item",
+      "private": false,
+      "flags": {
+        "storyforge": {
+          "types": ["path", "trait"]
+        }
+      }
+    },
+    {
+      "name": "perks",
+      "label": "Perks (SF)",
+      "system": "storyforge",
+      "path": "packs/perks",
+      "type": "Item",
+      "private": false,
+      "flags": {
+        "storyforge": {
+          "types": ["perk"]
+        }
+      }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "StoryForge SRD Content",
+      "sorting": "m",
+      "color": "#C94079",
+      "packs": [
+        "rules"
+      ],
+      "folders": [
+        {
+          "name": "Character Features",
+          "sorting": "m",
+          "color": "#CA9849",
+          "packs": [
+            "paths",
+            "origins",
+            "perks",
+            "abilitytags",
+            "propertytags"
+          ]
+        },
+        {
+          "name": "Items",
+          "sorting": "m",
+          "color": "#CA9849 ",
+          "packs": [
+            "accessories",
+            "armor",
+            "consumables",
+            "gear",
+            "shields",
+            "weapons",
+            "cores",
+            "sfitems"
+          ]
+        },
+        {
+          "name": "Adversaries",
+          "sorting": "m",
+          "color": "#C94079",
+          "packs": [
+            "adversaries",
+            "adversaryTraits"
+          ]
+        }
+      ]
+    }
+  ],
+  "socket": true,
+  "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
+  "download": "This must link to a .zip file of the current version",
+  "background": "systems/storyforge/assets/anvil-impact.png",
+  "gridDistance": 1,
+  "gridUnits": "space(s)",
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "spirit"
+}

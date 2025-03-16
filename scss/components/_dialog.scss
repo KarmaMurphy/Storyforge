@@ -1,0 +1,232 @@
+div.dialog-bg-img{
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    height: 64px;
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background: var(--background-img);
+    background-size: 120%;
+    mask-image: linear-gradient(to bottom, black, transparent);
+
+    div.bg-blending{
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary-color) 100.92%);
+        mix-blend-mode: hue;
+    }
+}
+
+div.dialog-box{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    gap: 8px;
+
+    select option{
+        color: white !important;
+    }
+
+    div.chat-header{
+        display: grid;
+        grid-template-columns: 40px 4fr;
+        gap: 7px 5px;
+
+        div.chat-img, img.chat-img{
+            height: 40px;
+            width: 40px;
+            border-radius: 5px;
+            background: #676767;
+            border: none;
+        }
+
+        div.chat-titles{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            span.chat-title{
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 16px;
+                font-variant: small-caps;
+                text-transform: capitalize;
+            }
+
+            span.chat-subtitle{
+                color: var(--accent-color);
+                font-size: 12px;
+                text-transform: uppercase;
+                line-height: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    div.dialog-skill{
+        select{
+            width: 100%;
+            height: 20px;
+            font-variant: small-caps;
+            text-align-last: center;
+            font-size: 15px;
+        }
+    }
+
+    div.section-header{
+        margin: 0;
+    }
+
+    div.section-container.inline-container{
+        background: rgb(26 26 26 / 60%);
+        border: solid 1px #373737;
+        border-radius: 5px;
+        padding: 2px 5px;
+        gap: 5px;
+
+        span:first-child{
+            color: var(--accent-color);
+            font-variant: small-caps;
+            font-weight: 550;
+        }
+
+        > input{
+            flex: 1;
+            height: 20px;
+            text-align: end;
+            border: none;
+            background: none;
+        }
+
+        div.action-tracker{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+
+            label.action-bubble{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                height: 100%;
+                cursor: pointer;
+
+                input[type=checkbox]{
+                    display: none;
+                    margin: 0;
+                    cursor: pointer;
+                    height: 18px;
+                    width: 18px;
+                }
+
+                span{ 
+                    position: relative;
+                    background: none;
+                    border: solid 1px var(--secondary-color);
+                    border-radius: 5px;
+                    transform: rotate(45deg);
+                    height: 14px;
+                    width: 14px;
+                }
+
+                span.reaction{
+                    border: solid 1px var(--primary-color);
+                }
+
+                span.quick{
+                    height: 10px;
+                    width: 10px;
+                    border-radius: 3px;
+                }
+
+                input[type=checkbox]:checked ~ span{
+                    background: var(--secondary-color);
+                }
+
+                input[type=checkbox]:checked ~ span.reaction{
+                    background: var(--primary-color);
+                }
+
+            }
+        }
+
+        label.trueToggle{
+            flex: 1;
+            display: flex;
+            justify-content: end;
+            height: 20px;
+            cursor: pointer;
+            background: none;
+
+            input[type=checkbox]{
+                display: none;
+            }
+
+            span::before{
+                content: "False";
+                font-variant: small-caps;
+            }
+
+            input[type=checkbox]:checked ~ span::before{
+                content: "True";
+            }
+        }
+
+        div.bonusDamageDie{
+            display: flex;
+            width: 150px;
+
+            input{
+                flex: 1;
+                height: 20px;
+                text-align: end;
+                border: none;
+            }
+
+            select.storyforge-select{
+                padding: 0 2px;
+            }
+        }
+
+        div.settings-left{
+            display: flex;
+            gap: 4px;
+        }
+    }
+
+    div.dialog-desc{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        p, ul, li{
+            margin: 0;
+            font-variant: small-caps;
+            font-size: 15px;
+        }
+
+        strong{
+            color: var(--secondary-color);
+          }
+  
+          em{
+            color: var(--accent-color);
+            font-weight: 550;
+          }
+    }
+
+    div.dialog-options{
+        font-variant: small-caps;
+
+        > div{
+            display: flex;
+            align-items: center;
+        }
+
+        input[type=checkbox]{
+            height: 14px;
+            width: 14px;
+        }
+    }
+}

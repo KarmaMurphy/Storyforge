@@ -1,0 +1,79 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+
+    <label class="settings-button" data-title="Settings">
+        <i class="fa-solid fa-cog"></i>
+    </label>
+    
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{item.type}}</span>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        <div class="section-container">
+          <select name="system.rank.value">
+              {{#select system.rank.value}}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              {{/select}}
+          </select>
+        </div>
+
+        <label>
+          <input type="checkbox" name="system.descToggle" {{checked system.descToggle}}>
+          <span class="checked">Description</span>
+          <span class="unchecked">No Description</span>
+        </label>
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc active">
+        {{#if system.descToggle}}
+        <div class="section-container perkDesc">
+          {{editor system.descriptionHTML target="system.description" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+        {{/if}}
+
+        <nav class="perks-tabs tabs tabsV2" data-group="perks">
+          <a class="item" data-tab="rankone" data-title="Rank 1">Rank 1</a>
+          <a class="item" data-tab="ranktwo" data-title="Rank 2">Rank 2</a>
+          <a class="item" data-tab="rankthree" data-title="Rank 3">Rank 3</a>
+        </nav>
+        
+        <div class="perks">
+          
+          <div class="tab section-container rankDesc" data-group="perks" data-tab="rankone">
+            {{editor system.rank.one target="system.rank.one" placeholder="Perk Rank 1 goes here..." rollData=rollData button=true owner=owner editable=editable}}
+          </div>
+
+          <div class="tab section-container rankDesc" data-group="perks" data-tab="ranktwo">
+            {{editor system.rank.two target="system.rank.two" placeholder="Perk Rank 2 goes here..." rollData=rollData button=true owner=owner editable=editable}}
+          </div>
+
+          <div class="tab section-container rankDesc" data-group="perks" data-tab="rankthree">
+            {{editor system.rank.three target="system.rank.three" placeholder="Perk Rank 3 goes here..." rollData=rollData button=true owner=owner editable=editable}}
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</form>

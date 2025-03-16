@@ -1,0 +1,93 @@
+<form class="storyforge">
+    <div class="dialog-box actorV2">
+        <div class="chat-header">
+            <div class="chat-img">
+                <img src="{{item.img}}" title="{{item.name}}" class="chat-img">
+            </div>
+            <div class="chat-titles">
+                <span class="chat-title">{{name}}</span>
+                {{#if (eq item.type "ability")}} <span class="chat-subtitle">Rank {{rank}} • {{sp}} SP</span> {{/if}}
+                {{#if (eq item.type "basic")}} <span class="chat-subtitle">{{item.type}} • {{mastery.rank}} • {{hand}}</span>  {{/if}}
+                {{#if (eq item.type "item")}}
+                {{#if (eq item.system.type "Weapon")}}
+                    <span class="chat-subtitle">{{item.system.type}} • {{hand}} • {{#if equip}} Equipped {{else}} Stowed {{/if}}</span> 
+                {{else}}
+                    <span class="chat-subtitle">{{item.system.type}} • {{#if equip}} Equipped {{else}} Stowed {{/if}}</span> 
+                {{/if}}
+            {{/if}}
+            </div>
+        </div>
+
+        <div class="section-container inline-container">
+            <span>Actions</span>
+
+            <div class="action-tracker">
+                {{#loop 1 1}}
+                    <label class="action-bubble">
+                        <input type="checkbox" name="reaction" value="{{@index}}" {{#if (eq @index tracker.reaction)}}checked="checked"{{/if}}>
+                        <span class="reaction"></span>
+                    </label>
+                {{/loop}}
+
+            
+                {{#loop 4 1}}
+                    <label class="action-bubble">
+                        <input type="checkbox" name="standard{{@index}}" value="1" {{#if (lte @index tracker.standard)}}checked="checked"{{/if}}>
+                        <span class="standard"></span>
+                    </label>
+                {{/loop}}
+
+                {{#loop 1 1}}
+                    <label class="action-bubble">
+                        <input type="checkbox" name="quick" value="{{@index}}" {{#if (eq @index tracker.quick)}}checked="checked"{{/if}}>
+                        <span class="quick"></span>
+                    </label>
+                {{/loop}}
+            </div>
+        </div>
+
+        {{#if (eq type "ability")}}
+            <div class="section-container inline-container">
+                <span>Consume SP</span>
+
+                <label class="trueToggle">
+                    <input type="checkbox" name="spToggle" checked>
+                    <span></span>
+                </label>
+            </div>
+        {{/if}}
+
+        <div class="section-header">BONUSES</div>
+
+        <div class="section-container inline-container">
+            <span>Check Bonus</span>
+            <input type="number" name="checkBonus" value="0" placeholder="0">
+        </div>
+
+        <div class="section-container inline-container">
+            <span>DC Bonus</span>
+            <input type="number" name="saveBonus" value="0" placeholder="0">
+        </div>
+
+        <div class="section-container inline-container">
+            <span>Damage Bonus Dice</span>
+            <div class="bonusDamageDie">
+                <input type="number" name="bonusDamageValue" value="0" placeholder="0">
+                <select name="bonusDamageFace" class="storyforge-select">
+                    <option value="d6">D6</option>
+                    <option value="d8">D8</option>
+                    <option value="d10">D10</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-container inline-container">
+            <span>Damage Bonus</span>
+            <input type="number" name="damageBonus" value="0" placeholder="0">
+        </div>
+
+        <div class="dialog-desc">
+            {{{desc}}}
+        </div>
+    </div>
+</form>

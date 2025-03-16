@@ -1,0 +1,36 @@
+.effects .item {
+  .effect-source,
+  .effect-duration,
+  .effect-controls {
+    text-align: center;
+    border-left: 1px solid #c9c7b8;
+    border-right: 1px solid #c9c7b8;
+    font-size: 12px;
+  }
+
+  .effect-controls {
+    border: none;
+  }
+}
+
+
+.effects-grid {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  span{
+    text-transform: uppercase;
+    margin: auto;
+  }
+
+  div.effect-header-name{
+    text-transform: uppercase;
+  }
+
+  div.action-left ~ div.effect-controls{
+    margin: auto;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}

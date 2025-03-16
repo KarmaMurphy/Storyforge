@@ -1,0 +1,102 @@
+{{!-- <section class="sheet-topper">
+    <div class="topper-left"></div>
+    <div class="topper-right">
+        <a class="header-button control configure-sheet">
+            <i class="fas fa-cog"></i>
+        </a>
+        <a class="header-button control configure-token">
+            <i class="fas fa-user-circle"></i>
+        </a>
+        <a class="header-button control close">
+            <i class="fas fa-times"></i>
+        </a>
+    </div>
+</section> --}}
+
+<section class="char-header">
+    <div class="header-left">
+        
+        <label for="" class="edit-switch">
+            <input type="checkbox" class="edit-toggle" name="system.edit" {{checked system.edit}}/>
+            <div class="switch"><i class="fa-solid fa-wrench"></i></div>
+        </label>
+        
+        {{#if system.edit}}
+            <input type="text" name="name" class="char-name" value="{{ actor.name }}">
+            <input type="text" name="system.title" class="char-title" value="{{ system.title }}" placeholder="Title">
+        {{else}}
+            <div class="char-name">{{ actor.name }}</div>
+            <div class="char-title">{{ system.title }}</div>
+        {{/if}}
+    </div>
+    <div class="header-right">
+        <div class="header-rest-fate">
+            <div class="header-button-container">
+                <a class="header-button-inner quick-rest">
+                    <i class="fa-solid fa-utensils"></i>
+                    <div class="header-title" style="width: 80px;">Quick Rest</div>
+                </a>
+            </div>
+
+            <div class="header-button-container">
+                <a class="header-button-inner full-rest">
+                    <i class="fa-solid fa-moon"></i>
+                    <div class="header-title" style="width: 80px;">Full Rest</div>
+                </a>
+            </div>
+
+            <div class="header-button-container">
+                <div class="header-button-inner">
+                    <input type="text" name="system.fate" value="{{system.fate}}">
+                    <div class="header-title">Fate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-img-attributes">
+            <div class="char-img-lvl">
+                <img class="char-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+                {{!-- <img class="char-img" src="{{actor.prototypeToken.texture.src}}" data-edit="img" title="{{actor.name}}"/> --}}
+
+                <div class="lvl-container">
+                    {{#if system.edit}}
+                        <input type="number" class="char-lvl" name="system.level" value="{{system.level}}" placeholder="1">
+                    {{else}}
+                        <span class="char-lvl">{{system.level}}</span>
+                        <div class="char-tier">Tier {{system.tier}}</div>
+                    {{/if}}
+                </div>
+            </div>
+
+            {{#if system.edit}}
+                <div class="char-attributes">
+                    {{#each system.attributes as |ability key|}}
+                    <div class="attribute-container editmode">
+                        <label for="system.attributes.{{key}}.value" title="{{ability.label}}" class="resource-label rollable align-left" data-roll="d20+@attributes.{{key}}.value"  data-label="{{ability.label}} Check">{{ability.label}}</label>
+                        <select name="system.attributes.{{key}}.value">
+                            {{#select ability.value}}
+                            <option value="0">+0</option>
+                            <option value="1">+1</option>
+                            <option value="2">+2</option>
+                            <option value="3">+3</option>
+                            <option value="4">+4</option>
+                            <option value="5">+5</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <div class="char-attributes">
+                    {{#each system.attributes as |ability key|}}
+                    <div class="attribute-container rollable" data-roll="d20+@attributes.{{key}}.value"  data-label="{{ability.label}} Check">
+                        <label for="system.attributes.{{key}}.value" title="{{ability.label}}" class="resource-label align-left">{{ability.label}}</label>
+                        <span class="attribute-value">+{{ability.value}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+            {{/if}}
+            </div>
+        </div>
+    </div>
+</section>

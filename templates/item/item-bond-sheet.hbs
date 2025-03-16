@@ -1,0 +1,53 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{item.type}}</span>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        {{!-- <div class="section-container">
+          <select name="system.type">
+              {{#select system.type}}
+                <option value="Core">Core</option>
+                <option value="Awakened">Awakened</option>
+                <option value="Learned">Learned</option>
+                <option value="RearGuard">Rear-Guard</option>
+                <option value="Training">Training</option>
+              {{/select}}
+            </select>
+        </div> --}}
+
+        <div class="section-container inline-section">
+          <span>Rank</span>
+          <input type="number" data-dtype="Number" name="system.rank" value="{{system.rank}}" placeholder="1">
+        </div>
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc active">
+
+        <div class="section-container desc">
+          {{editor system.descriptionHTML target="system.description" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+        
+      </div>
+    </section>
+  </div>
+</form>

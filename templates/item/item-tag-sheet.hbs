@@ -1,0 +1,105 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <nav class="sheet-tabs tabs tabsV2" style="display: none;" data-group="primary">
+    <a class="item" data-tab="description" data-title="Description"><i class="fa-solid fa-feather-pointed"></i></a>
+  </nav>
+
+  <div class="itemV2">
+    <div class="item-bg-img">
+      <div class="bg-blending"></div>
+    </div>
+
+    <label class="settings-button" data-title="Settings">
+        <i class="fa-solid fa-cog"></i>
+    </label>
+    
+    <div class="new-item-header">
+      <div class="header-left">
+          <div class="item-img">
+              <img class="item-img {{#unless owner}}show-img{{/unless}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          </div>
+
+          <div class="item-title-details">
+                  <div class="item-title">
+                      <input type="text" name="name" value="{{item.name}}">
+                  </div>
+                  <div class="item-subtitle">
+                      <span>{{item.type}}</span>
+                  </div>
+          </div>
+      </div>
+
+      <div class="header-right">
+        <div class="section-container">
+          <select name="system.type">
+            {{#select system.type}}
+              <option value="Tag">Ability</option>
+              <option value="Property">Property</option>
+              <option value="Core">Core</option>
+            {{/select}}
+          </select>
+        </div>
+
+        {{!-- <div class="split-section">
+          <div class="section-container inline-section">
+            <span>Lvl</span>
+            <input type="number" data-dtype="Number" name="system.lvl" value="{{system.lvl}}" placeholder="1">
+          </div>
+
+          <div class="section-container inline-section">
+            <span>Mod</span>
+            <input type="number" data-dtype="Number" name="system.cost" value="{{system.cost}}" placeholder="1">
+          </div>
+        </div> --}}
+
+        {{#if (eq system.type "Tag")}}
+          <div class="section-container inline-section">
+            {{!-- <span>Mod Total</span>
+            <input type="number" data-dtype="Number" name="system.mod" value="{{system.mod}}" placeholder="1"> --}}
+            <span>Mod</span>
+            <input type="number" data-dtype="Number" name="system.mod" value="{{system.mod}}" placeholder="1">
+          </div>
+        {{/if}}
+
+        {{#if (eq system.type "Core")}}
+          {{!-- RARITY --}}
+          <div class="section-container">
+            <select name="system.rarity">
+              {{#select system.rarity}}
+                <option value="★">★</option>
+                <option value="★★">★★</option>
+                <option value="★★★">★★★</option>
+                <option value="★★★★">★★★★</option>
+                <option value="★★★★★">★★★★★</option>
+                <option value="★★★★★★">★★★★★★</option>
+              {{/select}}
+            </select>
+          </div>
+
+          <div class="split-section">
+            <div class="section-container inline-section">
+              <span>Qt</span>
+              <input type="number" data-dtype="Number" name="system.quantity" value="{{system.quantity}}" placeholder="1">
+            </div>
+
+            <div class="section-container inline-section">
+              <span>$</span>
+              <input type="number" data-dtype="Number" name="system.cost" value="{{system.cost}}" placeholder="1">
+            </div>
+          </div>
+        {{/if}}
+
+      </div>
+    </div>
+
+    <section class="items sheet-body">
+      {{!-- Description Tab --}}
+      <div class="tab item-desc" data-group="primary" data-tab="description">
+        <div class="section-container desc">
+          {{editor system.descriptionHTML target="system.description" placeholder="Item description goes here..." rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+        
+      </div>
+    </section>
+  </div>
+</form>

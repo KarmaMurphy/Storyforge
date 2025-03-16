@@ -1,0 +1,158 @@
+$padding-sm: 5px;
+$padding-md: 10px;
+$padding-lg: 20px;
+
+$border-groove: 2px groove #eeede0;
+
+// Default Theme (already in :root)
+:root {
+    --primary-color: #C94079;
+    --primary-dark: #930846;
+    --secondary-color: #CA9849;
+    --secondary-dark: #845712;
+    --accent-color: #E4CDAA;
+    --background-color: #111318;
+    --background-img: url(../assets/backgrounds/default-background.png) no-repeat top center;
+    --background-hue: hue-rotate(0deg);
+    --container-bg-color: rgb(26 26 26 / 60%);
+    --container-border: #373737;
+    --primary-text-color: white;
+    --secondary-text-color: white;
+    --scrollbar-color: #930846;
+    scrollbar-color: var(--scrollbar-color);
+    --health-color: #C94079;
+    --health-dark: #930846;
+    --spirit-color: #CA9849;
+    --spirit-dark: #845712;
+    --header-color: #C94079;
+    --header-dark: #930846;
+    --sheet-border: #CA9849;
+}
+
+// Lyoko Theme
+.lyoko {
+    --primary-color: #1E88E5;
+    --primary-dark: #004C98;
+    --secondary-color: #a2a2a2;
+    --secondary-dark: #6b6b6b;
+    --background-color: #111318;
+    --background-img: url(../assets/backgrounds/lyoko-background.png) no-repeat top center;
+    --container-bg-color: rgb(13, 17, 23, 0.6);
+    --container-border: #30363D;
+    --primary-text-color: white;
+    --secondary-text-color: white;
+    --scrollbar-color: #004C98;
+    scrollbar-color: var(--scrollbar-color);
+    --health-color: #BA3B33;
+    --health-dark: #57110C;
+    --spirit-color: #2E8AEC;
+    --spirit-dark: #013765;
+    --header-color: #1E88E5;
+    --header-dark: #004C98;
+    --sheet-border: #1E88E5;
+}
+
+// Light Mode Theme
+.red-oaks {
+    --primary-color: #1ee571;
+    --primary-dark: #008533;
+    --secondary-color: #c94040;
+    --secondary-dark: #930818;
+    --background-color: #111318;
+    --background-img: url(../assets/backgrounds/redoaks-background.png) no-repeat top center;
+    --container-bg-color: rgba(13, 23, 17, 0.6);
+    --container-border: #303d36;
+    --primary-text-color: white;
+    --secondary-text-color: white;
+    --scrollbar-color: #841216;
+    scrollbar-color: var(--scrollbar-color);
+    --health-color: #c94040;
+    --health-dark: #930818;
+    --spirit-color: #1ee571;
+    --spirit-dark: #008533;
+    --header-color: #c94040;
+    --header-dark: #930818;
+    --sheet-border: #1ee571;
+}
+
+// Mystic Theme (Blue/Purple)
+.league {
+    --primary-color: #006583;
+    --primary-dark: #01243A;
+    --secondary-color: #d4a457;
+    --secondary-dark: #845712;
+    --background-color: #020C18;
+    --background-img: url(../assets/backgrounds/league-background.png) no-repeat top center;
+    --container-bg-color: rgba(22, 34, 39, 0.6);
+    --container-border: #3f4b59;
+    --primary-text-color: white;
+    --secondary-text-color: white;
+    --scrollbar-color: #845712;
+    scrollbar-color: var(--scrollbar-color);
+    --primary-dark: #01243A;
+    --health-color: #BA3B33;
+    --health-dark: #57110C;
+    --spirit-color: #2E8AEC;
+    --spirit-dark: #013765;
+    --header-color: #d4a457;
+    --header-dark: #845712;
+}
+
+// Mystic Theme (Blue/Purple)
+.dreg {
+    --primary-color: #673AB7;
+    --primary-dark: #311B92;
+    --secondary-color: #a2a2a2;
+    --secondary-dark: #6b6b6b;
+    --background-color: #0a0218;
+    --background-img: url(../assets/backgrounds/DREG-background.png) no-repeat top center;
+    --container-bg-color: rgb(26, 26, 46, 0.6);
+    --container-border: #493e55;
+    --primary-text-color: white;
+    --secondary-text-color: white;
+    --scrollbar-color: #311B92;
+    scrollbar-color: var(--scrollbar-color);
+    --health-color: #BA3B33;
+    --health-dark: #57110C;
+    --sheet-border: #673AB7;
+    --header-color: #673AB7;
+    --header-dark: #311B92;
+}
+
+// Light Mode Theme
+.grimmdark {
+    --primary-color: #ff9248;
+    --primary-dark: #aa5319;
+    --secondary-color: #dbdbdb;
+    --secondary-dark: #a8a8a8;
+    --accent-color: #ffd7b5;
+    --background-color: #111318;
+    --background-img: url(../assets/backgrounds/grimmdark-background.png) no-repeat top center;
+    --container-bg-color: rgba(23, 18, 13, 0.6);
+    --container-border: #3d3530;
+    --primary-text-color: white;
+    --secondary-text-color: black;
+    --scrollbar-color: #ff6700;
+    scrollbar-color: var(--scrollbar-color);
+    --health-color: #ff9248;
+    --health-dark: #aa5319;
+    --spirit-color: #1ee571;
+    --spirit-dark: #008533;
+    --header-color: #dbdbdb;
+    --header-dark: #a8a8a8;
+    --sheet-border: #ff6700;
+}
+
+// Light Mode Theme
+.pink {
+    --secondary-color: #dbdbdb;
+    --secondary-dark: #a8a8a8;
+    --background-color: #111318;
+    --background-img: url(../assets/backgrounds/default-background.png) no-repeat top center;
+    --container-bg-color: rgba(23, 13, 21, 0.6);
+    --container-border: #3d3038;
+    scrollbar-color: var(--scrollbar-color);
+    --spirit-color: #2E8AEC;
+    --spirit-dark: #013765;
+    --sheet-border: #C94079;
+}

@@ -1,0 +1,229 @@
+
+<div class="perks">
+    {{!-- {{log perks}} --}}
+        <details class="details-container" open>
+            <summary class="section-header">
+                <span class="open-compendium" data-title="Open Compendium Browser" data-compendium-tab="perks">Perks</span> <span class="item-create" title='{{localize "DOCUMENT.Create" type='Perk'}}' data-type='perk'>+</span>
+            </summary>
+            <div class="section-container item-list">
+                {{#if perks}}
+                    {{#each perks as |item id|}}
+                        <div class="char-items-container">
+                            <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                                <div class="item-left">
+                                    <div class="item-favorite" data-field="system.favorite" data-title="Favorite">
+                                        <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                        {{#if item.system.favorite}}
+                                            <i class="fa-solid fa-star"></i>
+                                        {{else}}
+                                            <i class="fa-regular fa-star"></i>
+                                        {{/if}}
+                                    </div>
+                                    <div class="action-name rollable" data-roll-type='trait'>{{item.name}}</div>
+                                    <div class="action-flavor">Rank {{item.system.rank.value}}</div>
+                                </div>
+                            </div>
+
+                            {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div class="empty-container">None</div>
+                {{/if}}
+            </div>
+        </details>
+</div>
+
+<div class="traits">
+    <details class="details-container" open>
+        <summary class="section-header">
+            <span class="open-compendium" data-title="Open Compendium Browser" data-compendium-tab="paths">Paths</span> <span class="item-create" title='{{localize "DOCUMENT.Create" type='Trait'}}' data-type='trait' data-itemType="Path">+</span>
+        </summary>
+        <div class="section-container item-list">
+            {{#if traits.Path}}
+                {{#each traits.Path as |path key|}}
+                    <details class="path-container" open>
+                        {{#if path.firstPath}}
+                            <summary class="path-header action item-context" data-item-id="{{path.firstPath._id}}">
+                                <div class="path-header-left">
+                                    <span class="path-name">{{path.firstPath.name}}</span>
+                                    <span class="path-rank">Path Rank {{path.firstPath.system.rank}}</span>
+                                </div>
+                                
+                                <span class="item item-edit" data-item-id='{{item._id}}'>
+                                    <i class="fas fa-cog" ></i>
+                                </span>
+                            </summary>
+                        {{else}}
+                            <summary class="path-header">
+                                <div class="path-header-left">
+                                    <span class="path-name">{{key}}</span>
+                                    <span class="path-rank">Path Rank {{path.rank}}</span>
+                                </div>
+                            </summary>
+                        {{/if}}
+
+                        <div class="path-traits">
+                            {{#each path as |item id|}}
+                                {{#unless (eq item.type "path")}}
+                                    <div class="char-items-container">
+                                        <div class="item-container action item-context item" data-item-id='{{item._id}}'>
+                                            <div class="item-left">
+                                                <div class="item-favorite" data-field="system.favorite" data-title="Favorite">
+                                                    <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                                    {{#if item.system.favorite}}
+                                                        <i class="fa-solid fa-star"></i>
+                                                    {{else}}
+                                                        <i class="fa-regular fa-star"></i>
+                                                    {{/if}}
+                                                </div>
+                                                <div class="action-name rollable" data-roll-type='trait'>{{item.name}}</div>
+                                                <div class="action-flavor">Rank {{item.system.rank}}</div>
+                                            </div>
+                                        </div>
+                                        {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                                    </div>
+                                {{/unless}}
+                            {{/each}}
+                        </div>
+                        
+                    </details>
+                {{/each}}
+            {{else}}
+                <div class="empty-container">None</div>
+            {{/if}}
+        </div>
+    </details>
+</div>
+
+<div class="traits">
+    <details class="details-container" open>
+        <summary class="section-header">
+            <span class="open-compendium" data-title="Open Compendium Browser" data-compendium-tab="traits">Traits</span> <span class="item-create" title='{{localize "DOCUMENT.Create" type='Trait'}}' data-type='trait' data-itemType="Other">+</span>
+        </summary>
+        <div class="section-container item-list">
+            {{#if traits.Other}}
+                {{#each traits.Other as |item id|}}
+                    <div class="char-items-container">
+                        <div class="item-container action item-context item" data-item-id='{{item._id}}'>
+                            <div class="item-left">
+                                <div class="item-favorite" data-field="system.favorite" data-title="Favorite">
+                                    <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                                    {{#if item.system.favorite}}
+                                        <i class="fa-solid fa-star"></i>
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+                                </div>
+                                <div class="action-name rollable" data-roll-type='trait'>{{item.name}}</div>
+                                <div class="action-flavor">{{item.system.source}}</div>
+                            </div>
+                        </div>
+
+                        {{> "systems/storyforge/templates/actorV2/parts/actor-popup.hbs" item}}
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="empty-container">None</div>
+            {{/if}}
+        </div>
+    </details>
+</div>
+
+{{#if specializations}}
+    <details class="details-container" open>
+        <summary class="section-header">
+            Specializations <span class="item-create" title='{{localize "DOCUMENT.Create" type='Specialization'}}' data-type='specialization'>+</span>
+        </summary>
+        <div class="section-container item-list">
+            {{#each specializations as |item id|}}
+                <div class="char-items-container">
+                    <div class="item-container action item-context item" style="position: relative;" data-item-id='{{item._id}}'>
+                        <div class="item-left">
+                            <img src='{{item.img}}' title='{{item.name}}' width='18' height='18'/>
+                            <div class="action-name">{{item.name}}</div>
+
+                            {{#if item.system.tier.one.name}}
+                                <div class="specialization" data-special-rank='one'>
+                                    <div class="action-flavor rollable" data-roll-type='special'>Rank 1</div> 
+                                    <div class="popup">
+                                        <div class="popup-blur"></div>
+                                        <div class="popup-container">
+                                            <div class="popup-header-bg"></div>
+                                            <div class="popup-img-check">
+                                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                                            </div>
+
+                                            <div class="popup-header">
+                                                <div class="popup-title">{{item.system.tier.one.name}}</div>
+                                                <div class="popup-subtitle">{{item.name}} • Rank 1</div>
+                                            </div>
+
+                                            {{#if item.system.tier.one.desc}} <div class="popup-desc"> {{{item.system.tier.one.desc}}} </div> {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+                            {{#if item.system.tier.two.name}}
+                                <div class="specialization" data-special-rank='two'>
+                                    <div class="action-flavor rollable" data-roll-type='special'>Rank 2</div>
+                                    <div class="popup">
+                                        <div class="popup-blur"></div>
+                                        <div class="popup-container">
+                                            <div class="popup-header-bg"></div>
+                                            <div class="popup-img-check">
+                                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                                            </div>
+
+                                            <div class="popup-header">
+                                                <div class="popup-title">{{item.system.tier.two.name}}</div>
+                                                <div class="popup-subtitle">{{item.name}} • Rank 2</div>
+                                            </div>
+
+                                            {{#if item.system.tier.two.desc}} <div class="popup-desc"> {{{item.system.tier.two.desc}}} </div> {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+                            {{#if item.system.tier.three.name}}
+                                <div class="specialization" data-special-rank='three'>
+                                    <div class="action-flavor rollable" data-roll-type='special'>Rank 3</div> 
+                                    <div class="popup">
+                                        <div class="popup-blur"></div>
+                                        <div class="popup-container">
+                                            <div class="popup-header-bg"></div>
+                                            <div class="popup-img-check">
+                                                <img src='{{item.img}}' title="{{item.name}}" class="popup-img">
+                                            </div>
+
+                                            <div class="popup-header">
+                                                <div class="popup-title">{{item.system.tier.three.name}}</div>
+                                                <div class="popup-subtitle">{{item.name}} • Rank 3</div>
+                                            </div>
+
+                                            {{#if item.system.tier.three.desc}} <div class="popup-desc"> {{{item.system.tier.three.desc}}} </div> {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </div>
+
+                        {{!-- <div class="item-favorite" data-field="system.favorite">
+                            {{#if item.system.favorite}}
+                            <i class="fa-solid fa-star"></i>
+                            {{else}}
+                            <i class="fa-regular fa-star"></i>
+                            {{/if}}
+                        </div> --}}
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </details>
+{{else}}
+    {{#if system.edit}}
+        <div class="empty-add item-create" title='{{localize "DOCUMENT.Create" type='Specialization'}}' data-type='specialization'>
+            Add Specialization
+        </div>
+    {{/if}}
+{{/if}}

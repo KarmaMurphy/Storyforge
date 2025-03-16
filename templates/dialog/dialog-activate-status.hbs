@@ -1,0 +1,27 @@
+<form class="storyforge">
+    <div class="dialog-box actorV2">
+        <div class="chat-header">
+            <div class="chat-img">
+                <img src="{{actor.img}}" title="{{actor.name}}" class="chat-img">
+            </div>
+            <div class="chat-titles">
+                <span class="chat-title">{{statusName}}</span>
+                <span class="chat-subtitle">Adding Status</span>
+            </div>
+        </div>
+
+        <div class="section-container inline-container">
+            <span>Persistent?</span>
+
+            <label class="trueToggle">
+                <input type="checkbox" name="persistentToggle">
+                <span></span>
+            </label>
+        </div>
+        
+        <div class="section-container inline-container">
+            <span>Status Tier</span>
+            <input type="number" name="statusTier" value="1" placeholder="1">
+        </div>
+    </div>
+</form>
